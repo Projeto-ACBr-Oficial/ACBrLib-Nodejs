@@ -1,0 +1,27 @@
+{
+  "name": "acbrlib-nfe-node",
+  "version": "1.0.0",
+  "description": "classe de alto nivel para carregar a  acbrlibnfe",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node .",
+    "build-docs": "typedoc --exclude \"**/_*\" --excludeNotDocumented  --out docs src src/MT --plugin typedoc-plugin-rename-defaults ",
+    "build": "npx tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koffi": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "typedoc": "^0.26.7",
+    "typedoc-plugin-rename-defaults": "^0.7.1",
+    "typescript": "^5.5.4"
+  }
+}
