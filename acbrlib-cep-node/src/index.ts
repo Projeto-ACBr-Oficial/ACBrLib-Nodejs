@@ -1,7 +1,8 @@
 import ACBrLibCEPBridgeMT from "./bridge";
-import ACBrLibBaseMT from "acbrlib-base-node/dist/src";
+import ACBrLibBaseMT from "@projetoacbr/acbrlib-base-node/dist/src";
 import { TypeACBrCepMT } from "./bridge";
-import ACBrBuffer, { TAMANHO_PADRAO } from 'acbrlib-base-node/dist/src/ACBrBuffer';
+import { ACBrLibResultCodes } from '@projetoacbr/acbrlib-base-node/dist/src/exception/ACBrLibResultCodes';
+import ACBrBuffer, { TAMANHO_PADRAO } from '@projetoacbr/acbrlib-base-node/dist/src/ACBrBuffer';
 
 export default class ACBrLibCepMT extends ACBrLibBaseMT {
 

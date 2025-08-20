@@ -1,4 +1,4 @@
-import ACBrLibError from 'acbrlib-base-node/dist/src/exception';
+import ACBrLibError from '@projetoacbr/acbrlib-base-node/dist/src/exception';
 
 export default class ACBrLibMDFeError extends ACBrLibError {
     constructor(message: string){

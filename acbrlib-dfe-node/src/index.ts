@@ -1,6 +1,6 @@
-import ACBrLibBaseMT from "acbrlib-base-node/dist/src"
-import ACBrBuffer from 'acbrlib-base-node/dist/src/ACBrBuffer'
-import { TAMANHO_PADRAO } from 'acbrlib-base-node/dist/src/ACBrBuffer'
+import ACBrLibBaseMT from "@projetoacbr/acbrlib-base-node/dist/src"
+import ACBrBuffer from '@projetoacbr/acbrlib-base-node/dist/src/ACBrBuffer'
+import { TAMANHO_PADRAO } from '@projetoacbr/acbrlib-base-node/dist/src/ACBrBuffer'
 import ACBrLibDFeComum from "./dfe-comum";
 
 /**
