@@ -1,8 +1,6 @@
-name: NPM-Publisher-Test
+name: NPM-Publisher-Base
 
 on:
-  push:
-    branches: [test-npm-publish]
   workflow_dispatch:
 
 jobs:
