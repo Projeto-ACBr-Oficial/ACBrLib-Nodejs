@@ -26,6 +26,7 @@ jobs:
       - name: Publish acbrlib-base-node
         working-directory: acbrlib-base-node
         run: |
+          npm version patch
           npm publish --access public
       
         env:
