@@ -2,7 +2,7 @@ name: NPM-Publisher-DFE
 
 on:
   workflow_run:
-    workflows: ["NPM-Publisher-Test"]  
+    workflows: ["NPM-Publisher-Base"]  
     types:
       - completed
   workflow_dispatch:
