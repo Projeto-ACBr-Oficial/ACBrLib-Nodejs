@@ -1,0 +1,33 @@
+{
+  "name": "acbrlib-dfe-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "local-release": "npm run build && npm link"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doszapro/acbrlib-comum.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doszapro/acbrlib-comum/issues"
+  },
+  "homepage": "https://github.com/doszapro/acbrlib-comum#readme",
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "acbrlib-base-node": "file:../acbrlib-base-node",
+    "koffi": "^2.12.0"
+  }
+}
