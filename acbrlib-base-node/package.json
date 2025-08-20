@@ -1,5 +1,5 @@
 {
-  "name": "acbrlib-base-node",
+  "name": "@projetoacbr/acbrlib-base-node",
   "version": "1.0.0",
   "description": "",
   "main": "dist/src/index.js",
