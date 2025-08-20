@@ -13,27 +13,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          registry-url: https://registry.npmjs.org/
 
-      - run: npm install -g typescript yalc
+      - run: npm install -g typescript
 
-      - name: Build comum
+      - name: Build acbrlib-base-node
         run: |
           cd acbrlib-base-node
           npm install
           npm run build
-          yalc publish
-      
-  publish-npm:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          registry-url: https://registry.npmjs.org/
-      - run: |
-          cd acbrlib-base-node
+          
+      - name: Publish acbrlib-base-node
+        run: |
           npm publish --access public
+      
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
