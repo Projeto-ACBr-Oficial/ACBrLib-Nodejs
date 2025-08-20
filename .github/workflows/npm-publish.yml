@@ -18,7 +18,7 @@ jobs:
 
       - name: Build comum
         run: |
-          cd ACBrLib-Nodejs/acbrlib-base-node/
+          cd acbrlib-base-node
           npm install
           npm run build
           yalc publish
@@ -33,7 +33,7 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org/
       - run: |
-          cd ACBrLib-Nodejs/acbrlib-base-node/
+          cd acbrlib-base-node
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
