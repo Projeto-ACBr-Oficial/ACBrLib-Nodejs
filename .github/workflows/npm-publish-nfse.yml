@@ -24,6 +24,7 @@ jobs:
       - name: Build acbrlib-nfse-node
         working-directory: acbrlib-nfse-node
         run: |
+          npm install -g typescript
           npm install
           npm run build
 
