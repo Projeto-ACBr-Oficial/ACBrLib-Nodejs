@@ -1,40 +1,97 @@
-
-
 import { TAMANHO_PADRAO } from './ACBrBuffer'
 import ACBrBuffer from './ACBrBuffer'
+import {
+    ACBrLibConfigLerError,
+    ACBrLibLibNaoFinalizadaError,
+    ACBrLibLibNaoInicializadaError,
+    ACBrLibTimeOutError,
+    ACBrLibArquivoNaoExisteError,
+    ACBrLibDiretorioNaoExisteError,
+    ACBrLibHttpError,
+    ACBrLibParametroInvalidoError,
+    ACBrLibDemoExpiradoError,
+    ACBrLibNaoDisponivelEmModoConsoleError,
+    ACBrLibConfigGravarError
+} from './exception'
+import { ACBrLibResultCodes } from './exception/ACBrLibResultCodes'
 import * as koffi from 'koffi'
 
-interface ACBrBufferCallType {
-    (buffer: any, refTamanho: any): number
-}
 
 
 /**
- * ACBrLibBase é uma  classe de alto nível que implementa os métodos da ACBrLibComum 
+ * ACBrLibBaseMT é uma  classe de alto nível que implementa os métodos da ACBrLibComum Multi-Thread
+ * Implementa Disposable para auto-cleanup do handle
  */
+export default abstract class ACBrLibBaseMT {
 
-export default abstract class ACBrLibBase {
 
+    private handle: any // ponteiro para ponteiro (void **)
+    private isHandleInitialized : boolean = false; 
+    private acbrlib: any
     private arquivoConfig: string
     private chaveCrypt: string
+    private disposed = false
 
-    /**
-     * @description Construtor da ACBrLibBase
-     * @param arquivoConfig Localização do arquivo INI, pode ser em branco neste caso o ACBrLib vai criar um novo arquivo INI.
-     * @param chaveCrypt Chave de segurança para criptografar as informações confidencias, pode ser em branco neste caso será usado a senha padrão.
-     */
-    constructor(arquivoConfig: string, chaveCrypt: string) {
+    constructor(acbrlib: any, arquivoConfig: string, chaveCrypt: string) {
         this.arquivoConfig = arquivoConfig
         this.chaveCrypt = chaveCrypt
+        this.acbrlib = acbrlib
+        this.handle = null
+    }
+
+    public getAcbrlib(): any {
+        return this.acbrlib
+    }
+    public getHandle(): any {
+        return koffi.decode(this.handle, 'void *')
+    }
+
+    #isInitialized() : boolean{
+    
+        // diferente do ref-napi que tem o metodo isNull() koffi até a presente versão não tem
+        // sendo impossivel saber se o handle é null (do lado nodejs) ou não, usamos o isHandleInitialized
+        // para saber se a biblioteca foi inicializada
+        // sem esse controle, é possivel liberar a memoria mais de uma vez e corromper o heap.
+        return this.isHandleInitialized
+    }
+
+    /**
+     * Libera recursos alocados
+     */
+    destroy() {
+       
+        if (!this.disposed) {
+            try {
+                // Finaliza a biblioteca se estiver inicializada
+                if (this.#isInitialized()) {
+                   this.finalizar()
+                }
+                this.disposed = true
+            } catch (error) {
+                console.error('Erro ao liberar recursos:', error)
+            }
+        }
+    }
+
+    /**
+     * Implementação do Disposable interface para using declaration
+     */
+    [Symbol.dispose]() {
+        this.destroy()
+    }
+
+    /**
+     * Implementação do AsyncDisposable interface para using await
+     */
+    async [Symbol.asyncDispose]() {
+        this.destroy()
     }
 
 
-    /** assinaturas de sobrecarga do metódo inicializar  */
-
-
     /**
-     * @description Método usado para inicializar o componente para uso da biblioteca
+       * @description Método usado para inicializar o componente para uso da biblioteca
      */
+
     public inicializar(): number;
 
     /**
@@ -48,6 +105,9 @@ export default abstract class ACBrLibBase {
 
     public inicializar(arquivoConfig?: string, chaveCrypt?: string): number {
 
+        //let status = this.LIB_Inicializar(this.handle, arquivoConfig, chaveCrypt)
+
+
         if (typeof arquivoConfig === "undefined" && typeof chaveCrypt === "undefined") {
             return this.#inicializar(this.arquivoConfig, this.chaveCrypt)
         } else {
@@ -56,19 +116,42 @@ export default abstract class ACBrLibBase {
                 return this.#inicializar(arquivoConfig, chaveCrypt)
             }
 
-            throw new Error("missing parameter")
+            throw new Error("inicializar precisa de dois parâmetros: chaveCrypt e arquivoConfig")
         }
+
+
     }
 
+    // metodo auxiliar para destruir o ponteiro do handle
+    #releaseHandle() {
+        if (!this.handle) {
+            return
+        }
+
+        koffi.encode(this.getHandle(), 'void *', null)
+        koffi.free(this.handle)
+        this.handle = null
+    }
 
     /**
-     * Método usado para remover o componente ACBrNFe e suas classes da memoria
+     * Método usado para remover ACBrLib  e suas classes da memoria
      * @returns 0 ou código de erro 
      */
 
     public finalizar(): number {
-        let status = this.LIB_Finalizar()
+
+        if ( !this.#isInitialized()){
+            return 0
+        }
+
+        let status = this.LIB_Finalizar(this.getHandle())
+        
+        if (status == ACBrLibResultCodes.OK) {
+            this.#releaseHandle()
+            this.isHandleInitialized = false
+        }
         this._checkResult(status)
+    
         return status
     }
 
@@ -79,7 +162,10 @@ export default abstract class ACBrLibBase {
 
 
     public nome(): string {
-        return this._getStringFromACBrLibBufferCallback(this.LIB_Nome.bind(this))
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.LIB_Nome(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
     }
 
     /**
@@ -88,7 +174,10 @@ export default abstract class ACBrLibBase {
      */
 
     public versao(): string {
-        return this._getStringFromACBrLibBufferCallback(this.LIB_Versao.bind(this))
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.LIB_Versao(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
     }
 
     /**
@@ -97,26 +186,21 @@ export default abstract class ACBrLibBase {
      */
 
     public ultimoRetorno(): string {
-        let acbrBuffer = this._createAcbrBuffer(TAMANHO_PADRAO)
-        this.LIB_UltimoRetorno(acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        this.LIB_UltimoRetorno(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         return this._processaResult(acbrBuffer)
     }
 
 
-    /**
-     * @description Método usado para ler a configuração da biblioteca do arquivo INI informado.
-     * @returns 0 ou código de erro 
-     */
-
-    public configLer(): number;
+    configLer(): number;
+    configLer(arquivoConfig: string): number;
 
     /**
      * @description Método usado para ler a configuração da biblioteca do arquivo INI informado.
-     * @param arquivoConfig (opcional) Arquivo INI para ler, se informado vazio será usado o valor padrão.
+     * @param arquivoConfig Arquivo INI para ler, se informado vazio será usado o valor padrão.
      * @returns 0 ou código de erro 
      */
 
-    public configLer(arquivoConfig: string): number;
 
     public configLer(arquivoConfig?: string): number {
         if (typeof arquivoConfig === "undefined") {
@@ -125,21 +209,24 @@ export default abstract class ACBrLibBase {
         return this.#configLer(arquivoConfig)
     }
 
-  
-
-
-    /**  
-     * @description Método usado para gravar a configuração da biblioteca no arquivo INI informado.
-     * @returns 0 ou código de erro
-     */
-
-    public configGravar(): number;
-
-      /**
+    /**
      * @description Método usado para gravar a configuração da biblioteca no arquivo INI informado.
      * @param arquivoConfig Arquivo INI para ler, se informado vazio será usado o valor padrão.
      * @returns 0 ou código de erro
      */
+
+
+    /**  
+    * @description Método usado para gravar a configuração da biblioteca no arquivo INI informado.
+    */
+
+    public configGravar(): number;
+
+    /**
+   * @description Método usado para gravar a configuração da biblioteca no arquivo INI informado.
+   * @param arquivoConfig Arquivo INI para ler, se informado vazio será usado o valor padrão.
+   * @returns 0 ou código de erro
+   */
 
     public configGravar(arquivoConfig: string): number;
 
@@ -160,8 +247,8 @@ export default abstract class ACBrLibBase {
      */
 
     public configLerValor(sessao: string, chave: string): string {
-        let acbrBuffer = this._createAcbrBuffer(TAMANHO_PADRAO)
-        let status = this.LIB_ConfigLerValor(sessao, chave, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.LIB_ConfigLerValor(this.getHandle(), sessao, chave, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
 
@@ -176,7 +263,7 @@ export default abstract class ACBrLibBase {
      */
 
     public configGravarValor(sessao: string, chave: string, valor: string): number {
-        let status = this.LIB_ConfigGravarValor(sessao, chave, valor)
+        let status = this.LIB_ConfigGravarValor(this.getHandle(), sessao, chave, valor)
         this._checkResult(status)
         return status
     }
@@ -187,7 +274,10 @@ export default abstract class ACBrLibBase {
      * @returns Uma string com a configuração exportada.
      */
     public configExportar(): string {
-        return this._getStringFromACBrLibBufferCallback(this.LIB_ConfigExportar.bind(this))
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.LIB_ConfigExportar(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
     }
 
 
@@ -199,18 +289,23 @@ export default abstract class ACBrLibBase {
      */
 
     public configImportar(arquivoConfig: string): number {
-        let status = this.LIB_ConfigImportar(arquivoConfig)
+        let status = this.LIB_ConfigImportar(this.getHandle(), arquivoConfig)
         this._checkResult(status)
         return status
     }
 
+
     /**
-     * @description Método que retorna informações da biblioteca OpenSsl
-     * @returns
-     */
-    public openSslInfo():string{
-        return this._getStringFromACBrLibBufferCallback(this.LIB_OpenSSLInfo.bind(this))
+      * @description Método que retorna informações da biblioteca OpenSsl
+      * @returns
+      */
+    public openSslInfo(): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.LIB_OpenSSLInfo(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
     }
+
 
 
     /* Métodos protegidos */
@@ -223,6 +318,7 @@ export default abstract class ACBrLibBase {
     _processaResult(buffer: ACBrBuffer): string {
         let requiredLen =  koffi.decode(buffer.getRefTamanhoBuffer(), 'int')
 
+
         if (this._isRequiredReallocBuffer(requiredLen)) {
             requiredLen = Math.round(requiredLen * 1.3)
             return this._ultimoRetorno(requiredLen)
@@ -230,66 +326,140 @@ export default abstract class ACBrLibBase {
         return buffer.toString()
     }
 
+    /**
+     * Verifica se o resultado é um código de erro
+     * @param result 
+     * @returns 
+     */
+    _isResultErrorCode(result: number): boolean {
+        return result < ACBrLibResultCodes.OK
+    }
+    /**
+     * Checa o resultado da operação e propaga a exceção se result < 0
+     * @param result 
+     */
     _checkResult(result: number) {
-        if (result === 0)
-            return
-        let error = this.ultimoRetorno()
-        throw new Error(error)
+
+        // se o resultado é maior ou igual a OK, não há erro
+        if ( !this._isResultErrorCode(result)) {
+            return;
+        }
+
+        let errorMessage: string = this.ultimoRetorno();
+
+        console.log("Checking result: ", result, " Error message: ", errorMessage)
+        switch (result) {
+
+            case ACBrLibResultCodes.ErrLibNaoInicializada:
+                throw new ACBrLibLibNaoInicializadaError("Erro ao inicializar "+ this.nome);
+                break;
+
+            case ACBrLibResultCodes.ErrLibNaoFinalizada:
+                throw new ACBrLibLibNaoFinalizadaError("Erro ao finalizar a biblioteca");
+                break
+
+            case ACBrLibResultCodes.ErrConfigLer:
+                throw new ACBrLibConfigLerError(errorMessage);
+                break;
+
+            case ACBrLibResultCodes.ErrConfigGravar:
+                throw new ACBrLibConfigGravarError(errorMessage);
+                break;
+
+            case ACBrLibResultCodes.ErrArquivoNaoExiste:
+                throw new ACBrLibArquivoNaoExisteError(errorMessage);
+                break;
+
+            case ACBrLibResultCodes.ErrDiretorioNaoExiste:
+                throw new ACBrLibDiretorioNaoExisteError(errorMessage);
+                break;
+
+            case ACBrLibResultCodes.ErrHttp:
+                throw new ACBrLibHttpError(errorMessage);
+                break;
+
+            case ACBrLibResultCodes.ErrTimeOut:
+                throw new ACBrLibTimeOutError(errorMessage);
+                break;
+
+            case ACBrLibResultCodes.ErrDemoExpirado:
+                throw new ACBrLibDemoExpiradoError(errorMessage);
+                break;
+
+            case ACBrLibResultCodes.ErrNaoDisponivelEmModoConsole:
+                throw new ACBrLibNaoDisponivelEmModoConsoleError(errorMessage);
+                break
+
+            case ACBrLibResultCodes.ErrParametroInvalido:
+                throw new ACBrLibParametroInvalidoError(errorMessage);
+                break;
+
+            case ACBrLibResultCodes.ErrExecutandoMetodo:
+                throw new ACBrLibParametroInvalidoError(errorMessage);
+                break;
+
+            default:
+                // se a exceção não é uma exceção comum a todas as bibliotecas, exibe a mensagem de erro
+                // as classes filhas devem implementar as exceções específicas
+                console.error("O código de erro ", result, " Mensagem: ", errorMessage)
+
+                break;
+        }
+
     }
 
-    _getStringFromACBrLibBufferCallback(callback: ACBrBufferCallType): string {
-        let acbrBuffer = this._createAcbrBuffer(TAMANHO_PADRAO)
-
-        let status = callback(acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
-        this._checkResult(status)
-        return this._processaResult(acbrBuffer)
-    }
-
-
-    _createAcbrBuffer(size: number): ACBrBuffer {
-        return new ACBrBuffer(size)
-    }
 
 
     _ultimoRetorno(size: number): string {
-        let acbrBuffer = this._createAcbrBuffer(size)
-        this.LIB_UltimoRetorno(acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        using acbrBuffer = new ACBrBuffer(size)
+        this.LIB_UltimoRetorno(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         return acbrBuffer.toString()
     }
 
 
-    /* Metodos que devem ser implementados em classes filhas */
+    /** Metodos que devem ser implementados em classes filhas */
 
-    protected abstract LIB_Inicializar(configPath: string, chaveCrypt: string): number
-    protected abstract LIB_Finalizar(): number
-    protected abstract LIB_UltimoRetorno(mensagem: any, refTamanho: any): number
-    protected abstract LIB_Nome(nome: any, refTamanho: any): number
-    protected abstract LIB_Versao(versao: any, refTamanho: any): number
+    protected abstract LIB_Inicializar(handle: any, configPath: string, chaveCrypt: string): number
+    protected abstract LIB_Finalizar(handle: any): number
+    protected abstract LIB_UltimoRetorno(handle: any, mensagem: Buffer, refTamanho: any): number
+    protected abstract LIB_Nome(handle: any, nome: Buffer, refTamanho: any): number
+    protected abstract LIB_Versao(handle: any, versao: Buffer, refTamanho: any): number
 
-    protected abstract LIB_ConfigLer(arqConfig: string): number
-    protected abstract LIB_ConfigGravar(arqConfig: string): number
-    protected abstract LIB_ConfigLerValor(sessao: string, chave: string, valor: any, refTamanho: any): number
-    protected abstract LIB_ConfigGravarValor(sessao: string, chave: string, valor: string): number
-    protected abstract LIB_ConfigImportar(arqConfig: string): number
-    protected abstract LIB_ConfigExportar(configuracoes: any, refTamanho: any): number
-    protected abstract LIB_OpenSSLInfo(configuracoes: any, refTamanho: any): number
+    protected abstract LIB_ConfigLer(handle: any, arqConfig: string): number
+    protected abstract LIB_ConfigGravar(handle: any, arqConfig: string): number
+    protected abstract LIB_ConfigLerValor(handle: any, sessao: string, chave: string, valor: Buffer, refTamanho: any): number
+    protected abstract LIB_ConfigGravarValor(handle: any, sessao: string, chave: string, valor: string): number
+    protected abstract LIB_ConfigImportar(handle: any, arqConfig: string): number
+    protected abstract LIB_ConfigExportar(handle: any, configuracoes: Buffer, refTamanho: any): number
+    protected abstract LIB_OpenSSLInfo(handle: any, configuracoes: Buffer, refTamanho: any): number
 
-    //metodos privados
+
+
 
     #configGravar(arquivoConfig: string) {
-        let status = this.LIB_ConfigGravar(arquivoConfig)
+        let status = this.LIB_ConfigGravar(this.getHandle(), arquivoConfig)
         this._checkResult(status)
         return status
     }
 
     #configLer(arquivoConfig: string) {
-        let status = this.LIB_ConfigLer(arquivoConfig)
+        let status = this.LIB_ConfigLer(this.getHandle(), arquivoConfig)
         this._checkResult(status)
         return status
     }
 
     #inicializar(arquivoConfig: string, chaveCrypt: string) {
-        let status = this.LIB_Inicializar(arquivoConfig, chaveCrypt)
+        if (this.handle == null) {
+            this.handle = koffi.alloc('void *', 1)
+        }
+        let status = this.LIB_Inicializar(this.handle, arquivoConfig, chaveCrypt)
+        if (status === ACBrLibResultCodes.OK) {
+            this.isHandleInitialized = true
+        }else{
+            // por segurança, se a inicialização falhar, libera o handle
+            this.#releaseHandle()
+            this.isHandleInitialized = false
+        }
         this._checkResult(status)
         return status
     }

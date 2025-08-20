@@ -27,6 +27,6 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "koffi": "^2.6.0"
+    "koffi": "^2.12.0"
   }
 }

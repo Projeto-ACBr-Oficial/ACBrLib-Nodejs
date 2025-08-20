@@ -8,10 +8,12 @@ function deref(pointer: any, pointerType: string) {
 
 /**
  * ACBrBuffer é uma classe que representa um buffer
+ * Implementa auto-cleanup com 'using' declaration
  */
 export default class ACBrBuffer {
     private bufferSize: any
     private bufferData: Buffer
+    private disposed = false
 
     constructor(size: number) {
         this.bufferSize = koffi.alloc("int", 1)
@@ -31,5 +33,18 @@ export default class ACBrBuffer {
         let size = deref(this.bufferSize, 'int')
         let strBuffer = this.bufferData.toString('utf8', 0, (Math.min(size, this.bufferData.length)))
         return strBuffer
+    }
+
+    destroy() {
+        if (!this.disposed) {
+            koffi.free(this.bufferSize)
+            this.bufferSize = null
+            this.disposed = true
+        }
+    }
+
+    // Implementação do auto-cleanup com 'using' declaration
+    [Symbol.dispose]() {
+        this.destroy()
     }
 }
