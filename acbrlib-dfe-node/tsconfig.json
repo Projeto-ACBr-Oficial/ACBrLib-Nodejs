@@ -28,9 +28,9 @@
     "moduleResolution": "node",                     /* Specify how TypeScript looks up a file from a given module specifier. */
      "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
     "paths": {
-      "acbrlib-base-node": [
-        "node_modules/acbrlib-base-node/",
-        "node_modules/acbrlib-base-node/src/*"
+      "@projetoacbr/acbrlib-base-node": [
+        "node_modules/@projetoacbr/acbrlib-base-node/",
+        "node_modules/@projetoacbr/acbrlib-base-node/src/*"
       ]
     },
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */

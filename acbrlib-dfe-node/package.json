@@ -1,5 +1,5 @@
 {
-  "name": "acbrlib-dfe-node",
+  "name": "@projetoacbr/acbrlib-dfe-node",
   "version": "1.0.0",
   "description": "",
   "main": "dist/src/index.js",
@@ -14,20 +14,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doszapro/acbrlib-comum.git"
+    "url": "git+https://github.com/Projeto-ACBr-Oficial/ACBrLib-Nodejs.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/doszapro/acbrlib-comum/issues"
+    "url": "https://github.com/Projeto-ACBr-Oficial/ACBrLib-Nodejs/issues"
   },
-  "homepage": "https://github.com/doszapro/acbrlib-comum#readme",
+  "homepage": "https://github.com/Projeto-ACBr-Oficial/ACBrLib-Nodejs#readme",
   "devDependencies": {
     "@types/node": "^22.5.4",
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "acbrlib-base-node": "file:../acbrlib-base-node",
+    "@projetoacbr/acbrlib-base-node": "^1.0.0",
     "koffi": "^2.12.0"
   }
 }

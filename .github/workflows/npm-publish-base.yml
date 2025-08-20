@@ -1,11 +1,6 @@
-name: NPM-Publisher-CEP
+name: NPM-Publisher-Base
 
 on:
-  workflow_run:
-    workflows: ["NPM-Publisher-Base"]  
-    
-    types:
-      - completed
   workflow_dispatch:
 
 jobs:
@@ -18,21 +13,19 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org/
 
-      - name: Install acbrlib-base-node
-        run: |
-          npm install @projetoacbr/acbrlib-base-node
-      
-      - name: Build acbrlib-cep-node
-        working-directory: acbrlib-cep-node
+      - run: npm install -g typescript
+
+      - name: Build acbrlib-base-node
+        working-directory: acbrlib-base-node
         run: |
           npm install
           npm run build
-
-      - name: Publish acbrlib-cep-node
-        working-directory: acbrlib-cep-node
+          
+      - name: Publish acbrlib-base-node
+        working-directory: acbrlib-base-node
         run: |
           npm version patch
           npm publish --access public
-
+      
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

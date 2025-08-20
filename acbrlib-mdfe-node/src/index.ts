@@ -1,17 +1,17 @@
-import ACBrLibBaseMT from "acbrlib-base-node/dist/src";
-import ACBrLibDFeMT from "acbrlib-dfe-node/dist/src";
-import ACBrBuffer from "acbrlib-base-node/dist/src/ACBrBuffer";
-import { TAMANHO_PADRAO } from "acbrlib-base-node/dist/src/ACBrBuffer";
+import ACBrLibBaseMT from "@projetoacbr/acbrlib-base-node/dist/src";
+import ACBrLibDFeMT from "@projetoacbr/acbrlib-dfe-node/dist/src";
+import ACBrBuffer from "@projetoacbr/acbrlib-base-node/dist/src/ACBrBuffer";
+import { TAMANHO_PADRAO } from "@projetoacbr/acbrlib-base-node/dist/src/ACBrBuffer";
 
 import { TypeACBrMDFeMT } from "./bridge";
 import ACBrLibMDFeBridgeMT from "./bridge";
-import { ACBrLibResultCodes } from "acbrlib-base-node/dist/src/exception/ACBrLibResultCodes"
+import { ACBrLibResultCodes } from "@projetoacbr/acbrlib-base-node/dist/src/exception/ACBrLibResultCodes"
 import ACBrLibMDFeError, {
     ACBrLibMDFeCNPJInvalidoError,
     ACBrLibMDFeGerarXmlError,
     ACBrLibMDFeIndexError
 } from "./exception"
-import { ACBrLibExecutandoMetodoError } from 'acbrlib-base-node/dist/src/exception';
+import { ACBrLibExecutandoMetodoError } from '@projetoacbr/acbrlib-base-node/dist/src/exception';
 
 
 
