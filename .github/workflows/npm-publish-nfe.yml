@@ -1,9 +1,8 @@
-name: NPM-Publisher-CEP
+name: NPM-Publisher-NFE
 
 on:
   workflow_run:
-    workflows: ["NPM-Publisher-Base"]  
-    
+    workflows: ["NPM-Publisher-DFE"]  
     types:
       - completed
   workflow_dispatch:
@@ -18,18 +17,18 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org/
 
-      - name: Install acbrlib-base-node
+      - name: Install acbrlib-dfe-node
         run: |
-          npm install @projetoacbr/acbrlib-base-node
+          npm install @projetoacbr/acbrlib-dfe-node
       
-      - name: Build acbrlib-cep-node
-        working-directory: acbrlib-cep-node
+      - name: Build acbrlib-nfe-node
+        working-directory: acbrlib-nfe-node
         run: |
           npm install
           npm run build
 
-      - name: Publish acbrlib-cep-node
-        working-directory: acbrlib-cep-node
+      - name: Publish acbrlib-nfe-node
+        working-directory: acbrlib-nfe-node
         run: |
           npm version patch
           npm publish --access public
