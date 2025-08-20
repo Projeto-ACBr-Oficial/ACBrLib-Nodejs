@@ -1,0 +1,37 @@
+name: NPM-Publisher-DFE
+
+on:
+  workflow_run:
+    workflows: ["NPM-Publisher-Test"]  
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install acbrlib-base-node
+        run: |
+          npm install @projetoacbr/acbrlib-base-node
+      
+      - name: Build acbrlib-dfe-node
+        working-directory: acbrlib-dfe-node
+        run: |
+          npm install
+          npm run build
+
+      - name: Publish acbrlib-dfe-node
+        working-directory: acbrlib-dfe-node
+        run: |
+          npm version patch
+          npm publish --access public
+          
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
