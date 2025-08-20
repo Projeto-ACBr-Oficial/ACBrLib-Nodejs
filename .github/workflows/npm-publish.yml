@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,12 +18,13 @@ jobs:
       - run: npm install -g typescript
 
       - name: Build acbrlib-base-node
+        working-directory: acbrlib-base-node
         run: |
-          cd acbrlib-base-node
           npm install
           npm run build
           
       - name: Publish acbrlib-base-node
+        working-directory: acbrlib-base-node
         run: |
           npm publish --access public
       
