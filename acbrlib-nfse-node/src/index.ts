@@ -257,22 +257,7 @@ class ACBrLibNFSeMT extends ACBrLibDFeComum {
         return this._processaResult(acbrBuffer)
     }
 
-    /**
-     * Método usado para enviar e-mail da NFSe
-     * @param destinatario - Endereço de e-mail do destinatário
-     * @param xml - XML da NFSe
-     * @param anexarPDF - Se true gera o PDF e anexa ao e-mail
-     * @param assunto - Assunto do e-mail
-     * @param mensagem - Mensagem do e-mail
-     * @param cc - Endereços de e-mail em cópia (separados por ponto e vírgula)
-     * @param anexo - Caminho de arquivos adicionais para anexar (separados por ponto e vírgula)
-     * @returns Código de status da operação
-     */
-    public enviarEmailNFSe(destinatario: string, xml: string, anexarPDF: boolean, assunto: string, mensagem: string, cc: string, anexo: string): number {
-        let status = this.getAcbrlib().NFSE_EnviarEmail(this.getHandle(), destinatario, xml, anexarPDF, assunto, mensagem, cc, anexo)
-        this._checkResult(status)
-        return status
-    }
+
 
     /**
      * Método usado para imprimir NFSe

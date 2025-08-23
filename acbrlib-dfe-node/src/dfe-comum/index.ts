@@ -20,6 +20,8 @@ export default abstract class ACBrLibDFeComum extends ACBrLibBaseMT {
     protected abstract LIB_CarregarINI(handle: any, arquivoINI: string): number
     protected abstract LIB_ObterXml(handle: any, indice: number, buffer: any, refTamanho: any): number
     protected abstract LIB_ObterIni(handle: any, indice: number, buffer: any, refTamanho: any): number
+    protected abstract LIB_GravarXml(handle: any, indice: number, nomeArquivo: string, caminhoArquivo: string): number
+    protected abstract LIB_GravarIni(handle: any, indice: number, nomeArquivo: string, caminhoArquivo: string): number
     protected abstract LIB_LimparLista(handle: any): number
 
     // 🔐 Segurança (específicos de DFe)
@@ -28,6 +30,9 @@ export default abstract class ACBrLibDFeComum extends ACBrLibBaseMT {
     // 🖨️ Impressão (específicos de DFe)
     protected abstract LIB_ImprimirPDF(handle: any): number
     protected abstract LIB_SalvarPDF(handle: any, buffer: any, refTamanho: any): number
+
+    // 📧 Email (específicos de DFe)
+    protected abstract LIB_EnviarEmail(handle: any, ePara: string, eXMLDocumento: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number
 
     // ===== IMPLEMENTAÇÕES CONCRETAS DOS MÉTODOS COMUNS DE DFe =====
 
@@ -58,6 +63,18 @@ export default abstract class ACBrLibDFeComum extends ACBrLibBaseMT {
         return this._processaResult(acbrBuffer)
     }
 
+    public gravarXml(indice: number, nomeArquivo: string, caminhoArquivo: string): number {
+        const status = this.LIB_GravarXml(this.getHandle(), indice, nomeArquivo, caminhoArquivo)
+        this._checkResult(status)
+        return status
+    }
+
+    public gravarIni(indice: number, nomeArquivo: string, caminhoArquivo: string): number {
+        const status = this.LIB_GravarIni(this.getHandle(), indice, nomeArquivo, caminhoArquivo)
+        this._checkResult(status)
+        return status
+    }
+
     public limparLista(): number {
         const status = this.LIB_LimparLista(this.getHandle())
         this._checkResult(status)
@@ -84,6 +101,13 @@ export default abstract class ACBrLibDFeComum extends ACBrLibBaseMT {
         const status = this.LIB_SalvarPDF(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
+    }
+
+    // 📧 Email
+    public enviarEmail(ePara: string, eXMLDocumento: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number {
+        const status = this.LIB_EnviarEmail(this.getHandle(), ePara, eXMLDocumento, enviaPDF, eAssunto, eCC, eAnexos, eMensagem)
+        this._checkResult(status)
+        return status
     }
 
 } 
