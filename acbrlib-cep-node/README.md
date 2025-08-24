@@ -1,0 +1,90 @@
+# @projetoacbr/acbrlib-cep-node
+
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-cep-node)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
+
+## 📋 Descrição
+
+**ACBrLib CEP Node** é uma implementação para consulta de CEP usando a biblioteca ACBrLibCEP. Esta classe fornece uma interface de alto nível para buscar informações de endereços através de CEPs, permitindo validação e consulta de logradouros.
+
+## 🏗️ Arquitetura
+
+Esta classe (`ACBrLibCepMT`) estende diretamente `ACBrLibBaseMT` e implementa métodos específicos para consulta de CEP.
+
+## 📦 Instalação
+
+```bash
+npm install @projetoacbr/acbrlib-cep-node
+```
+
+## 📖 Como Usar
+
+### Importação
+
+```javascript
+const ACBrLibCepMT = require('@projetoacbr/acbrlib-cep-node/dist/src').default
+```
+
+### Uso Básico
+
+```javascript
+const acbrCep = new ACBrLibCepMT(
+    './libacbrcep64.so',    // Linux
+    // './ACBrCEP64.dll', // Windows
+    './acbrlib.ini',
+    '12345678'
+)
+
+// Buscar por CEP
+const endereco = acbrCep.buscarPorCep('18270-170')
+console.log('Endereço:', endereco)
+```
+
+## 🔧 Funcionalidades
+
+### Métodos Herdados (Base)
+- `inicializar()`, `finalizar()`
+- `configLer()`, `configGravar()`
+- `nome()`, `versao()`
+- `ultimoRetorno()`
+
+### Métodos Específicos do CEP
+
+- **Consulta de CEP**
+  - `buscarPorCep(cep)` - Busca informações de endereço por CEP
+
+- **Validação**
+  - Validação automática de formato de CEP
+  - Tratamento de erros de CEP inválido
+
+## 🔗 Dependências
+
+- **@projetoacbr/acbrlib-base-node** - Classe base fundamental
+
+## 📚 Documentação
+
+Para informações detalhadas sobre cada método, consulte a documentação JSDoc incluída no código fonte.
+
+## 🤝 Contribuição
+
+1. Fork o projeto
+2. Crie uma branch para sua feature
+3. Commit suas mudanças
+4. Push para a branch
+5. Abra um Pull Request
+
+## 📞 Suporte
+
+- **Issues**: [GitHub Issues](https://github.com/Projeto-ACBr-Oficial/ACBrLib-Nodejs/issues)
+- **Documentação ACBr**: [https://acbr.sourceforge.io/](https://acbr.sourceforge.io/)
+
+## 📄 Licença
+
+ISC License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
+
+---
+
+**ACBrLib CEP Node** - Interface Node.js para ACBrLibCEP  
+**Versão**: 1.0.1  
+**Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)
