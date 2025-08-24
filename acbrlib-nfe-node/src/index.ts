@@ -139,9 +139,7 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
         return this.getAcbrlib().NFE_GetPath(handle, tipo, buffer, refTamanho)
     }
 
-    protected LIB_ConsultaCadastro(handle: any, cUF: string, nDocumento: string, nIE: boolean, buffer: any, refTamanho: any): number {
-        return this.getAcbrlib().NFE_ConsultaCadastro(handle, cUF, nDocumento, nIE, buffer, refTamanho)
-    }
+
 
     protected LIB_ImprimirInutilizacao(handle: any, eArquivoXml: string): number {
         return this.getAcbrlib().NFE_ImprimirInutilizacao(handle, eArquivoXml)
@@ -279,6 +277,13 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
     public inutilizar(CNPJ: string, justificativa: string, ano: number, modelo: number, serie: number, numeroInicial: number, numeroFinal: number): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         let status = this.getAcbrlib().NFE_Inutilizar(this.getHandle(), CNPJ, justificativa, ano, modelo, serie, numeroInicial, numeroFinal, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    public consultaCadastro(cUF: string, nDocumento: string, nIE: boolean): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFE_ConsultaCadastro(this.getHandle(), cUF, nDocumento, nIE, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
