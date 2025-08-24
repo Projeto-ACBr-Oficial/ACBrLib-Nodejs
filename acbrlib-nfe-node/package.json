@@ -14,7 +14,7 @@
     "build": "npx tsc"
   },
   "author": "",
-  "license": "ISC",
+  "license": "LGPL-2.1",
   "dependencies": {
     "@projetoacbr/acbrlib-dfe-node": "^1.0.0",
     "koffi": "^2.12.0"

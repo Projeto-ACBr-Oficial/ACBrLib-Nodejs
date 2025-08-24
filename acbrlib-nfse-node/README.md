@@ -1,6 +1,6 @@
 # @projetoacbr/acbrlib-nfse-node
 
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-green.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
 [![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-nfse-node)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
 
@@ -101,11 +101,11 @@ Para informações detalhadas sobre cada método, consulte a documentação JSDo
 ## 📞 Suporte
 
 - **Issues**: [GitHub Issues](https://github.com/Projeto-ACBr-Oficial/ACBrLib-Nodejs/issues)
-- **Documentação ACBr**: [https://acbr.sourceforge.io/](https://acbr.sourceforge.io/)
+- **Documentação ACBrLib**: [https://acbr.sourceforge.io/ACBrLib/BemVindo.html](https://acbr.sourceforge.io/ACBrLib/BemVindo.html)
 
 ## 📄 Licença
 
-ISC License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
+LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 
 ---
 

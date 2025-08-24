@@ -17,7 +17,7 @@
     "url": "git+https://github.com/Projeto-ACBr-Oficial/ACBrLib-Nodejs.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "LGPL-2.1",
   "bugs": {
     "url": "https://github.com/Projeto-ACBr-Oficial/ACBrLib-Nodejs/issues"
   },

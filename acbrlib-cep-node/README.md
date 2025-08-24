@@ -77,11 +77,11 @@ Para informações detalhadas sobre cada método, consulte a documentação JSDo
 ## 📞 Suporte
 
 - **Issues**: [GitHub Issues](https://github.com/Projeto-ACBr-Oficial/ACBrLib-Nodejs/issues)
-- **Documentação ACBr**: [https://acbr.sourceforge.io/](https://acbr.sourceforge.io/)
+- **Documentação ACBrLib**: [https://acbr.sourceforge.io/ACBrLib/BemVindo.html](https://acbr.sourceforge.io/ACBrLib/BemVindo.html)
 
 ## 📄 Licença
 
-ISC License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
+LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 
 ---
 
