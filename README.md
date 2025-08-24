@@ -38,24 +38,12 @@ ACBrLibNFeMT, ACBrLibMDFeMT, ACBrLibNFSeMT (implementações específicas)
 
 ## 🚀 Instalação
 
-### Instalação Individual dos Pacotes
-
 ```bash
-# Pacote base (obrigatório para todos os outros)
-npm install @projetoacbr/acbrlib-base-node
-
-# Pacotes específicos (escolha conforme sua necessidade)
-npm install @projetoacbr/acbrlib-dfe-node
+# Pacotes específicos (dependências são instaladas automaticamente)
 npm install @projetoacbr/acbrlib-nfe-node
 npm install @projetoacbr/acbrlib-mdfe-node
 npm install @projetoacbr/acbrlib-nfse-node
 npm install @projetoacbr/acbrlib-cep-node
-```
-
-### Instalação de Todos os Pacotes
-
-```bash
-npm install @projetoacbr/acbrlib-base-node @projetoacbr/acbrlib-dfe-node @projetoacbr/acbrlib-nfe-node @projetoacbr/acbrlib-mdfe-node @projetoacbr/acbrlib-nfse-node @projetoacbr/acbrlib-cep-node
 ```
 
 ## 📖 Como Usar
