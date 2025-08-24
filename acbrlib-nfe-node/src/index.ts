@@ -117,8 +117,6 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
         return this.getAcbrlib().NFE_LimparListaEventos(handle)
     }
 
-
-
     protected LIB_StatusServico(handle: any, buffer: any, refTamanho: any): number {
         return this.getAcbrlib().NFE_StatusServico(handle, buffer, refTamanho)
     }
@@ -131,27 +129,13 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
         return this.getAcbrlib().NFE_ConsultarRecibo(handle, recibo, buffer, refTamanho)
     }
 
-
-
-    // ===== IMPLEMENTAÇÃO DOS MÉTODOS ABSTRATOS DE ACBrLibDFeDistribuicaoMT =====
-
     protected LIB_GetPath(handle: any, tipo: number, buffer: any, refTamanho: any): number {
         return this.getAcbrlib().NFE_GetPath(handle, tipo, buffer, refTamanho)
     }
 
 
 
-    protected LIB_ImprimirInutilizacao(handle: any, eArquivoXml: string): number {
-        return this.getAcbrlib().NFE_ImprimirInutilizacao(handle, eArquivoXml)
-    }
 
-    protected LIB_SalvarInutilizacaoPDF(handle: any, eArquivoXml: string): number {
-        return this.getAcbrlib().NFE_SalvarInutilizacaoPDF(handle, eArquivoXml)
-    }
-
-    protected LIB_ImprimirInutilizacaoPDF(handle: any, eArquivoXml: string): number {
-        return this.getAcbrlib().NFE_ImprimirInutilizacaoPDF(handle, eArquivoXml)
-    }
 
     protected LIB_Imprimir(handle: any, cImpressora: string, nNumCopias: number, cProtocolo: string, bMostrarPreview: string, cMarcaDagua: string, bViaConsumidor: string, bSimplificado: string): number {
         return this.getAcbrlib().NFE_Imprimir(handle, cImpressora, nNumCopias, cProtocolo, bMostrarPreview, cMarcaDagua, bViaConsumidor, bSimplificado)
@@ -172,8 +156,6 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
     protected LIB_SalvarEventoPDF(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento: string): number {
         return this.getAcbrlib().NFE_SalvarEventoPDF(handle, eArquivoXmlDocumento, eArquivoXmlEvento)
     }
-
-    // ===== IMPLEMENTAÇÃO DOS MÉTODOS ABSTRATOS DE ACBrLibDFeComum =====
 
     protected LIB_Assinar(handle: any): number {
         return this.getAcbrlib().NFE_Assinar(handle)
