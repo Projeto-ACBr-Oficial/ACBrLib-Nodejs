@@ -127,8 +127,7 @@ export default abstract class ACBrLibBaseMT {
         if (!this.handle) {
             return
         }
-
-        koffi.encode(this.getHandle(), 'void *', null)
+        
         koffi.free(this.handle)
         this.handle = null
     }
