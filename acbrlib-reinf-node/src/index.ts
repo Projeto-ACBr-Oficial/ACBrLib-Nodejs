@@ -7,7 +7,7 @@ import ACBrBuffer,{TAMANHO_PADRAO} from "@projetoacbr/acbrlib-base-node/dist/src
  * @description ACBrLibReinfMT é uma classe de alto nível que abstrai os métodos da ACBrLibReinf Multi-thread<br/>
  * Esta classe permite que programadores de javascript/typescript usem a ACBrLibReinf sem grandes preocupações.
  */
-export class ACBrLibReinfMT extends ACBrLibBaseMT {
+export  default class ACBrLibReinfMT extends ACBrLibBaseMT {
    
     /**
      * 

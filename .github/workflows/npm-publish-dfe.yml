@@ -31,7 +31,6 @@ jobs:
       - name: Publish acbrlib-dfe-node
         working-directory: acbrlib-dfe-node
         run: |
-          npm version patch
           npm publish --access public
           
         env:

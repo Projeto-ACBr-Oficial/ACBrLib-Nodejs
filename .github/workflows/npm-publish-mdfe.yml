@@ -30,7 +30,6 @@ jobs:
       - name: Publish acbrlib-mdfe-node
         working-directory: acbrlib-mdfe-node
         run: |
-          npm version patch
           npm publish --access public
 
         env:

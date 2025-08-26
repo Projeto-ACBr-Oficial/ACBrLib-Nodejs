@@ -31,7 +31,6 @@ jobs:
       - name: Publish acbrlib-nfse-node
         working-directory: acbrlib-nfse-node
         run: |
-          npm version patch
           npm publish --access public
 
         env:

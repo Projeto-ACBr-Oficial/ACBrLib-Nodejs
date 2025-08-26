@@ -30,7 +30,6 @@ jobs:
       - name: Publish acbrlib-nfe-node
         working-directory: acbrlib-nfe-node
         run: |
-          npm version patch
           npm publish --access public
 
         env:
