@@ -28,40 +28,40 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
     }
 
     protected LIB_Inicializar(handle: any, configPath: string, chaveCrypt: string): number {
-        return this.getAcbrlib().REINF_Inicializar(handle, configPath, chaveCrypt)
+        return this.getAcbrlib().Reinf_Inicializar(handle, configPath, chaveCrypt)
     }
     protected LIB_Finalizar(handle: any): number {
-        return this.getAcbrlib().REINF_Finalizar(handle)
+        return this.getAcbrlib().Reinf_Finalizar(handle)
     }
     protected LIB_UltimoRetorno(handle: any, mensagem: Buffer, refTamanho: any): number {
-        return this.getAcbrlib().REINF_UltimoRetorno(handle, mensagem, refTamanho)
+        return this.getAcbrlib().Reinf_UltimoRetorno(handle, mensagem, refTamanho)
     }
     protected LIB_Nome(handle: any, nome: Buffer, refTamanho: any): number {
-        return this.getAcbrlib().REINF_Nome(handle, nome, refTamanho)
+        return this.getAcbrlib().Reinf_Nome(handle, nome, refTamanho)
     }
     protected LIB_Versao(handle: any, versao: Buffer, refTamanho: any): number {
-        return this.getAcbrlib().REINF_Versao(handle, versao, refTamanho)
+        return this.getAcbrlib().Reinf_Versao(handle, versao, refTamanho)
     }
     protected LIB_ConfigLer(handle: any, arqConfig: string): number {
-        return this.getAcbrlib().REINF_ConfigLer(handle, arqConfig)
+        return this.getAcbrlib().Reinf_ConfigLer(handle, arqConfig)
     }
     protected LIB_ConfigGravar(handle: any, arqConfig: string): number {
-        return this.getAcbrlib().REINF_ConfigGravar(handle, arqConfig)
+        return this.getAcbrlib().Reinf_ConfigGravar(handle, arqConfig)
     }
     protected LIB_ConfigLerValor(handle: any, sessao: string, chave: string, valor: Buffer, refTamanho: any): number {
-        return this.getAcbrlib().REINF_ConfigLerValor(handle, sessao, chave, valor, refTamanho)
+        return this.getAcbrlib().Reinf_ConfigLerValor(handle, sessao, chave, valor, refTamanho)
     }
     protected LIB_ConfigGravarValor(handle: any, sessao: string, chave: string, valor: string): number {
-        return this.getAcbrlib().REINF_ConfigGravarValor(handle, sessao, chave, valor)
+        return this.getAcbrlib().Reinf_ConfigGravarValor(handle, sessao, chave, valor)
     }
     protected LIB_ConfigImportar(handle: any, arqConfig: string): number {
-        return this.getAcbrlib().REINF_ConfigImportar(handle, arqConfig)
+        return this.getAcbrlib().Reinf_ConfigImportar(handle, arqConfig)
     }
     protected LIB_ConfigExportar(handle: any, mensagem: Buffer, refTamanho: any): number {
-        return this.getAcbrlib().REINF_ConfigExportar(handle, mensagem, refTamanho)
+        return this.getAcbrlib().Reinf_ConfigExportar(handle, mensagem, refTamanho)
     }
     protected LIB_OpenSSLInfo(handle: any, configuracoes: Buffer, refTamanho: any): number {
-        return this.getAcbrlib().REINF_OpenSSLInfo(handle, configuracoes, refTamanho)
+        return this.getAcbrlib().Reinf_OpenSSLInfo(handle, configuracoes, refTamanho)
     }
 
     /**
@@ -71,7 +71,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      */
     public criarEnviarReinf(arquivoOuXML: string): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.getAcbrlib().REINF_CriarEnviarReinf(this.getHandle(), arquivoOuXML, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        let status = this.getAcbrlib().Reinf_CriarEnviarReinf(this.getHandle(), arquivoOuXML, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
@@ -81,7 +81,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      * @returns Código de status da operação
      */
     public limparReinf(): number {
-        let status = this.getAcbrlib().REINF_LimparReinf(this.getHandle())
+        let status = this.getAcbrlib().Reinf_LimparReinf(this.getHandle())
         this._checkResult(status)
         return status
     }
@@ -92,7 +92,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      * @returns Código de status da operação
      */
     public carregarXMLEventoReinf(arquivoOuXML: string): number {
-        let status = this.getAcbrlib().REINF_CarregarXMLEventoReinf(this.getHandle(), arquivoOuXML)
+        let status = this.getAcbrlib().Reinf_CarregarXMLEventoReinf(this.getHandle(), arquivoOuXML)
         this._checkResult(status)
         return status
     }
@@ -103,7 +103,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      * @returns Código de status da operação
      */
     public setIDContribuinte(idContribuinte: string): number {
-        let status = this.getAcbrlib().REINF_SetIDContribuinte(this.getHandle(), idContribuinte)
+        let status = this.getAcbrlib().Reinf_SetIDContribuinte(this.getHandle(), idContribuinte)
         this._checkResult(status)
         return status
     }
@@ -114,7 +114,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      * @returns Código de status da operação
      */
     public setIDTransmissor(idTransmissor: string): number {
-        let status = this.getAcbrlib().REINF_SetIDTransmissor(this.getHandle(), idTransmissor)
+        let status = this.getAcbrlib().Reinf_SetIDTransmissor(this.getHandle(), idTransmissor)
         this._checkResult(status)
         return status
     }
@@ -125,7 +125,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      * @returns Código de status da operação
      */
     public setTipoContribuinte(tipoContribuinte: string): number {
-        let status = this.getAcbrlib().REINF_SetTipoContribuinte(this.getHandle(), tipoContribuinte)
+        let status = this.getAcbrlib().Reinf_SetTipoContribuinte(this.getHandle(), tipoContribuinte)
         this._checkResult(status)
         return status
     }
@@ -136,7 +136,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      * @returns Código de status da operação
      */
     public setVersaoDF(versao: string): number {
-        let status = this.getAcbrlib().REINF_SetVersaoDF(this.getHandle(), versao)
+        let status = this.getAcbrlib().Reinf_SetVersaoDF(this.getHandle(), versao)
         this._checkResult(status)
         return status
     }
@@ -147,7 +147,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      */
     public obterCertificados(): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.getAcbrlib().REINF_ObterCertificados(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        let status = this.getAcbrlib().Reinf_ObterCertificados(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
@@ -157,7 +157,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      * @returns Código de status da operação
      */
     public validar(): number {
-        let status = this.getAcbrlib().REINF_Validar(this.getHandle())
+        let status = this.getAcbrlib().Reinf_Validar(this.getHandle())
         this._checkResult(status)
         return status
     }
@@ -168,7 +168,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      */
     public enviarReinf(): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.getAcbrlib().REINF_EnviarReinf(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        let status = this.getAcbrlib().Reinf_EnviarReinf(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
@@ -180,7 +180,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      */
     public consultarReinf(protocolo: string): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.getAcbrlib().REINF_ConsultarReinf(this.getHandle(), protocolo, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        let status = this.getAcbrlib().Reinf_ConsultarReinf(this.getHandle(), protocolo, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
@@ -199,7 +199,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      */
     public consultarReciboReinf(perApur: string, tipoEvento: number, nrInscEstab: string, cnpjPrestador: string, nrInscTomador: string, dtApur: string, cpfCnpjBenef: string, cnpjFonte: string): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.getAcbrlib().REINF_ConsultarReciboReinf(this.getHandle(), perApur, tipoEvento, nrInscEstab, cnpjPrestador, nrInscTomador, dtApur, cpfCnpjBenef, cnpjFonte, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        let status = this.getAcbrlib().Reinf_ConsultarReciboReinf(this.getHandle(), perApur, tipoEvento, nrInscEstab, cnpjPrestador, nrInscTomador, dtApur, cpfCnpjBenef, cnpjFonte, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
@@ -210,7 +210,7 @@ export class ACBrLibReinfMT extends ACBrLibBaseMT {
      * @returns Código de status da operação
      */
     public criarEventoReinf(arqIni: string): number {
-        let status = this.getAcbrlib().REINF_CriarEventoReinf(this.getHandle(), arqIni)
+        let status = this.getAcbrlib().Reinf_CriarEventoReinf(this.getHandle(), arqIni)
         this._checkResult(status)
         return status
     }

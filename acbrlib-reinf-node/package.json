@@ -14,8 +14,9 @@
   "author": "",
   "license": "LGPL-2.1",
   "dependencies": {
-    "koffi": "^2.12.4",
-    "@projetoacbr/acbrlib-base-node":  "^1.0.1"
+    "@projetoacbr/acbrlib-base-node": "^1.0.1",
+    "@projetoacbr/acbrlib-reinf-node": "file:.yalc/@projetoacbr/acbrlib-reinf-node",
+    "koffi": "^2.12.2"
   },
   "devDependencies": {
     "@types/node": "^24.2.0",
