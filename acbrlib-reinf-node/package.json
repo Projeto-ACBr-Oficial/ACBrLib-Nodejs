@@ -1,7 +1,7 @@
 {
-  "name": "@projetoacbr/acbrlib-nfse-node",
-  "version": "1.0.2",
-  "description": "Classe de alto nivel para ACBrLibNFSe",
+  "name": "@projetoacbr/acbrlib-reinf-node",
+  "version": "1.0.0",
+  "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -14,10 +14,11 @@
   "author": "",
   "license": "LGPL-2.1",
   "dependencies": {
-    "@projetoacbr/acbrlib-dfe-node": "^1.0.0",
-    "koffi": "^2.12.0"
+    "koffi": "^2.12.4",
+    "@projetoacbr/acbrlib-base-node":  "^1.0.1"
   },
   "devDependencies": {
-    "@types/node": "^24.0.14"
+    "@types/node": "^24.2.0",
+    "typescript": "^5.9.2"
   }
 }

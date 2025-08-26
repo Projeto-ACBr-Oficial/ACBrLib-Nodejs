@@ -117,8 +117,6 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
         return this.getAcbrlib().NFE_LimparListaEventos(handle)
     }
 
-
-
     protected LIB_StatusServico(handle: any, buffer: any, refTamanho: any): number {
         return this.getAcbrlib().NFE_StatusServico(handle, buffer, refTamanho)
     }
@@ -131,29 +129,13 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
         return this.getAcbrlib().NFE_ConsultarRecibo(handle, recibo, buffer, refTamanho)
     }
 
-
-
-    // ===== IMPLEMENTAÇÃO DOS MÉTODOS ABSTRATOS DE ACBrLibDFeDistribuicaoMT =====
-
     protected LIB_GetPath(handle: any, tipo: number, buffer: any, refTamanho: any): number {
         return this.getAcbrlib().NFE_GetPath(handle, tipo, buffer, refTamanho)
     }
 
-    protected LIB_ConsultaCadastro(handle: any, cUF: string, nDocumento: string, nIE: boolean, buffer: any, refTamanho: any): number {
-        return this.getAcbrlib().NFE_ConsultaCadastro(handle, cUF, nDocumento, nIE, buffer, refTamanho)
-    }
 
-    protected LIB_ImprimirInutilizacao(handle: any, eArquivoXml: string): number {
-        return this.getAcbrlib().NFE_ImprimirInutilizacao(handle, eArquivoXml)
-    }
 
-    protected LIB_SalvarInutilizacaoPDF(handle: any, eArquivoXml: string): number {
-        return this.getAcbrlib().NFE_SalvarInutilizacaoPDF(handle, eArquivoXml)
-    }
 
-    protected LIB_ImprimirInutilizacaoPDF(handle: any, eArquivoXml: string): number {
-        return this.getAcbrlib().NFE_ImprimirInutilizacaoPDF(handle, eArquivoXml)
-    }
 
     protected LIB_Imprimir(handle: any, cImpressora: string, nNumCopias: number, cProtocolo: string, bMostrarPreview: string, cMarcaDagua: string, bViaConsumidor: string, bSimplificado: string): number {
         return this.getAcbrlib().NFE_Imprimir(handle, cImpressora, nNumCopias, cProtocolo, bMostrarPreview, cMarcaDagua, bViaConsumidor, bSimplificado)
@@ -174,8 +156,6 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
     protected LIB_SalvarEventoPDF(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento: string): number {
         return this.getAcbrlib().NFE_SalvarEventoPDF(handle, eArquivoXmlDocumento, eArquivoXmlEvento)
     }
-
-    // ===== IMPLEMENTAÇÃO DOS MÉTODOS ABSTRATOS DE ACBrLibDFeComum =====
 
     protected LIB_Assinar(handle: any): number {
         return this.getAcbrlib().NFE_Assinar(handle)
@@ -276,6 +256,18 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
 
     }
 
+    /**
+     * Método usado para inutilizar uma faixa de numeração de NFe
+     * @param CNPJ - CNPJ do emitente
+     * @param justificativa - Justificativa da inutilização
+     * @param ano - Ano de inutilização (formato YYYY)
+     * @param modelo - Modelo do documento (55 para NFe, 65 para NFCe)
+     * @param serie - Série do documento
+     * @param numeroInicial - Número inicial da faixa a ser inutilizada
+     * @param numeroFinal - Número final da faixa a ser inutilizada
+     * @returns XML de retorno da inutilização
+     * @see {@link https://acbr.sourceforge.io/ACBrLib/MetodosNFe.html | Documentação oficial ACBrLib NFe}
+     */
     public inutilizar(CNPJ: string, justificativa: string, ano: number, modelo: number, serie: number, numeroInicial: number, numeroFinal: number): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         let status = this.getAcbrlib().NFE_Inutilizar(this.getHandle(), CNPJ, justificativa, ano, modelo, serie, numeroInicial, numeroFinal, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
@@ -283,18 +275,51 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
         return this._processaResult(acbrBuffer)
     }
 
+    /**
+     * Método usado para consultar o cadastro de contribuintes
+     * @param cUF - Código da UF (2 dígitos)
+     * @param nDocumento - Número do documento (CNPJ ou CPF)
+     * @param nIE - Se true consulta por IE, se false consulta por CNPJ/CPF
+     * @returns XML de retorno da consulta de cadastro
+     * @see {@link https://acbr.sourceforge.io/ACBrLib/MetodosNFe.html | Documentação oficial ACBrLib NFe}
+     */
+    public consultaCadastro(cUF: string, nDocumento: string, nIE: boolean): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFE_ConsultaCadastro(this.getHandle(), cUF, nDocumento, nIE, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para imprimir o protocolo de inutilização
+     * @param eArquivoXml - Caminho do arquivo XML de inutilização
+     * @returns Código de status da operação (0 = sucesso)
+     * @see {@link https://acbr.sourceforge.io/ACBrLib/MetodosNFe.html | Documentação oficial ACBrLib NFe}
+     */
     public imprimirInutilizacao(eArquivoXml: string): number {
         let status = this.getAcbrlib().NFE_ImprimirInutilizacao(this.getHandle(), eArquivoXml)
         this._checkResult(status)
         return status
     }
 
+    /**
+     * Método usado para imprimir o protocolo de inutilização em PDF
+     * @param eArquivoXml - Caminho do arquivo XML de inutilização
+     * @returns Código de status da operação (0 = sucesso)
+     * @see {@link https://acbr.sourceforge.io/ACBrLib/MetodosNFe.html | Documentação oficial ACBrLib NFe}
+     */
     public imprimirInutilizacaoPDF(eArquivoXml: string): number {
         let status = this.getAcbrlib().NFE_ImprimirInutilizacaoPDF(this.getHandle(), eArquivoXml)
         this._checkResult(status)
         return status
     }
 
+    /**
+     * Método usado para salvar o protocolo de inutilização em PDF
+     * @param eArquivoXml - Caminho do arquivo XML de inutilização
+     * @returns Código de status da operação (0 = sucesso)
+     * @see {@link https://acbr.sourceforge.io/ACBrLib/MetodosNFe.html | Documentação oficial ACBrLib NFe}
+     */
     public salvarInutilizacaoPDF(eArquivoXml: string): number {
         let status = this.getAcbrlib().NFE_SalvarInutilizacaoPDF(this.getHandle(), eArquivoXml)
         this._checkResult(status)

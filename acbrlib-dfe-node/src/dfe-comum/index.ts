@@ -20,6 +20,8 @@ export default abstract class ACBrLibDFeComum extends ACBrLibBaseMT {
     protected abstract LIB_CarregarINI(handle: any, arquivoINI: string): number
     protected abstract LIB_ObterXml(handle: any, indice: number, buffer: any, refTamanho: any): number
     protected abstract LIB_ObterIni(handle: any, indice: number, buffer: any, refTamanho: any): number
+    protected abstract LIB_GravarXml(handle: any, indice: number, nomeArquivo: string, caminhoArquivo: string): number
+    protected abstract LIB_GravarIni(handle: any, indice: number, nomeArquivo: string, caminhoArquivo: string): number
     protected abstract LIB_LimparLista(handle: any): number
 
     // 🔐 Segurança (específicos de DFe)
@@ -29,21 +31,39 @@ export default abstract class ACBrLibDFeComum extends ACBrLibBaseMT {
     protected abstract LIB_ImprimirPDF(handle: any): number
     protected abstract LIB_SalvarPDF(handle: any, buffer: any, refTamanho: any): number
 
+    // 📧 Email (específicos de DFe)
+    protected abstract LIB_EnviarEmail(handle: any, ePara: string, eXMLDocumento: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number
+
     // ===== IMPLEMENTAÇÕES CONCRETAS DOS MÉTODOS COMUNS DE DFe =====
 
     // 📄 Manipulação de Arquivos
+    /**
+     * Carrega um arquivo XML de documento fiscal para processamento
+     * @param arquivoXML - Caminho do arquivo XML ou conteúdo XML do documento
+     * @returns Código de status da operação (0 = sucesso, outros = erro)
+     */
     public carregarXML(arquivoXML: string): number {
         const status = this.LIB_CarregarXML(this.getHandle(), arquivoXML)
         this._checkResult(status)
         return status
     }
 
+    /**
+     * Carrega um arquivo INI de documento fiscal para processamento
+     * @param arquivoINI - Caminho do arquivo INI ou conteúdo INI do documento
+     * @returns Código de status da operação (0 = sucesso, outros = erro)
+     */
     public carregarINI(arquivoINI: string): number {
         const status = this.LIB_CarregarINI(this.getHandle(), arquivoINI)
         this._checkResult(status)
         return status
     }
 
+    /**
+     * Obtém o conteúdo XML de um documento fiscal específico da lista
+     * @param indice - Índice do documento na lista (baseado em 0)
+     * @returns String contendo o XML do documento
+     */
     public obterXml(indice: number): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         const status = this.LIB_ObterXml(this.getHandle(), indice, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
@@ -51,6 +71,11 @@ export default abstract class ACBrLibDFeComum extends ACBrLibBaseMT {
         return this._processaResult(acbrBuffer)
     }
 
+    /**
+     * Obtém o conteúdo INI de um documento fiscal específico da lista
+     * @param indice - Índice do documento na lista (baseado em 0)
+     * @returns String contendo o INI do documento
+     */
     public obterIni(indice: number): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         const status = this.LIB_ObterIni(this.getHandle(), indice, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
@@ -58,6 +83,36 @@ export default abstract class ACBrLibDFeComum extends ACBrLibBaseMT {
         return this._processaResult(acbrBuffer)
     }
 
+    /**
+     * Grava o XML de um documento fiscal em arquivo
+     * @param indice - Índice do documento na lista (baseado em 0)
+     * @param nomeArquivo - Nome do arquivo a ser criado
+     * @param caminhoArquivo - Caminho onde o arquivo será salvo
+     * @returns Código de status da operação (0 = sucesso, outros = erro)
+     */
+    public gravarXml(indice: number, nomeArquivo: string, caminhoArquivo: string): number {
+        const status = this.LIB_GravarXml(this.getHandle(), indice, nomeArquivo, caminhoArquivo)
+        this._checkResult(status)
+        return status
+    }
+
+    /**
+     * Grava o INI de um documento fiscal em arquivo
+     * @param indice - Índice do documento na lista (baseado em 0)
+     * @param nomeArquivo - Nome do arquivo a ser criado
+     * @param caminhoArquivo - Caminho onde o arquivo será salvo
+     * @returns Código de status da operação (0 = sucesso, outros = erro)
+     */
+    public gravarIni(indice: number, nomeArquivo: string, caminhoArquivo: string): number {
+        const status = this.LIB_GravarIni(this.getHandle(), indice, nomeArquivo, caminhoArquivo)
+        this._checkResult(status)
+        return status
+    }
+
+    /**
+     * Limpa a lista de documentos fiscais
+     * @returns Código de status da operação (0 = sucesso, outros = erro)
+     */
     public limparLista(): number {
         const status = this.LIB_LimparLista(this.getHandle())
         this._checkResult(status)
@@ -65,6 +120,10 @@ export default abstract class ACBrLibDFeComum extends ACBrLibBaseMT {
     }
 
     // 🔐 Segurança
+    /**
+     * Obtém informações sobre os certificados digitais disponíveis
+     * @returns String contendo informações dos certificados (formato XML)
+     */
     public obterCertificados(): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         const status = this.LIB_ObterCertificados(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
@@ -73,17 +132,43 @@ export default abstract class ACBrLibDFeComum extends ACBrLibBaseMT {
     }
 
     // 🖨️ Impressão
+    /**
+     * Imprime o documento fiscal em PDF na impressora padrão
+     * @returns Código de status da operação (0 = sucesso, outros = erro)
+     */
     public imprimirPDF(): number {
         const status = this.LIB_ImprimirPDF(this.getHandle())
         this._checkResult(status)
         return status
     }
 
+    /**
+     * Salva o documento fiscal em arquivo PDF
+     * @returns String contendo o caminho do arquivo PDF gerado
+     */
     public salvarPDF(): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         const status = this.LIB_SalvarPDF(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
+    }
+
+    // 📧 Email
+    /**
+     * Envia o documento fiscal por email
+     * @param ePara - Endereço de email do destinatário
+     * @param eXMLDocumento - XML do documento a ser enviado
+     * @param enviaPDF - Se deve anexar o PDF do documento
+     * @param eAssunto - Assunto do email
+     * @param eCC - Endereços de email em cópia (separados por vírgula)
+     * @param eAnexos - Caminhos de arquivos adicionais para anexar
+     * @param eMensagem - Mensagem personalizada do email
+     * @returns Código de status da operação (0 = sucesso, outros = erro)
+     */
+    public enviarEmail(ePara: string, eXMLDocumento: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number {
+        const status = this.LIB_EnviarEmail(this.getHandle(), ePara, eXMLDocumento, enviaPDF, eAssunto, eCC, eAnexos, eMensagem)
+        this._checkResult(status)
+        return status
     }
 
 } 

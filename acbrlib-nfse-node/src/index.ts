@@ -257,22 +257,7 @@ class ACBrLibNFSeMT extends ACBrLibDFeComum {
         return this._processaResult(acbrBuffer)
     }
 
-    /**
-     * Método usado para enviar e-mail da NFSe
-     * @param destinatario - Endereço de e-mail do destinatário
-     * @param xml - XML da NFSe
-     * @param anexarPDF - Se true gera o PDF e anexa ao e-mail
-     * @param assunto - Assunto do e-mail
-     * @param mensagem - Mensagem do e-mail
-     * @param cc - Endereços de e-mail em cópia (separados por ponto e vírgula)
-     * @param anexo - Caminho de arquivos adicionais para anexar (separados por ponto e vírgula)
-     * @returns Código de status da operação
-     */
-    public enviarEmailNFSe(destinatario: string, xml: string, anexarPDF: boolean, assunto: string, mensagem: string, cc: string, anexo: string): number {
-        let status = this.getAcbrlib().NFSE_EnviarEmail(this.getHandle(), destinatario, xml, anexarPDF, assunto, mensagem, cc, anexo)
-        this._checkResult(status)
-        return status
-    }
+
 
     /**
      * Método usado para imprimir NFSe
@@ -289,6 +274,238 @@ class ACBrLibNFSeMT extends ACBrLibDFeComum {
         return status
     }
 
+    /**
+     * Método usado para consultar situação da NFSe
+     * @param xml - XML da NFSe
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarSituacao(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarSituacao(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar lote de RPS
+     * @param protocolo - Protocolo de autorização
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarLoteRPS(protocolo: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarLoteRps(this.getHandle(), protocolo, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar NFSe por RPS
+     * @param xml - XML da NFSe
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSePorRPS(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSePorRps(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    // ===== MÉTODOS DE CONSULTA ADICIONAIS =====
+
+    /**
+     * Método usado para consultar NFSe por faixa
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSePorFaixa(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSePorFaixa(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consulta genérica de NFSe
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSeGenerico(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSeGenerico(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    // ===== MÉTODOS DE CONSULTA DE SERVIÇOS PRESTADOS =====
+
+    /**
+     * Método usado para consultar NFSe de serviços prestados por número
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSeServicoPrestadoPorNumero(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSeServicoPrestadoPorNumero(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar NFSe de serviços prestados por período
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSeServicoPrestadoPorPeriodo(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSeServicoPrestadoPorPeriodo(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar NFSe de serviços prestados por tomador
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSeServicoPrestadoPorTomador(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSeServicoPrestadoPorTomador(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar NFSe de serviços prestados por intermediário
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSeServicoPrestadoPorIntermediario(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSeServicoPrestadoPorIntermediario(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    // ===== MÉTODOS DE CONSULTA DE SERVIÇOS TOMADOS =====
+
+    /**
+     * Método usado para consultar NFSe de serviços tomados por número
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSeServicoTomadoPorNumero(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSeServicoTomadoPorNumero(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar NFSe de serviços tomados por prestador
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSeServicoTomadoPorPrestador(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSeServicoTomadoPorPrestador(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar NFSe de serviços tomados por tomador
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSeServicoTomadoPorTomador(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSeServicoTomadoPorTomador(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar NFSe de serviços tomados por período
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSeServicoTomadoPorPeriodo(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSeServicoTomadoPorPeriodo(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar NFSe de serviços tomados por intermediário
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSeServicoTomadoPorIntermediario(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSeServicoTomadoPorIntermediario(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    // ===== MÉTODOS DE CONSULTA ADICIONAIS =====
+
+    /**
+     * Método usado para consultar DPS por chave
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarDPSPorChave(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarDPSPorChave(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar NFSe por chave
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarNFSePorChave(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarNFSePorChave(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar evento
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarEvento(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarEvento(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar DFe
+     * @param xml - XML da consulta
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarDFe(xml: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ConsultarDFe(this.getHandle(), xml, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+
+
+    // ===== MÉTODOS DE MANIPULAÇÃO DE ARQUIVOS =====
+
+
+
+
+    
     // ===== MÉTODO DE VERIFICAÇÃO DE ERROS =====
 
     _checkResult(result: number): void {

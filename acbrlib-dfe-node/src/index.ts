@@ -212,6 +212,21 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
         return this._processaResult(acbrBuffer)
     }
 
+    /**
+     * Método usado para cancelar o documento
+     * @param chave - Chave do documento
+     * @param justificativa - Justificativa do cancelamento
+     * @param CNPJ - CNPJ do autorizador
+     * @param lote - Número do lote
+     * @returns String contendo o resultado do cancelamento
+     */
+    public cancelar(chave: string, justificativa: string, CNPJ: string, lote: number): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.LIB_Cancelar(this.getHandle(), chave, justificativa, CNPJ, lote, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
     // ===== MÉTODOS PARA IMPRESSÃO DE EVENTOS =====
 
     /**
@@ -266,6 +281,24 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
      */
     public enviarEmail(ePara: string, eXMLDocumento: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number {
         const status = this.LIB_EnviarEmail(this.getHandle(), ePara, eXMLDocumento, enviaPDF, eAssunto, eCC, eAnexos, eMensagem)
+        this._checkResult(status)
+        return status
+    }
+
+    /**
+     * Método usado para enviar e-mail de evento
+     * @param ePara - Endereço de e-mail do destinatário
+     * @param eChaveEvento - Chave do evento
+     * @param eChaveDocumento - Chave do documento
+     * @param enviaPDF - Se true gera o PDF e anexa ao e-mail
+     * @param eAssunto - Assunto do e-mail
+     * @param eCC - Endereços de e-mail em cópia (separados por ponto e vírgula)
+     * @param eAnexos - Caminho de arquivos adicionais para anexar (separados por ponto e vírgula)
+     * @param eMensagem - Mensagem do e-mail
+     * @returns Código de status da operação
+     */
+    public enviarEmailEvento(ePara: string, eChaveEvento: string, eChaveDocumento: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number {
+        const status = this.LIB_EnviarEmailEvento(this.getHandle(), ePara, eChaveEvento, eChaveDocumento, enviaPDF, eAssunto, eCC, eAnexos, eMensagem)
         this._checkResult(status)
         return status
     }
