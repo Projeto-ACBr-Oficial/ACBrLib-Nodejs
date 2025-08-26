@@ -31,7 +31,6 @@ jobs:
       - name: Publish acbrlib-cep-node
         working-directory: acbrlib-cep-node
         run: |
-          npm version patch
           npm publish --access public
 
         env:
