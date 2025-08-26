@@ -1,6 +1,6 @@
 {
   "name": "@projetoacbr/acbrlib-dfe-node",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -27,7 +27,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@projetoacbr/acbrlib-base-node": "^1.0.0",
+    "@projetoacbr/acbrlib-base-node": "^1.0.4",
     "koffi": "^2.12.0"
   }
 }
