@@ -14,7 +14,7 @@
   "author": "",
   "license": "LGPL-2.1",
   "dependencies": {
-    "@projetoacbr/acbrlib-base-node": "^1.0.3",
+    "@projetoacbr/acbrlib-base-node": "^1.0.4",
     "koffi": "^2.12.2"
   },
   "devDependencies": {

@@ -27,7 +27,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@projetoacbr/acbrlib-base-node": "^1.0.0",
+    "@projetoacbr/acbrlib-base-node": "^1.0.4",
     "koffi": "^2.12.0"
   }
 }
