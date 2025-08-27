@@ -1,6 +1,6 @@
 {
   "name": "@projetoacbr/acbrlib-reinf-node",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,7 +14,7 @@
   "author": "",
   "license": "LGPL-2.1",
   "dependencies": {
-    "@projetoacbr/acbrlib-base-node": "^1.0.4",
+    "@projetoacbr/acbrlib-base-node": "latest",
     "koffi": "^2.12.2"
   },
   "devDependencies": {
