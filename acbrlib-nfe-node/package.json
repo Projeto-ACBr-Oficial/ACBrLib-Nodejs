@@ -1,6 +1,6 @@
 {
   "name": "@projetoacbr/acbrlib-nfe-node",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "classe de alto nivel para carregar a  acbrlibnfe",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,7 +16,7 @@
   "author": "",
   "license": "LGPL-2.1",
   "dependencies": {
-    "@projetoacbr/acbrlib-dfe-node": "^1.0.0",
+    "@projetoacbr/acbrlib-dfe-node": "latest",
     "koffi": "^2.12.0"
   },
   "devDependencies": {
