@@ -47,21 +47,9 @@ export interface TypeACBrPIXCD {
     PIXCD_RevisarCobranca: (handle: any, AInfCobVRevisada: string, ATxId: string, sResposta: Buffer, esTamanho: any) => number;
     PIXCD_CancelarCobranca: (handle: any, ATxId: string, sResposta: Buffer, esTamanho: any) => number;
 
+   
     // Métodos específicos do Matera
-    PIXCD_Matera_IncluirConta: (handle: any, aInfIncluirConta: string, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_ConsultarConta: (handle: any, aAccountId: string, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_InativarConta: (handle: any, aAccountId: string, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_IncluirChavePix: (handle: any, aAccountId: string, aExternalID: string, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_ConsultarChavePix: (handle: any, aAccountId: string, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_ExcluirChavePix: (handle: any, aAccountId: string, aChavePIX: string, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_GerarQRCode: (handle: any, aInfQRCode: string, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_ConsultarTransacao: (handle: any, aAccountId: string, aTransactionID: string, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_ConsultarSaldoEC: (handle: any, aAccountId: string, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_ConsultarExtratoEC: (handle: any, aAccountId: string, aInicio: number, aFim: number, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_ConsultarMotivosDevolucao: (handle: any, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_SolicitarDevolucao: (handle: any, aInfSolicitarDevolucao: string, aAccountId: string, aTransactionID: string, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_ConsultarAliasRetirada: (handle: any, aAccountId: string, aAlias: string, sResposta: Buffer, esTamanho: any) => number;
-    PIXCD_Matera_SolicitarRetirada: (handle: any, aInfSolicitarRetirada: string, aAccountId: string, sResposta: Buffer, esTamanho: any) => number;
+
 }
 
 
@@ -113,23 +101,6 @@ export default class ACBrLibPixCDBridge {
             PIXCD_ConsultarCobrancasCobV: acbrpixcd.func('PIXCD_ConsultarCobrancasCobV', 'int', ['void *', 'double', 'double', 'string', 'bool', 'int', 'int', 'int', 'char*', 'int*']),
             PIXCD_RevisarCobranca: acbrpixcd.func('PIXCD_RevisarCobranca', 'int', ['void *', 'string', 'string', 'char*', 'int*']),
             PIXCD_CancelarCobranca: acbrpixcd.func('PIXCD_CancelarCobranca', 'int', ['void *', 'string', 'char*', 'int*']),
-
-            // Métodos específicos do Matera
-            PIXCD_Matera_IncluirConta: acbrpixcd.func('PIXCD_Matera_IncluirConta', 'int', ['void *', 'string', 'char*', 'int*']),
-            PIXCD_Matera_ConsultarConta: acbrpixcd.func('PIXCD_Matera_ConsultarConta', 'int', ['void *', 'string', 'char*', 'int*']),
-            PIXCD_Matera_InativarConta: acbrpixcd.func('PIXCD_Matera_InativarConta', 'int', ['void *', 'string', 'char*', 'int*']),
-            PIXCD_Matera_IncluirChavePix: acbrpixcd.func('PIXCD_Matera_IncluirChavePix', 'int', ['void *', 'string', 'string', 'char*', 'int*']),
-            PIXCD_Matera_ConsultarChavePix: acbrpixcd.func('PIXCD_Matera_ConsultarChavePix', 'int', ['void *', 'string', 'char*', 'int*']),
-            PIXCD_Matera_ExcluirChavePix: acbrpixcd.func('PIXCD_Matera_ExcluirChavePix', 'int', ['void *', 'string', 'string', 'char*', 'int*']),
-            PIXCD_Matera_GerarQRCode: acbrpixcd.func('PIXCD_Matera_GerarQRCode', 'int', ['void *', 'string', 'char*', 'int*']),
-            PIXCD_Matera_ConsultarTransacao: acbrpixcd.func('PIXCD_Matera_ConsultarTransacao', 'int', ['void *', 'string', 'string', 'char*', 'int*']),
-            PIXCD_Matera_ConsultarSaldoEC: acbrpixcd.func('PIXCD_Matera_ConsultarSaldoEC', 'int', ['void *', 'string', 'char*', 'int*']),
-            PIXCD_Matera_ConsultarExtratoEC: acbrpixcd.func('PIXCD_Matera_ConsultarExtratoEC', 'int', ['void *', 'string', 'double', 'double', 'char*', 'int*']),
-            PIXCD_Matera_ConsultarMotivosDevolucao: acbrpixcd.func('PIXCD_Matera_ConsultarMotivosDevolucao', 'int', ['void *', 'char*', 'int*']),
-            PIXCD_Matera_SolicitarDevolucao: acbrpixcd.func('PIXCD_Matera_SolicitarDevolucao', 'int', ['void *', 'string', 'string', 'string', 'char*', 'int*']),
-            PIXCD_Matera_ConsultarAliasRetirada: acbrpixcd.func('PIXCD_Matera_ConsultarAliasRetirada', 'int', ['void *', 'string', 'string', 'char*', 'int*']),
-            PIXCD_Matera_SolicitarRetirada: acbrpixcd.func('PIXCD_Matera_SolicitarRetirada', 'int', ['void *', 'string', 'string', 'char*', 'int*']),
-
         } as TypeACBrPIXCD;
 
     }
