@@ -20,14 +20,48 @@ npm install @projetoacbr/acbrlib-cep-node
 
 ## 📖 Como Usar
 
-### Importação
+### 🎯 Importação
+
+#### 📝 TypeScript (Recomendado)
+
+```typescript
+// Importa a classe ACBrLibCepMT oficial conforme documentação
+import ACBrLibCepMT from "@projetoacbr/acbrlib-cep-node/dist/src";
+```
+
+**⚙️ Configuração tsconfig.json recomendada:**
+```json
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
+```
+
+#### 🔧 JavaScript/CommonJS
 
 ```javascript
 const ACBrLibCepMT = require('@projetoacbr/acbrlib-cep-node/dist/src').default
 ```
 
-### Uso Básico
+### 🔧 Uso Básico
 
+#### TypeScript
+```typescript
+const acbrCep = new ACBrLibCepMT(
+    './libacbrcep64.so',    // Linux
+    // './ACBrCEP64.dll', // Windows
+    './acbrlib.ini',
+    '12345678'
+)
+```
+
+#### JavaScript/CommonJS
 ```javascript
 const acbrCep = new ACBrLibCepMT(
     './libacbrcep64.so',    // Linux

@@ -50,7 +50,36 @@ npm install @projetoacbr/acbrlib-cep-node
 
 ### 🎯 Importação das Classes
 
-Todas as classes principais são exportadas como **default**. Para melhor compatibilidade, use o formato CommonJS:
+#### 📝 TypeScript (Recomendado)
+
+Para projetos TypeScript, use a importação ES6 com suporte completo a tipos:
+
+```typescript
+// ✅ TypeScript - Importação recomendada
+// Importa a classe ACBrLibNFeMT oficial conforme documentação
+import ACBrLibNFeMT from "@projetoacbr/acbrlib-nfe-node/dist/src";
+import ACBrLibMDFeMT from "@projetoacbr/acbrlib-mdfe-node/dist/src";
+import ACBrLibNFSeMT from "@projetoacbr/acbrlib-nfse-node/dist/src";
+import ACBrLibCepMT from "@projetoacbr/acbrlib-cep-node/dist/src";
+```
+
+**⚙️ Configuração tsconfig.json recomendada:**
+```json
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
+```
+
+#### 🔧 JavaScript/CommonJS
+
+Para projetos JavaScript ou compatibilidade com CommonJS:
 
 ```javascript
 // ✅ Forma correta (recomendada) - CommonJS
@@ -62,6 +91,19 @@ const ACBrLibCepMT = require('@projetoacbr/acbrlib-cep-node/dist/src').default
 
 ### 🔧 Configuração Básica
 
+#### TypeScript
+```typescript
+import ACBrLibNFeMT from "@projetoacbr/acbrlib-nfe-node/dist/src";
+
+const acbrNFe = new ACBrLibNFeMT(
+    '/caminho/para/libacbrnfe64.so', // Linux
+    // '/caminho/para/ACBrNFe64.dll', // Windows
+    '/caminho/para/acbrlib.ini',
+    'chave-criptografia'
+)
+```
+
+#### JavaScript/CommonJS
 ```javascript
 const ACBrLibNFeMT = require('@projetoacbr/acbrlib-nfe-node/dist/src').default
 

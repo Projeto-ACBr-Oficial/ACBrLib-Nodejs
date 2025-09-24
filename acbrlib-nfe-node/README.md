@@ -20,14 +20,48 @@ npm install @projetoacbr/acbrlib-nfe-node
 
 ## 📖 Como Usar
 
-### Importação
+### 🎯 Importação
+
+#### 📝 TypeScript (Recomendado)
+
+```typescript
+// Importa a classe ACBrLibNFeMT oficial conforme documentação
+import ACBrLibNFeMT from "@projetoacbr/acbrlib-nfe-node/dist/src";
+```
+
+**⚙️ Configuração tsconfig.json recomendada:**
+```json
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
+```
+
+#### 🔧 JavaScript/CommonJS
 
 ```javascript
 const ACBrLibNFeMT = require('@projetoacbr/acbrlib-nfe-node/dist/src').default
 ```
 
-### Uso Básico
+### 🔧 Uso Básico
 
+#### TypeScript
+```typescript
+const acbrNFe = new ACBrLibNFeMT(
+    './libacbrnfe64.so',    // Linux
+    // './ACBrNFe64.dll', // Windows
+    './acbrlib.ini',
+    '12345678'
+)
+```
+
+#### JavaScript/CommonJS
 ```javascript
 const acbrNFe = new ACBrLibNFeMT(
     './libacbrnfe64.so',    // Linux

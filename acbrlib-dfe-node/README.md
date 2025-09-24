@@ -20,7 +20,30 @@ npm install @projetoacbr/acbrlib-dfe-node
 
 ## 📖 Como Usar
 
-### Importação
+### 🎯 Importação
+
+#### 📝 TypeScript (Recomendado)
+
+```typescript
+// Importa a classe ACBrLibDFeComum oficial conforme documentação
+import ACBrLibDFeComum from "@projetoacbr/acbrlib-dfe-node/dist/src/dfe-comum";
+```
+
+**⚙️ Configuração tsconfig.json recomendada:**
+```json
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
+```
+
+#### 🔧 JavaScript/CommonJS
 
 ```javascript
 const ACBrLibDFeComum = require('@projetoacbr/acbrlib-dfe-node/dist/src/dfe-comum').default
