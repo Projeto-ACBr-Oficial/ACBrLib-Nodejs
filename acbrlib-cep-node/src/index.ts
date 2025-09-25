@@ -73,7 +73,7 @@ export default class ACBrLibCepMT extends ACBrLibBaseMT {
 
     public buscarPorLogradouro(logradouro: string, numero: string, complemento: string, bairro: string, cidade: string): string{
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.getAcbrlib().CEP_BuscarPorLogradouro(this.getHandle(), logradouro, numero, complemento, bairro, cidade, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        let status = this.getAcbrlib().CEP_BuscarPorLogradouro(this.getHandle(), cidade, tipoLogradouro, logradouro, uf, bairro, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }

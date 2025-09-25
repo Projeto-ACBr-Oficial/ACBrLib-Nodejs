@@ -15,7 +15,7 @@ export interface TypeACBrCepMT {
     CEP_ConfigImportar: (handle: any, arqConfig: string) => number
     CEP_ConfigExportar: (handle: any, configuracoes: Buffer, refTamanho: any) => number
     CEP_BuscarPorCEP: (handle: any, cep: string, mensagem: Buffer, refTamanho: any) => number
-    CEP_BuscarPorLogradouro: (handle: any, logradouro: string, numero: string, complemento: string, bairro: string, cidade: string, mensagem: Buffer, refTamanho: any) => number
+    CEP_BuscarPorLogradouro: (handle: any, cidade: string, tipoLogradouro: string, logradouro: string, uf: string, bairro: string, mensagem: Buffer, refTamanho: any) => number
 }
 
 export default class ACBrLibCEPBridgeMT {
