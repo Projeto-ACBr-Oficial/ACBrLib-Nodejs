@@ -64,6 +64,11 @@ export default class ACBrLibCepMT extends ACBrLibBaseMT {
         super(new ACBrLibCEPBridgeMT(libraryPath).getAcbrNativeLib(), arquivoConfig, chaveCrypt)
     }
 
+    /**
+     * Método usado para realizar uma consulta pelo numero do CEP no componente ACBrCEP.
+     * @param cep CEP a ser buscado
+     * @returns String contendo o resultado da consultas
+     */
     public buscarPorCep(cep: string): string{
         using responseBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         let status = this.getAcbrlib().CEP_BuscarPorCEP(this.getHandle(), cep, responseBuffer.getBuffer(), responseBuffer.getRefTamanhoBuffer())
@@ -71,7 +76,16 @@ export default class ACBrLibCepMT extends ACBrLibBaseMT {
         return this._processaResult(responseBuffer)
     }
 
-    public buscarPorLogradouro(logradouro: string, numero: string, complemento: string, bairro: string, cidade: string): string{
+    /**
+     * Método usado para realizar uma consulta pelo numero do CEP no componente ACBrCEP.
+     * @param cidade Cidade a ser buscado
+     * @param tipoLogradouro Tipo de logradouro a ser buscado
+     * @param logradouro Logradouro a ser buscado
+     * @param bairro Bairro do endereço a ser buscado
+     * @param uf UF do endereço a ser buscado
+     * @returns String contendo o resultado da consulta
+     */
+    public buscarPorLogradouro(cidade: string, tipoLogradouro: string, logradouro: string, uf: string, bairro: string): string{
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         let status = this.getAcbrlib().CEP_BuscarPorLogradouro(this.getHandle(), cidade, tipoLogradouro, logradouro, uf, bairro, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
