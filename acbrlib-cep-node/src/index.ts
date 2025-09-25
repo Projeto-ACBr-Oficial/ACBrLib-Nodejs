@@ -4,6 +4,12 @@ import { TypeACBrCepMT } from "./bridge";
 import { ACBrLibResultCodes } from '@projetoacbr/acbrlib-base-node/dist/src/exception/ACBrLibResultCodes';
 import ACBrBuffer, { TAMANHO_PADRAO } from '@projetoacbr/acbrlib-base-node/dist/src/ACBrBuffer';
 
+
+/**
+ * ACBrLibCepMT é uma classe de alto nível que abstrai os métodos da ACBrLibCep Multi-thread
+ * Esta classe permite que programadores de javascript/typescript usem a ACBrLibCep sem grandes preocupações.
+ * Windows: use a convenção cdecl
+ */
 export default class ACBrLibCepMT extends ACBrLibBaseMT {
 
     public getAcbrlib(): TypeACBrCepMT;
@@ -59,6 +65,13 @@ export default class ACBrLibCepMT extends ACBrLibBaseMT {
     protected LIB_OpenSSLInfo(handle: any, configuracoes: Buffer, refTamanho: any): number {
         return this.getAcbrlib().CEP_OpenSSLInfo(handle, configuracoes, refTamanho)
     }
+
+    /**
+     * 
+     * @param libraryPath é o caminho da biblioteca acbrlibcep (*.so ou *.dll), windows use a convenção cdecl
+     * @param arquivoConfig Localização do arquivo INI, pode ser em branco neste caso o ACBrLib vai criar um novo arquivo INI.
+     * @param chaveCrypt Chave de segurança para criptografar as informações confidencias, pode ser em branco neste caso será usado a senha padrão.
+     */
 
     constructor(libraryPath: string, arquivoConfig: string, chaveCrypt: string) {
         super(new ACBrLibCEPBridgeMT(libraryPath).getAcbrNativeLib(), arquivoConfig, chaveCrypt)

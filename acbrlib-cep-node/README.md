@@ -120,5 +120,5 @@ LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 ---
 
 **ACBrLib CEP Node** - Interface Node.js para ACBrLibCEP  
-**Versão**: 1.0.5  
+**Versão**: 1.0.6  
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)
