@@ -65,9 +65,8 @@ export default class ACBrLibCepMT extends ACBrLibBaseMT {
     }
 
     public buscarPorCep(cep: string): string{
-        let strBuffer = Buffer.from(cep, 'utf8')
         using responseBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.getAcbrlib().CEP_BuscarPorCEP(this.getHandle(), strBuffer, responseBuffer.getBuffer(), responseBuffer.getRefTamanhoBuffer())
+        let status = this.getAcbrlib().CEP_BuscarPorCEP(this.getHandle(), cep, responseBuffer.getBuffer(), responseBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(responseBuffer)
     }
