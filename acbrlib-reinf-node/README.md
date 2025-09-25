@@ -31,8 +31,55 @@ npm install @projetoacbr/acbrlib-reinf-node
 
 ## 🚀 Uso Básico
 
+### 🎯 Importação
+
+#### 📝 TypeScript (Recomendado)
+
+```typescript
+// Importa a classe ACBrLibReinfMT oficial conforme documentação
+import ACBrLibReinfMT from "@projetoacbr/acbrlib-reinf-node/dist/src";
+```
+
+**⚙️ Configuração tsconfig.json recomendada:**
+```json
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
+```
+
+#### 🔧 JavaScript/CommonJS
+
 ```javascript
-const ACBrLibReinfMT = require('@projetoacbr/acbrlib-reinf-node').default;
+const ACBrLibReinfMT = require('@projetoacbr/acbrlib-reinf-node/dist/src').default;
+```
+
+### 🔧 Configuração e Uso
+
+#### TypeScript
+```typescript
+const acbrReinf = new ACBrLibReinfMT(
+    './libacbrreinf64.so',    // Linux
+    // './ACBrReinf64.dll', // Windows
+    './acbrlib.ini',
+    '12345678'
+)
+```
+
+#### JavaScript/CommonJS
+```javascript
+const acbrReinf = new ACBrLibReinfMT(
+    './libacbrreinf64.so',    // Linux
+    // './ACBrReinf64.dll', // Windows
+    './acbrlib.ini',
+    '12345678'
+)
 ```
 
 ## 🔧 Principais Funcionalidades

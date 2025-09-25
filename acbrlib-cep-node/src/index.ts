@@ -4,6 +4,12 @@ import { TypeACBrCepMT } from "./bridge";
 import { ACBrLibResultCodes } from '@projetoacbr/acbrlib-base-node/dist/src/exception/ACBrLibResultCodes';
 import ACBrBuffer, { TAMANHO_PADRAO } from '@projetoacbr/acbrlib-base-node/dist/src/ACBrBuffer';
 
+
+/**
+ * ACBrLibCepMT é uma classe de alto nível que abstrai os métodos da ACBrLibCep Multi-thread
+ * Esta classe permite que programadores de javascript/typescript usem a ACBrLibCep sem grandes preocupações.
+ * Windows: use a convenção cdecl
+ */
 export default class ACBrLibCepMT extends ACBrLibBaseMT {
 
     public getAcbrlib(): TypeACBrCepMT;
@@ -60,21 +66,41 @@ export default class ACBrLibCepMT extends ACBrLibBaseMT {
         return this.getAcbrlib().CEP_OpenSSLInfo(handle, configuracoes, refTamanho)
     }
 
+    /**
+     * 
+     * @param libraryPath é o caminho da biblioteca acbrlibcep (*.so ou *.dll), windows use a convenção cdecl
+     * @param arquivoConfig Localização do arquivo INI, pode ser em branco neste caso o ACBrLib vai criar um novo arquivo INI.
+     * @param chaveCrypt Chave de segurança para criptografar as informações confidencias, pode ser em branco neste caso será usado a senha padrão.
+     */
+
     constructor(libraryPath: string, arquivoConfig: string, chaveCrypt: string) {
         super(new ACBrLibCEPBridgeMT(libraryPath).getAcbrNativeLib(), arquivoConfig, chaveCrypt)
     }
 
+    /**
+     * Método usado para realizar uma consulta pelo numero do CEP no componente ACBrCEP.
+     * @param cep CEP a ser buscado
+     * @returns String contendo o resultado da consultas
+     */
     public buscarPorCep(cep: string): string{
-        let strBuffer = Buffer.from(cep, 'utf8')
         using responseBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.getAcbrlib().CEP_BuscarPorCEP(this.getHandle(), strBuffer, responseBuffer.getBuffer(), responseBuffer.getRefTamanhoBuffer())
+        let status = this.getAcbrlib().CEP_BuscarPorCEP(this.getHandle(), cep, responseBuffer.getBuffer(), responseBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(responseBuffer)
     }
 
-    public buscarPorLogradouro(logradouro: string, numero: string, complemento: string, bairro: string, cidade: string): string{
+    /**
+     * Método usado para realizar uma consulta pelo numero do CEP no componente ACBrCEP.
+     * @param cidade Cidade a ser buscado
+     * @param tipoLogradouro Tipo de logradouro a ser buscado
+     * @param logradouro Logradouro a ser buscado
+     * @param bairro Bairro do endereço a ser buscado
+     * @param uf UF do endereço a ser buscado
+     * @returns String contendo o resultado da consulta
+     */
+    public buscarPorLogradouro(cidade: string, tipoLogradouro: string, logradouro: string, uf: string, bairro: string): string{
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.getAcbrlib().CEP_BuscarPorLogradouro(this.getHandle(), logradouro, numero, complemento, bairro, cidade, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        let status = this.getAcbrlib().CEP_BuscarPorLogradouro(this.getHandle(), cidade, tipoLogradouro, logradouro, uf, bairro, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }

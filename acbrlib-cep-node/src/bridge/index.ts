@@ -14,8 +14,8 @@ export interface TypeACBrCepMT {
     CEP_ConfigGravarValor: (handle: any, sessao: string, chave: string, valor: string) => number
     CEP_ConfigImportar: (handle: any, arqConfig: string) => number
     CEP_ConfigExportar: (handle: any, configuracoes: Buffer, refTamanho: any) => number
-    CEP_BuscarPorCEP: (handle: any, cep: Buffer, mensagem: Buffer, refTamanho: any) => number
-    CEP_BuscarPorLogradouro: (handle: any, logradouro: string, numero: string, complemento: string, bairro: string, cidade: string, mensagem: Buffer, refTamanho: any) => number
+    CEP_BuscarPorCEP: (handle: any, cep: string, mensagem: Buffer, refTamanho: any) => number
+    CEP_BuscarPorLogradouro: (handle: any, cidade: string, tipoLogradouro: string, logradouro: string, uf: string, bairro: string, mensagem: Buffer, refTamanho: any) => number
 }
 
 export default class ACBrLibCEPBridgeMT {
@@ -38,7 +38,7 @@ export default class ACBrLibCEPBridgeMT {
             CEP_ConfigGravarValor: acbrcep.func('CEP_ConfigGravarValor', 'int', ['void *', 'string', 'string', 'string']),
             CEP_ConfigImportar: acbrcep.func('CEP_ConfigImportar', 'int', ['void *', 'string']),
             CEP_ConfigExportar: acbrcep.func('CEP_ConfigExportar', 'int', ['void *', 'char*', 'int*']),
-            CEP_BuscarPorCEP: acbrcep.func('CEP_BuscarPorCEP', 'int', ['void *', 'char *', 'char *', 'int *']),
+            CEP_BuscarPorCEP: acbrcep.func('CEP_BuscarPorCEP', 'int', ['void *', 'string', 'char *', 'int *']),
             CEP_BuscarPorLogradouro: acbrcep.func('CEP_BuscarPorLogradouro', 'int', ['void *', 'string', 'string', 'string', 'string', 'string', 'char*', 'int*'])
         } as TypeACBrCepMT
     }

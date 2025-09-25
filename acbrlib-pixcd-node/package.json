@@ -1,6 +1,6 @@
 {
-  "name": "@projetoacbr/acbrlib-cep-node",
-  "version": "1.0.6",
+  "name": "@projetoacbr/acbrlib-pixcd-node",
+  "version": "1.0.5",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "description": "classe de alto nivel para carregar a  acbrlibcep",

@@ -20,7 +20,30 @@ npm install @projetoacbr/acbrlib-base-node
 
 ## 📖 Como Usar
 
-### Importação
+### 🎯 Importação
+
+#### 📝 TypeScript (Recomendado)
+
+```typescript
+// Importa a classe ACBrLibBaseMT oficial conforme documentação
+import ACBrLibBaseMT from "@projetoacbr/acbrlib-base-node/dist/src";
+```
+
+**⚙️ Configuração tsconfig.json recomendada:**
+```json
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
+```
+
+#### 🔧 JavaScript/CommonJS
 
 ```javascript
 const ACBrLibBaseMT = require('@projetoacbr/acbrlib-base-node/dist/src').default
