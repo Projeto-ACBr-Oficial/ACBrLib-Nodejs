@@ -1,5 +1,11 @@
 import * as koffi from 'koffi'
 
+
+/**
+ * TypeACBrCepMT é uma interface que representa os métodos nativos da ACBrLibCep
+ * Ela é necessária para o intelisense do Typescript entender os métodos da ACBrLibCep
+ */
+
 export interface TypeACBrCepMT {
     CEP_Inicializar: (handle: any, configPath: string, chaveCrypt: string) => number
     CEP_Finalizar: (handle: any) => number
@@ -18,9 +24,16 @@ export interface TypeACBrCepMT {
     CEP_BuscarPorLogradouro: (handle: any, cidade: string, tipoLogradouro: string, logradouro: string, uf: string, bairro: string, mensagem: Buffer, refTamanho: any) => number
 }
 
+/**
+ * ACBrLibCEPBridgeMT é uma classe que acessa a biblioteca nativa ACBrLibCep
+ */
 export default class ACBrLibCEPBridgeMT {
     private acbrNativeLib: TypeACBrCepMT
 
+    /**
+     * 
+     * @param libraryPath é o caminho da biblioteca nativa ACBrLibCep, windows use a convenção cdecl
+     */
     constructor(libraryPath: string) {
         const acbrcep = koffi.load(libraryPath)
 
@@ -43,6 +56,10 @@ export default class ACBrLibCEPBridgeMT {
         } as TypeACBrCepMT
     }
 
+    /**
+     * 
+     * @returns TypeACBrCepMT é uma interface que representa os métodos nativos da ACBrLibCep
+     */
     public getAcbrNativeLib(): TypeACBrCepMT {
         return this.acbrNativeLib
     }
