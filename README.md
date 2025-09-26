@@ -13,13 +13,15 @@
 O projeto é organizado em uma hierarquia de pacotes que segue o padrão de herança:
 
 ```
-ACBrLibBaseMT (classe base)
-    ↓
-ACBrLibDFeComum (métodos comuns DFe)
-    ↓
-ACBrLibDFeMT (métodos comuns NFe/MDFe)
-    ↓
-ACBrLibNFeMT, ACBrLibMDFeMT, ACBrLibNFSeMT (implementações específicas)
+ACBrLibBaseMT (classe base fundamental)
+├── ACBrLibCepMT (implementação CEP)
+├── ACBrLibReinfMT (implementação REINF)
+├── ACBrLibPixCDMT (implementação PIX CD)
+└── ACBrLibDFeComum (métodos comuns DFe)
+    ├── ACBrLibNFSeMT (implementação NFSe)
+    └── ACBrLibDFeMT (métodos comuns NFe/MDFe)
+        ├── ACBrLibNFeMT (implementação NFe)
+        └── ACBrLibMDFeMT (implementação MDFe)
 ```
 
 ## 📦 Pacotes Disponíveis
@@ -35,6 +37,7 @@ ACBrLibNFeMT, ACBrLibMDFeMT, ACBrLibNFSeMT (implementações específicas)
 | `@projetoacbr/acbrlib-nfse-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
 | `@projetoacbr/acbrlib-cep-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
 | `@projetoacbr/acbrlib-reinf-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-pixcd-node` | 1.0.0 | 🚧 Em desenvolvimento | ⏳ Aguardando |
 
 ## 🚀 Instalação
 
@@ -44,6 +47,7 @@ npm install @projetoacbr/acbrlib-nfe-node
 npm install @projetoacbr/acbrlib-mdfe-node
 npm install @projetoacbr/acbrlib-nfse-node
 npm install @projetoacbr/acbrlib-cep-node
+npm install @projetoacbr/acbrlib-pixcd-node
 ```
 
 ## 📖 Como Usar
