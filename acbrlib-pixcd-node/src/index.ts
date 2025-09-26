@@ -22,7 +22,7 @@ export enum StatusCobrancaPIX {
 
 /**
  * Enum para Provedor de Serviços de Pagamento PIX
- * @enum PIXPSP
+ * @enum PSP
  * @property BRADESCO Bradesco
  * @property ITAU Itaú
  * @property BANCO_DO_BRASIL Banco do Brasil
@@ -43,7 +43,7 @@ export enum StatusCobrancaPIX {
  * @property C6BANK C6Bank
  * @property APPLESS AppLess
  */
-export enum ProvedorServicosPagamentoPIX{
+export enum PSP {
     BRADESCO = 0,
     ITAU = 1,
     BANCO_DO_BRASIL = 2,
