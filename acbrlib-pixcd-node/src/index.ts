@@ -6,7 +6,22 @@ import ACBrBuffer,{TAMANHO_PADRAO} from "@projetoacbr/acbrlib-base-node/dist/src
 import { ACBrDateConverter } from "@projetoacbr/acbrlib-base-node/dist/src/utils";
 //#endregion
 
+
 /**
+ * Enum para status da cobrança PIX
+ * @enum StatusCobrancaPIX
+ * @property NENHUM Nenhum
+ * @property ATIVA Ativa
+ * @property CONCLUIDA Concluída
+ * @property REMOVIDA_PELO_USUARIO_RECEBEDOR Removida pelo usuário recebedor
+ * @property REMOVIDA_PELO_PSP Removida pelo PSP
+ */
+export enum StatusCobrancaPIX {
+    NENHUM, ATIVA, CONCLUIDA, REMOVIDA_PELO_USUARIO_RECEBEDOR, REMOVIDA_PELO_PSP
+};
+
+
+/** 
  * ACBrLibPixCDMT é uma classe de alto nível que implementa os métodos da ACBrLibPixCD Multi-Thread
  */
 
@@ -205,6 +220,94 @@ export default class ACBrLibPixCDMT extends ACBrLibBaseMT {
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
+
+
+    public cancelarCobrancaImediata(txID: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_CancelarCobrancaImediata(this.getHandle(), txID, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+    //#endregion
+
+    //#region Endpoint /cobv - Cobranças com Vencimento
+    public criarCobranca(infCobVSolicitada: string, txID: string): string {
+
+        /**
+         * Cria uma nova cobrança com vencimento
+         * @param infCobVSolicitada Path com o nome do arquivo INI a ser lido ou o conteúdo do INI.
+         * @param txID Identificador da Transação PIX. O conteúdo de ATxId deve respeitar o formato: [a-zA-Z0-9]{26,35}  
+         * @returns String contendo o resultado da criação da cobrança
+         */
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_CriarCobranca(this.getHandle(), infCobVSolicitada, txID, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar uma cobrança com vencimento
+     * @param txID ID da transação PIX.
+     * @param revisao Revisão da cobrança PIX.
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarCobranca(txID: string, revisao: number): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_ConsultarCobranca(this.getHandle(), txID, revisao, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+
+
+    /**
+     * Método usado para consultar cobranças com vencimento
+     * @param dataInicio Data de início da consulta (observação data será convertida para Pascal TDateTime)
+     * @param dataFim Data de fim da consulta (observação data será convertida para Pascal TDateTime)
+     * @param cpfCnpj CPF/CNPJ do recebedor
+     * @param locationPresente Indica se a localização está presente
+     * @param status Status da cobrança
+     * @param pagAtual Página atual
+     * @param itensPorPagina Itens por página
+     * @returns String contendo o resultado da consulta
+     */
+
+    public consultarCobrancasCobV(dataInicio: Date, dataFim: Date, cpfCnpj: string, locationPresente: boolean, status: StatusCobrancaPIX, pagAtual: number, itensPorPagina: number): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let dataInicioNumber = ACBrDateConverter.convertDateToPascalTDateTime(dataInicio)
+        let dataFimNumber = ACBrDateConverter.convertDateToPascalTDateTime(dataFim)
+        let result = this.getAcbrlib().PIXCD_ConsultarCobrancasCobV(this.getHandle() , dataInicioNumber, dataFimNumber, cpfCnpj, locationPresente, status, pagAtual, itensPorPagina, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(result)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para revisar uma cobrança com vencimento
+     * @param infCobVRevisada Path com o nome do arquivo INI a ser lido ou o conteúdo do INI.
+     * @param txID ID da transação PIX.
+     * @returns String contendo o resultado da revisão da cobrança
+     */
+
+    public revisarCobranca(infCobVRevisada: string, txID: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_RevisarCobranca(this.getHandle(), infCobVRevisada, txID, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para cancelar uma cobrança com vencimento
+     * @param txID ID da transação PIX.
+     * @returns String contendo o resultado da cancelação da cobrança
+     */
+
+    public cancelarCobranca(txID: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_CancelarCobranca(this.getHandle(), txID, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }   
+
     //#endregion
     
 }
