@@ -26,7 +26,7 @@ npm install @projetoacbr/acbrlib-pixcd-node
 
 ```typescript
 // Importa a classe ACBrLibPixCDMT oficial conforme documentação
-import ACBrLibPixCDMT, { StatusCobrancaPIX } from "@projetoacbr/acbrlib-pixcd-node/dist/src";
+import ACBrLibPixCDMT, { StatusCobrancaPIX, PSP } from "@projetoacbr/acbrlib-pixcd-node/dist/src";
 ```
 
 **⚙️ Configuração tsconfig.json recomendada:**
@@ -47,7 +47,7 @@ import ACBrLibPixCDMT, { StatusCobrancaPIX } from "@projetoacbr/acbrlib-pixcd-no
 
 ```javascript
 const ACBrLibPixCDMT = require('@projetoacbr/acbrlib-pixcd-node/dist/src').default
-const { StatusCobrancaPIX } = require('@projetoacbr/acbrlib-pixcd-node/dist/src')
+const { StatusCobrancaPIX, PSP } = require('@projetoacbr/acbrlib-pixcd-node/dist/src')
 ```
 
 
@@ -83,8 +83,9 @@ const { StatusCobrancaPIX } = require('@projetoacbr/acbrlib-pixcd-node/dist/src'
 - `consultarCobranca(txID, revisao)` - Consulta cobrança com vencimento
 - `consultarCobrancasCobV(dataInicio, dataFim, cpfCnpj, locationPresente, status, pagAtual, itensPorPagina)` - Lista cobranças com vencimento
 
-### 📊 Enum StatusCobrancaPIX
+### 📊 Enums Disponíveis
 
+#### StatusCobrancaPIX
 ```typescript
 export enum StatusCobrancaPIX {
     NENHUM = 0,                           // Nenhum
@@ -92,6 +93,31 @@ export enum StatusCobrancaPIX {
     CONCLUIDA = 2,                       // Concluída
     REMOVIDA_PELO_USUARIO_RECEBEDOR = 3, // Removida pelo usuário recebedor
     REMOVIDA_PELO_PSP = 4                // Removida pelo PSP
+}
+```
+
+#### PSP (Provedor de Serviços de Pagamento)
+```typescript
+export enum PSP {
+    BRADESCO = 0,        // Bradesco
+    ITAU = 1,           // Itaú
+    BANCO_DO_BRASIL = 2, // Banco do Brasil
+    SANTANDER = 3,      // Santander
+    SHIPAY = 4,         // Shipay
+    SICREDI = 5,        // Sicredi
+    SICOOB = 6,         // Sicoob
+    PAGSEGURO = 7,      // PagSeguro
+    GERENCIANET = 8,    // GerenciaNet
+    PIXPDV = 9,         // PixPDV
+    INTER = 10,         // Inter
+    AILOS = 11,         // Ailos
+    MATERA = 12,        // Matera
+    CIELO = 13,         // Cielo
+    MERCADOPAGO = 14,   // MercadoPago
+    GATE2ALL = 15,      // Gate2All
+    BANRISUL = 16,      // Banrisul
+    C6BANK = 17,        // C6Bank
+    APPLESS = 18        // AppLess
 }
 ```
 
