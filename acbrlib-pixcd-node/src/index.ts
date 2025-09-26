@@ -20,6 +20,53 @@ export enum StatusCobrancaPIX {
     NENHUM, ATIVA, CONCLUIDA, REMOVIDA_PELO_USUARIO_RECEBEDOR, REMOVIDA_PELO_PSP
 };
 
+/**
+ * Enum para Provedor de Serviços de Pagamento PIX
+ * @enum PIXPSP
+ * @property BRADESCO Bradesco
+ * @property ITAU Itaú
+ * @property BANCO_DO_BRASIL Banco do Brasil
+ * @property SANTANDER Santander
+ * @property SHIPAY Shipay
+ * @property SICREDI Sicredi
+ * @property SICOOB Sicoob
+ * @property PAGSEGURO PagSeguro
+ * @property GERENCIANET GerenciaNet
+ * @property PIXPDV PixPDV
+ * @property INTER Inter
+ * @property AILOS Ailos
+ * @property MATERA Matera
+ * @property CIELO Cielo
+ * @property MERCADOPAGO MercadoPago
+ * @property GATE2ALL Gate2All
+ * @property BANRISUL Banrisul
+ * @property C6BANK C6Bank
+ * @property APPLESS AppLess
+ */
+export enum ProvedorServicosPagamentoPIX{
+    BRADESCO = 0,
+    ITAU = 1,
+    BANCO_DO_BRASIL = 2,
+    SANTANDER = 3,
+    SHIPAY = 4,
+    SICREDI = 5,
+    SICOOB = 6,
+    PAGSEGURO = 7,
+    GERENCIANET = 8,
+    PIXPDV = 9,
+    INTER = 10,
+    AILOS = 11,
+    MATERA = 12,
+    CIELO = 13,
+    MERCADOPAGO = 14,
+    GATE2ALL = 15,
+    BANRISUL = 16,
+    C6BANK = 17,
+    APPLESS = 18
+};
+
+
+
 
 /** 
  * ACBrLibPixCDMT é uma classe de alto nível que implementa os métodos da ACBrLibPixCD Multi-Thread
