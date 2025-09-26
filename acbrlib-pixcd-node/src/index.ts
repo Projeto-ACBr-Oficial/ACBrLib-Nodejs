@@ -1,8 +1,10 @@
 
+//#region Imports e Dependências
 import ACBrLibBaseMT from "@projetoacbr/acbrlib-base-node/dist/src";
-
 import ACBrLibPixCDBridge,{TypeACBrPIXCD} from "./bridge";
-
+import ACBrBuffer,{TAMANHO_PADRAO} from "@projetoacbr/acbrlib-base-node/dist/src/ACBrBuffer";
+import { ACBrDateConverter } from "@projetoacbr/acbrlib-base-node/dist/src/utils";
+//#endregion
 
 /**
  * ACBrLibPixCDMT é uma classe de alto nível que implementa os métodos da ACBrLibPixCD Multi-Thread
@@ -10,6 +12,7 @@ import ACBrLibPixCDBridge,{TypeACBrPIXCD} from "./bridge";
 
 export default class ACBrLibPixCDMT extends ACBrLibBaseMT {
 
+    //#region Constructor
     /**
      * 
      * @param libraryPath caminho para a biblioteca ACBrLibPixCD, note para windows a dll usa convenção de chamada cdecl
@@ -19,20 +22,23 @@ export default class ACBrLibPixCDMT extends ACBrLibBaseMT {
     constructor(libraryPath: string, arquivoConfig: string, chaveCrypt: string) {
         super(new ACBrLibPixCDBridge(libraryPath), arquivoConfig, chaveCrypt);
     }
+    //#endregion
 
 
 
+    //#region Métodos Públicos Base
     public getAcbrlib(): TypeACBrPIXCD ;
 
     public getAcbrlib(): TypeACBrPIXCD {
         return super.getAcbrlib() as TypeACBrPIXCD;
     }
+    //#endregion
 
 
 
 
 
-    // implementação dos métodos abstratos da classe base
+    //#region Implementação dos Métodos Abstratos da Classe Base
     protected LIB_Inicializar(handle: any, configPath: string, chaveCrypt: string): number {
         return this.getAcbrlib().PIXCD_Inicializar(handle, configPath, chaveCrypt)
     }
@@ -80,14 +86,125 @@ export default class ACBrLibPixCDMT extends ACBrLibBaseMT {
     protected LIB_OpenSSLInfo(handle: any, configuracoes: Buffer, refTamanho: any): number {
         return this.getAcbrlib().PIXCD_OpenSSLInfo(handle, configuracoes, refTamanho)
     }
+    //#endregion
+
+    //#region Métodos PIX Básicos - QR Code e Consultas
+    /**
+     * Método usado para gerar um QR Code estático
+     * @param valor Valor da transação pix
+     * @param infoAdicional Informação adicional
+     * @param txID ID da transação
+     * @returns String contendo o QR Code gerado
+     */
+    public gerarQRCodeEstatico(valor: number, infoAdicional: string, txID: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_GerarQRCodeEstatico(this.getHandle(), valor, infoAdicional, txID, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar um pix
+     * @param e2eid  End-to-End IDentification (Identificação de Ponta a Ponta).
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarPix(e2eid: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_ConsultarPix(this.getHandle(), e2eid, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+    //#endregion
+
+    //#region Métodos PIX - Devoluções
+    /**
+     * Método usado para solicitar uma devolução de pix
+     * @param infDevolucao Path com o nome do arquivo INI a ser lido ou o conteúdo do INI.
+     * @param e2eid End-to-End IDentification (Identificação de Ponta a Ponta).
+     * @param aidDevolucao ID Devolução PIX.
+     * @returns String contendo o resultado da solicitação
+     */
+    public solicitarDevolucaoPix(infDevolucao: string, e2eid: string, aidDevolucao: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_SolicitarDevolucaoPix(this.getHandle(), infDevolucao, e2eid, aidDevolucao, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+    /**
+     * Método usado para consultar uma devolução de pix
+     * @param e2eid End-to-End IDentification (Identificação de Ponta a Ponta).
+     * @param aidDevolucao ID Devolução PIX.
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarDevolucaoPix(e2eid: string, aidDevolucao: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_ConsultarDevolucaoPix(this.getHandle(), e2eid, aidDevolucao, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+    //#endregion
 
 
+    //#region Endpoint /cob - Cobranças Imediatas
+    /**
+     * Cria uma nova cobrança imediata
+     * @param infCobSolicitada Path com o nome do arquivo INI a ser lido ou o conteúdo do INI.
+     * @param txID Identificador da Transação PIX. O conteúdo de ATxId deve respeitar o formato: [a-zA-Z0-9]{26,35}  
+     * @returns String contendo o resultado da criação da cobrança
+     */
+    public criarCobrancaImediata(infCobSolicitada: string, txID: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_CriarCobrancaImediata(this.getHandle(), infCobSolicitada, txID, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
 
+    /**
+     * Método usado para consultar uma cobrança imediata
+     * @param txID ID da transação PIX.
+     * @param revisao Revisão da cobrança PIX.
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarCobrancaImediata(txID: string, revisao: number): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_ConsultarCobrancaImediata(this.getHandle(), txID, revisao, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
 
+    /**
+     * Método usado para consultar cobranças cob
+     * @param dataInicio  Data de início da consulta (observação data será convertida para Pascal TDateTime)
+     * @param dataFim Data de fim da consulta (observação data será convertida para Pascal TDateTime)
+     * @param cpfCnpj CPF/CNPJ do recebedor
+     * @param locationPresente Indica se a localização está presente
+     * @param status Status da cobrança
+     * @param pagAtual Página atual
+     * @param itensPorPagina Itens por página
+     * @returns String contendo o resultado da consulta
+     */
+    public consultarCobrancasCob(dataInicio: Date, dataFim: Date, cpfCnpj: string, locationPresente: boolean, status: number, pagAtual: number, itensPorPagina: number): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let dataInicioNumber = ACBrDateConverter.convertDateToPascalTDateTime(dataInicio)
+        let dataFimNumber = ACBrDateConverter.convertDateToPascalTDateTime(dataFim)
+        let result = this.getAcbrlib().PIXCD_ConsultarCobrancasCob(this.getHandle() , dataInicioNumber, dataFimNumber, cpfCnpj, locationPresente, status, pagAtual, itensPorPagina, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(result)
+        return this._processaResult(acbrBuffer)
+    }
 
-
-
-
-
+    /**
+     * Método usado para revisar uma cobrança imediata
+     * @param infCobRevisada Path com o nome do arquivo INI a ser lido ou o conteúdo do INI.
+     * @param txID ID da transação PIX.
+     * @returns String contendo o resultado da revisão da cobrança
+     */
+    public revisarCobrancaImediata(infCobRevisada: string, txID: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_RevisarCobrancaImediata(this.getHandle(), infCobRevisada, txID, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+    //#endregion
     
 }
