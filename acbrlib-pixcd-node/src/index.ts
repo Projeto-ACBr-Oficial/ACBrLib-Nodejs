@@ -82,7 +82,7 @@ export default class ACBrLibPixCDMT extends ACBrLibBaseMT {
      * @param chaveCrypt chave de criptografia
      */
     constructor(libraryPath: string, arquivoConfig: string, chaveCrypt: string) {
-        super(new ACBrLibPixCDBridge(libraryPath), arquivoConfig, chaveCrypt);
+        super(new ACBrLibPixCDBridge(libraryPath).getAcbrlibNative(), arquivoConfig, chaveCrypt);
     }
     //#endregion
 
