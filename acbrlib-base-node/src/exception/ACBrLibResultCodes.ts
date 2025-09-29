@@ -1,3 +1,7 @@
+/*
+* @description Enum com os códigos de resultado da ACBrLib
+*/
+
 export enum ACBrLibResultCodes {
     OK = 0,
     ErrLibNaoInicializada = -1,

@@ -1,7 +1,10 @@
 
+/***
+ * Exceções da ACBrLib
+ */
+
 /**
- * ACBrLibError  é uma classe de Exception para lançar Exceçoes da ACBr
- * 
+ * ACBrLibError é uma classe de Exception para lançar Exceçoes da ACBr
  */
 export default class ACBrLibError extends Error {
     constructor(msg: string){
@@ -10,6 +13,9 @@ export default class ACBrLibError extends Error {
 }
 
 
+/**
+ * ACBrLibLibNaoInicializadaError é uma classe que lança uma exceção quando a biblioteca não está inicializada
+ */
 export class ACBrLibLibNaoInicializadaError extends ACBrLibError {
  constructor(msg: string){
         super(msg);
@@ -17,6 +23,9 @@ export class ACBrLibLibNaoInicializadaError extends ACBrLibError {
 }
 
 
+/**
+ * ACBrLibLibNaoFinalizadaError é uma classe que lança uma exceção quando a biblioteca não está finalizada
+ */
 export class ACBrLibLibNaoFinalizadaError extends ACBrLibError {
  constructor(msg: string){
         super(msg);
@@ -24,6 +33,9 @@ export class ACBrLibLibNaoFinalizadaError extends ACBrLibError {
 }
 
 
+/**
+ * ACBrLibConfigLerError é uma classe que lança uma exceção quando ocorre um erro ao ler a configuração
+ */
 export class ACBrLibConfigLerError extends ACBrLibError {
  constructor(msg: string){
         super(msg);
@@ -31,6 +43,9 @@ export class ACBrLibConfigLerError extends ACBrLibError {
 }
 
 
+/**
+ * ACBrLibConfigGravarError é uma classe que lança uma exceção quando ocorre um erro ao gravar a configuração
+ */
 export class ACBrLibConfigGravarError extends ACBrLibError {
  constructor(msg: string){
         super(msg);
@@ -38,6 +53,9 @@ export class ACBrLibConfigGravarError extends ACBrLibError {
 }
 
 
+/**
+ * ACBrLibArquivoNaoExisteError é uma classe que lança uma exceção quando o arquivo não existe
+ */
 export class ACBrLibArquivoNaoExisteError extends ACBrLibError {
  constructor(msg: string){
         super(msg);
@@ -45,27 +63,37 @@ export class ACBrLibArquivoNaoExisteError extends ACBrLibError {
 }
 
 
+/**
+ * ACBrLibDiretorioNaoExisteError é uma classe que lança uma exceção quando o diretório não existe
+ */
+
 export class ACBrLibDiretorioNaoExisteError extends ACBrLibError {
  constructor(msg: string){
         super(msg);
    }
 }
 
-
+/**
+ * ACBrLibHttpError é uma classe que lança uma exceção quando ocorre um erro ao fazer uma requisição HTTP
+ */
 export class ACBrLibHttpError extends ACBrLibError {
  constructor(msg: string){
         super(msg);
    }
 }
 
-
+/**
+ * ACBrLibParametroInvalidoError é uma classe que lança uma exceção quando o parâmetro é inválido
+ */
 export class ACBrLibParametroInvalidoError extends ACBrLibError {
  constructor(msg: string){
         super(msg);
    }
 }
 
-
+/**
+ * ACBrLibExecutandoMetodoError é uma classe que lança uma exceção quando o método está sendo executado
+ */
 export class ACBrLibExecutandoMetodoError extends ACBrLibError {
  constructor(msg: string){
         super(msg);
@@ -73,6 +101,9 @@ export class ACBrLibExecutandoMetodoError extends ACBrLibError {
 }
 
 
+/**
+ * ACBrLibNaoDisponivelEmModoConsoleError é uma classe que lança uma exceção quando a biblioteca não está disponível em modo console
+ */
 export class ACBrLibNaoDisponivelEmModoConsoleError extends ACBrLibError {
  constructor(msg: string){
         super(msg);
@@ -80,13 +111,18 @@ export class ACBrLibNaoDisponivelEmModoConsoleError extends ACBrLibError {
 }
 
 
+/**
+ * ACBrLibTimeOutError é uma classe que lança uma exceção quando o tempo de espera expira
+ */
 export class ACBrLibTimeOutError extends ACBrLibError {
  constructor(msg: string){
         super(msg);
    }
 }
 
-
+/**
+ * ACBrLibDemoExpiradoError é uma classe que lança uma exceção quando o demo expira
+ */
 export class ACBrLibDemoExpiradoError extends ACBrLibError {
  constructor(msg: string){
         super(msg);

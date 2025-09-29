@@ -21,19 +21,36 @@ export default class ACBrBuffer {
         koffi.encode(this.bufferSize, 'int', size)
     }
 
+    /**
+     * @description Retorna a referencia do tamanho do buffer
+     * @returns Referencia do tamanho do buffer
+     */
     getRefTamanhoBuffer() {
         return this.bufferSize
     }
 
+    /**
+     * @description Retorna o buffer
+     * @returns Buffer
+     */
     getBuffer() {
         return this.bufferData
     }
 
+    /**
+     * @description Retorna a string do conteudo do buffer
+     * @returns String do conteudo do buffer
+     */
     toString() {
         let size = deref(this.bufferSize, 'int')
         let strBuffer = this.bufferData.toString('utf8', 0, (Math.min(size, this.bufferData.length)))
         return strBuffer
     }
+
+    /**
+     * 
+     * @description Destroi o buffer e liberando memoria dos recursos alocados
+     */
 
     destroy() {
         if (!this.disposed) {
@@ -43,7 +60,10 @@ export default class ACBrBuffer {
         }
     }
 
-    // Implementação do auto-cleanup com 'using' declaration
+    /**
+     *    
+     * @description Implementação do auto-cleanup com 'using' declaration
+     */
     [Symbol.dispose]() {
         this.destroy()
     }
