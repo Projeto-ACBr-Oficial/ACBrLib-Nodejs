@@ -70,6 +70,9 @@ const acbrMDFe = new ACBrLibMDFeMT(
     '12345678'
 )
 
+// Inicializar a biblioteca
+acbrMDFe.inicializar()
+
 // Carregar XML
 acbrMDFe.carregarXML('./mdfe.xml')
 
@@ -84,6 +87,7 @@ const resposta = acbrMDFe.enviar(1, false, true, false)
 ## 🔧 Funcionalidades
 
 ### Métodos Herdados (DFe Comum)
+- `inicializar()`, `finalizar()`
 - `carregarXML()`, `carregarINI()`
 - `obterXml()`, `obterIni()`
 - `gravarXml()`, `gravarIni()`

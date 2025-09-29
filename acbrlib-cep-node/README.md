@@ -70,6 +70,9 @@ const acbrCep = new ACBrLibCepMT(
     '12345678'
 )
 
+// Inicializar a biblioteca
+acbrCep.inicializar()
+
 // Buscar por CEP
 const endereco = acbrCep.buscarPorCep('18270-170')
 console.log('Endereço:', endereco)

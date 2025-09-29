@@ -2,7 +2,10 @@ import koffi from "koffi";
 
 
 /**
- * TypeACBrPIXCD é uma interface que define os métodos da ACBrLibPixCD
+ * TypeACBrPIXCD é uma interface que define os métodos da ACBrLibPixCD, para uso do intelisense do Typescript funcionar corretamente
+ * @description Interface que define os métodos da ACBrLibPixCD
+ * @interface TypeACBrPIXCD
+ *
  */
 
 
