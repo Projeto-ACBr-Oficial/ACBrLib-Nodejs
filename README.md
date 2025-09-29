@@ -31,11 +31,11 @@ ACBrLibBaseMT (classe base fundamental)
 | Pacote | Versão | Status | Publicado |
 |--------|--------|--------|-----------|
 | `@projetoacbr/acbrlib-base-node` | 1.0.4 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-dfe-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-nfe-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-mdfe-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-nfse-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-cep-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-dfe-node` | 1.0.6 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-nfe-node` | 1.0.6 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-mdfe-node` | 1.0.6 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-nfse-node` | 1.0.6 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-cep-node` | 1.0.6 | ✅ Disponível | ✅ Sim |
 | `@projetoacbr/acbrlib-reinf-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
 | `@projetoacbr/acbrlib-pixcd-node` | 1.0.0 | 🚧 Em desenvolvimento | ⏳ Aguardando |
 
