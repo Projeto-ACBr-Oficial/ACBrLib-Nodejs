@@ -15,7 +15,16 @@ export default class ACBrBuffer {
     private bufferData: Buffer
     private disposed = false
 
-    constructor(size: number) {
+    /**
+     * 
+     * @param size Tamanho do buffer (usa valor padrão se inválido)
+     */
+    constructor(size: number  = TAMANHO_PADRAO) {
+        // Se o valor for inválido, usa o padrão
+        if (!Number.isFinite(size) || size <= 0) {
+            size = TAMANHO_PADRAO
+        }
+        
         this.bufferSize = koffi.alloc("int", 1)
         this.bufferData = Buffer.alloc(size)
         koffi.encode(this.bufferSize, 'int', size)
