@@ -70,6 +70,9 @@ const acbrNFe = new ACBrLibNFeMT(
     '12345678'
 )
 
+// Inicializar a biblioteca
+acbrNFe.inicializar()
+
 // Carregar XML
 acbrNFe.carregarXML('./nfe.xml')
 
@@ -84,6 +87,7 @@ const resposta = acbrNFe.enviar(1, false, true, false)
 ## 🔧 Funcionalidades
 
 ### Métodos Herdados (DFe Comum)
+- `inicializar()`, `finalizar()`
 - `carregarXML()`, `carregarINI()`
 - `obterXml()`, `obterIni()`
 - `gravarXml()`, `gravarIni()`

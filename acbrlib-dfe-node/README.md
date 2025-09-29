@@ -63,6 +63,10 @@ const ACBrLibDFeComum = require('@projetoacbr/acbrlib-dfe-node/dist/src/dfe-comu
 
 ### Métodos Comuns de DFe
 
+- **Inicialização e Finalização**
+  - `inicializar()`
+  - `finalizar()`
+
 - **Manipulação de Arquivos**
   - `carregarXML(arquivoXML)`
   - `carregarINI(arquivoINI)`

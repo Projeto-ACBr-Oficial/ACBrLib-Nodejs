@@ -70,6 +70,9 @@ const acbrNFSe = new ACBrLibNFSeMT(
     '12345678'
 )
 
+// Inicializar a biblioteca
+acbrNFSe.inicializar()
+
 // Carregar XML
 acbrNFSe.carregarXML('./nfse.xml')
 
@@ -84,6 +87,7 @@ const resposta = acbrNFSe.emitir()
 ## 🔧 Funcionalidades
 
 ### Métodos Herdados (DFe Comum)
+- `inicializar()`, `finalizar()`
 - `carregarXML()`, `carregarINI()`
 - `obterXml()`, `obterIni()`
 - `gravarXml()`, `gravarIni()`
