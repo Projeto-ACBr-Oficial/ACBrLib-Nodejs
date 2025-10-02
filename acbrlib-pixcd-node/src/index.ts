@@ -356,5 +356,37 @@ export default class ACBrLibPixCDMT extends ACBrLibBaseMT {
     }   
 
     //#endregion
+
+
+    //#region Endpoint /auth - Autenticação
+
+    /**
+     * Método usado para gerar um token
+     * Lembre-se de guardar o token gerado para usar em futuras consultas
+     * @returns String contendo o token gerado
+     */
+
+    public gerarToken(): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().PIXCD_GerarToken(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+
+    /**
+     * Método usado para informar um token
+     * @param token Token gerado
+     * @param validadeToken Data de validade do token
+     * @returns String contendo o resultado da informação do token
+     */
     
+    public informarToken(token: string, validadeToken: Date): number {
+        let validadeTokenNumber = ACBrDateConverter.convertDateToPascalTDateTime(validadeToken)
+        let status = this.getAcbrlib().PIXCD_InformarToken(this.getHandle(), token, validadeTokenNumber)
+        this._checkResult(status)
+        return status
+    }
+
+    //#endregion
 }

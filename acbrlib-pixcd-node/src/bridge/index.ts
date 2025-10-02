@@ -50,6 +50,11 @@ export interface TypeACBrPIXCD {
     PIXCD_RevisarCobranca: (handle: any, AInfCobVRevisada: string, ATxId: string, sResposta: Buffer, esTamanho: any) => number;
     PIXCD_CancelarCobranca: (handle: any, ATxId: string, sResposta: Buffer, esTamanho: any) => number;
 
+
+    // Métodos de autenticação
+    PIXCD_GerarToken: (handle: any, sResposta: Buffer, esTamanho: any) => number;
+    PIXCD_InformarToken: (handle: any, token: string, validadeToken: number) => number;
+
    
     // Métodos específicos do Matera
 
@@ -104,6 +109,16 @@ export default class ACBrLibPixCDBridge {
             PIXCD_ConsultarCobrancasCobV: acbrpixcd.func('PIXCD_ConsultarCobrancasCobV', 'int', ['void *', 'double', 'double', 'string', 'bool', 'int', 'int', 'int', 'char*', 'int*']),
             PIXCD_RevisarCobranca: acbrpixcd.func('PIXCD_RevisarCobranca', 'int', ['void *', 'string', 'string', 'char*', 'int*']),
             PIXCD_CancelarCobranca: acbrpixcd.func('PIXCD_CancelarCobranca', 'int', ['void *', 'string', 'char*', 'int*']),
+
+            // autenticacao
+            PIXCD_GerarToken: acbrpixcd.func('PIXCD_GerarToken', 'int', ['void *','char*', 'int*']),
+            //PIXCD_InformarToken(const libHandle: PLibHandle; const aToken: PAnsiChar; const aValidadeToken: TDateTime): Integer;        
+            PIXCD_InformarToken: acbrpixcd.func('PIXCD_InformarToken', 'int', ['void *','string', 'double']),
+
+            
+
+            
+
         } as TypeACBrPIXCD;
 
     }
