@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
-  "description": "classe de alto nivel para carregar a  acbrlibcep",
+  "description": "classe de alto nivel para carregar a  acbrlibpixcd",
   "files": [
     "/dist"
   ],
