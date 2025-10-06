@@ -50,6 +50,45 @@ const ACBrLibPixCDMT = require('@projetoacbr/acbrlib-pixcd-node/dist/src').defau
 const { StatusCobrancaPIX, PSP } = require('@projetoacbr/acbrlib-pixcd-node/dist/src')
 ```
 
+### 🚀 Exemplo de Inicialização
+
+#### 📝 TypeScript
+```typescript
+import ACBrLibPixCDMT, { StatusCobrancaPIX, PSP } from "@projetoacbr/acbrlib-pixcd-node/dist/src";
+
+// Inicialização do ACBrLibPixCDMT
+const acbrPixCD = new ACBrLibPixCDMT(
+    "./ACBrPIXCD64.dll", // Caminho para a DLL
+    "./acbrlib.ini",                 // Arquivo de configuração
+    ""                               // Chave de criptografia (opcional)
+);
+
+```
+
+#### 🔧 JavaScript/CommonJS
+```javascript
+const ACBrLibPixCDMT = require('@projetoacbr/acbrlib-pixcd-node/dist/src').default;
+const { StatusCobrancaPIX, PSP } = require('@projetoacbr/acbrlib-pixcd-node/dist/src');
+
+// Inicialização do ACBrLibPixCDMT
+const acbrPixCD = new ACBrLibPixCDMT(
+    "./ACBrPIXCD64.dll", // Caminho para a DLL 
+    //./libacbrpixcd64.so // caminho para so no Linux
+    "./acbrlib.ini",                 // Arquivo de configuração
+    ""                               // Chave de criptografia (opcional)
+);
+
+// Inicializar a biblioteca
+
+
+try {
+  acbrPixCD.inicializar();
+    
+} finally {
+    // Sempre finalizar para liberar recursos
+    acbrPixCD.finalizar();
+}
+```
 
 ## 🔧 Funcionalidades
 
