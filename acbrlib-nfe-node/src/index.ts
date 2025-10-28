@@ -153,8 +153,8 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
         return this.getAcbrlib().NFE_ImprimirEventoPDF(handle, eArquivoXmlDocumento, eArquivoXmlEvento)
     }
 
-    protected LIB_SalvarEventoPDF(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento: string): number {
-        return this.getAcbrlib().NFE_SalvarEventoPDF(handle, eArquivoXmlDocumento, eArquivoXmlEvento)
+    protected LIB_SalvarEventoPDF(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento: string, buffer: Buffer, refTamanho: any): number {
+        return this.getAcbrlib().NFE_SalvarEventoPDF(handle, eArquivoXmlDocumento, eArquivoXmlEvento, buffer, refTamanho)
     }
 
     protected LIB_Assinar(handle: any): number {
@@ -324,7 +324,7 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
         let status = this.getAcbrlib().NFE_SalvarInutilizacaoPDF(this.getHandle(), eArquivoXml)
         this._checkResult(status)
         return status
-    }   
+    }
 
 
 }
