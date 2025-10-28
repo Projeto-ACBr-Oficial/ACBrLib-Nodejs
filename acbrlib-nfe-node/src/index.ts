@@ -18,7 +18,7 @@ import { ACBrLibExecutandoMetodoError } from '@projetoacbr/acbrlib-base-node/dis
  */
 
 class ACBrLibNFeMT extends ACBrLibDFeMT {
-   
+
     /**
      * 
      * @param libraryPath é o caminho da biblioteca acbrlibnfe (*.so ou *.dll)

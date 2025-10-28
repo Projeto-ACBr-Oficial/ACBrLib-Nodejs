@@ -59,7 +59,7 @@ export interface TypeACBrMDFeMT {
     MDFE_ImprimirEvento: (handle: any, eArquivoXmlNFe: string, eArquivoXmlEvento: string) => number;
     MDFE_ImprimirEventoPDF: (handle: any, eArquivoXmlNFe: string, eArquivoXmlEvento: string) => number;
 
-    MDFE_SalvarEventoPDF: (handle: any, eArquivoXmlNFe: string, eArquivoXmlEvento : string) => number;
+    MDFE_SalvarEventoPDF: (handle: any, eArquivoXmlNFe: string, eArquivoXmlEvento : string, buffer: Buffer, refTamanho: any) => number;
 }
 
 export default class ACBrLibMDFeBridgeMT {
@@ -120,7 +120,7 @@ export default class ACBrLibMDFeBridgeMT {
             MDFE_SalvarPDF: acbrmdfe.func('MDFE_SalvarPDF', 'int', ['void *', 'char*', 'int*']),
             MDFE_ImprimirEvento: acbrmdfe.func('MDFE_ImprimirEvento', 'int', ['void *', 'string', 'string']),
             MDFE_ImprimirEventoPDF: acbrmdfe.func('MDFE_ImprimirEventoPDF', 'int', ['void *', 'string', 'string']),
-            MDFE_SalvarEventoPDF: acbrmdfe.func('MDFE_SalvarEventoPDF', 'int', ['void *', 'string', 'string'])
+            MDFE_SalvarEventoPDF: acbrmdfe.func('MDFE_SalvarEventoPDF', 'int', ['void *', 'string', 'string', 'char*', 'int*']),
         } as TypeACBrMDFeMT
     }
 
