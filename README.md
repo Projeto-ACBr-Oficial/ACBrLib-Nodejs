@@ -37,7 +37,7 @@ ACBrLibBaseMT (classe base fundamental)
 | `@projetoacbr/acbrlib-nfse-node` | 1.0.6 | ✅ Disponível | ✅ Sim |
 | `@projetoacbr/acbrlib-cep-node` | 1.0.7 | ✅ Disponível | ✅ Sim |
 | `@projetoacbr/acbrlib-reinf-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-pixcd-node` | 1.0.0 | 🚧 Em desenvolvimento | ⏳ Aguardando |
+| `@projetoacbr/acbrlib-pixcd-node` | 1.0.0 | ✅ Disponível | ✅ Sim |
 
 ## 🚀 Instalação
 
