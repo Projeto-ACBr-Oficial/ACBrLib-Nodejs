@@ -184,7 +184,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
      * @returns Código de status da operação
      */
     public imprimir(
-        cImpressora: string, nNumCopias: number, cProtocolo: string, 
+        cImpressora: string, nNumCopias: number, cProtocolo: string,
         bMostrarPreview: string, cMarcaDagua: string, bViaConsumidor: string, bSimplificado: string
     ): number {
         let status = this.LIB_Imprimir(
