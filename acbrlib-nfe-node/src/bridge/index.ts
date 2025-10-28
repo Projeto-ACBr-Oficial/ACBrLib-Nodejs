@@ -63,7 +63,7 @@ export interface TypeACBrNFeMT {
     NFE_ImprimirInutilizacao: (handle: any, eArquivoXml: string) => number;
     NFE_SalvarInutilizacaoPDF: (handle: any, eArquivoXml: string) => number;
 
-    NFE_SalvarEventoPDF: (handle: any, eArquivoXmlNFe: string, eArquivoXmlEvento: string) => number;
+    NFE_SalvarEventoPDF: (handle: any, eArquivoXmlNFe: string, eArquivoXmlEvento: string, buffer: Buffer, refTamanho : any) => number;
     NFE_ImprimirInutilizacaoPDF: (handle: any, eArquivoXml: string) => number;
 }
 

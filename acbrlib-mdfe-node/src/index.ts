@@ -176,8 +176,8 @@ class ACBrLibMDFeMT extends ACBrLibDFeMT  {
     protected LIB_ImprimirEventoPDF(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento: string): number {
         return this.getAcbrlib().MDFE_ImprimirEventoPDF(handle, eArquivoXmlDocumento, eArquivoXmlEvento)
     }
-    protected LIB_SalvarEventoPDF(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento:string): number {
-        return this.getAcbrlib().MDFE_SalvarEventoPDF(handle, eArquivoXmlDocumento, eArquivoXmlEvento)
+    protected LIB_SalvarEventoPDF(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento: string, buffer: Buffer, refTamanho: any): number {
+        return this.getAcbrlib().MDFE_SalvarEventoPDF(handle, eArquivoXmlDocumento, eArquivoXmlEvento, buffer, refTamanho)
     }
     protected LIB_DistribuicaoDFePorUltNSU(handle: any, ufAutor: string, eCNPJCPF: string, eultNSU: string, buffer: any, refTamanho: any): number {
         return this.getAcbrlib().MDFE_DistribuicaoDFePorUltNSU(handle, ufAutor, eCNPJCPF, eultNSU, buffer, refTamanho)

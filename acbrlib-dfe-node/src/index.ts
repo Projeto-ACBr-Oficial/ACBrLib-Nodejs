@@ -260,10 +260,11 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
      * @param eArquivoXmlEvento - Arquivo XML do evento
      * @returns String contendo o PDF em formato Base64
      */
-    public salvarEventoPDF(eArquivoXmlDocumento: string, eArquivoXmlEvento: string): number {
-        let status = this.LIB_SalvarEventoPDF(this.getHandle(), eArquivoXmlDocumento, eArquivoXmlEvento)
+    public salvarEventoPDF(eArquivoXmlDocumento: string, eArquivoXmlEvento: string): string {
+        using buffer: ACBrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.LIB_SalvarEventoPDF(this.getHandle(), eArquivoXmlDocumento, eArquivoXmlEvento, buffer.getBuffer(), buffer.getRefTamanhoBuffer())
         this._checkResult(status)
-        return status;
+        return this._processaResult(buffer)
     }
 
     // ===== MÉTODOS PARA COMUNICAÇÃO =====
@@ -316,7 +317,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     }
 
 
-      // ===== MÉTODOS PARA DISTRIBUIÇÃO DFe =====
+    // ===== MÉTODOS PARA DISTRIBUIÇÃO DFe =====
 
     /**
      * Método usado para consultar distribuição DFe por último NSU
@@ -407,7 +408,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     protected abstract LIB_Enviar(handle: any, lote: number, imprimir: boolean, sincrono: boolean, zipado: boolean, buffer: Buffer, refTamanho: any): number
     protected abstract LIB_Cancelar(handle: any, chave: string, justificativa: string, CNPJ: string, lote: number, buffer: Buffer, refTamanho: any): number
     protected abstract LIB_EnviarEvento(handle: any, idLote: number, buffer: Buffer, refTamanho: any): number
-    
+
     // 📧 Métodos de Email (específicos de NFe/MDFe)
     protected abstract LIB_EnviarEmail(handle: any, ePara: string, eXMLDocumento: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number
     protected abstract LIB_EnviarEmailEvento(handle: any, ePara: string, eChaveEvento: string, eChaveDocumento: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number
@@ -415,11 +416,11 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     // 🖨️ Métodos de Impressão de Eventos (específicos de NFe/MDFe)
     protected abstract LIB_ImprimirEvento(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento: string): number
     protected abstract LIB_ImprimirEventoPDF(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento: string): number
-    protected abstract LIB_SalvarEventoPDF(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento: string): number
+    protected abstract LIB_SalvarEventoPDF(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento: string, buffer: Buffer, refTamanho: any): number
 
     // 🌐 Métodos de Distribuição DFe (específicos de NFe/MDFe)
     protected abstract LIB_DistribuicaoDFePorUltNSU(handle: any, ufAutor: string, eCNPJCPF: string, eultNSU: string, buffer: any, refTamanho: any): number
     protected abstract LIB_DistribuicaoDFePorNSU(handle: any, ufAutor: number, eCNPJCPF: string, eNSU: string, buffer: any, refTamanho: any): number
     protected abstract LIB_DistribuicaoDFePorChave(handle: any, ufAutor: number, eCNPJCPF: string, eChave: string, buffer: any, refTamanho: any): number
-    
+
 } 
