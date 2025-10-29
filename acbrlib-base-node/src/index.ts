@@ -454,10 +454,6 @@ export default abstract class ACBrLibBaseMT {
         let status = this.LIB_Inicializar(this.handle, arquivoConfig, chaveCrypt)
         if (status === ACBrLibResultCodes.OK) {
             this.isHandleInitialized = true
-        }else{
-            // por segurança, se a inicialização falhar, libera o handle
-            this.#releaseHandle()
-            this.isHandleInitialized = false
         }
         this._checkResult(status)
         return status
