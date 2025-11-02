@@ -1,8 +1,8 @@
+// Implementação usando a classe base desacoplada
 import ACBrLibCEPBridgeMT from "./bridge";
-import ACBrLibBaseMT from "@projetoacbr/acbrlib-base-node/dist/src";
+import ACBrLibBaseMT, { ACBrLibResultCodes, ACBrBuffer, TAMANHO_PADRAO } from "@projetoacbr/acbrlib-base-node/dist/src";
 import { TypeACBrCepMT } from "./bridge";
-import { ACBrLibResultCodes } from '@projetoacbr/acbrlib-base-node/dist/src/exception/ACBrLibResultCodes';
-import ACBrBuffer, { TAMANHO_PADRAO } from '@projetoacbr/acbrlib-base-node/dist/src/ACBrBuffer';
+import IACBrLibCepMT from "./types";
 
 
 /**
@@ -10,7 +10,7 @@ import ACBrBuffer, { TAMANHO_PADRAO } from '@projetoacbr/acbrlib-base-node/dist/
  * Esta classe permite que programadores de javascript/typescript usem a ACBrLibCep sem grandes preocupações.
  * Windows: use a convenção cdecl
  */
-export default class ACBrLibCepMT extends ACBrLibBaseMT {
+export default class ACBrLibCepMT extends ACBrLibBaseMT implements IACBrLibCepMT {
 
     public getAcbrlib(): TypeACBrCepMT;
 
@@ -72,36 +72,39 @@ export default class ACBrLibCepMT extends ACBrLibBaseMT {
      * @param arquivoConfig Localização do arquivo INI, pode ser em branco neste caso o ACBrLib vai criar um novo arquivo INI.
      * @param chaveCrypt Chave de segurança para criptografar as informações confidencias, pode ser em branco neste caso será usado a senha padrão.
      */
-
     constructor(libraryPath: string, arquivoConfig: string, chaveCrypt: string) {
-        super(new ACBrLibCEPBridgeMT(libraryPath).getAcbrNativeLib(), arquivoConfig, chaveCrypt)
+        const bridge = new ACBrLibCEPBridgeMT(libraryPath);
+        super(bridge.getAcbrNativeLib(), arquivoConfig, chaveCrypt);
     }
 
     /**
      * Método usado para realizar uma consulta pelo numero do CEP no componente ACBrCEP.
      * @param cep CEP a ser buscado
-     * @returns String contendo o resultado da consultas
+     * @returns String contendo o resultado da consulta
      */
     public buscarPorCep(cep: string): string{
-        using responseBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        using responseBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.getAcbrlib().CEP_BuscarPorCEP(this.getHandle(), cep, responseBuffer.getBuffer(), responseBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(responseBuffer)
     }
 
     /**
-     * Método usado para realizar uma consulta pelo numero do CEP no componente ACBrCEP.
-     * @param cidade Cidade a ser buscado
+     * Método usado para realizar uma consulta pelo logradouro no componente ACBrCEP.
+     * @param cidade Cidade a ser buscada
      * @param tipoLogradouro Tipo de logradouro a ser buscado
      * @param logradouro Logradouro a ser buscado
-     * @param bairro Bairro do endereço a ser buscado
      * @param uf UF do endereço a ser buscado
+     * @param bairro Bairro do endereço a ser buscado
      * @returns String contendo o resultado da consulta
      */
     public buscarPorLogradouro(cidade: string, tipoLogradouro: string, logradouro: string, uf: string, bairro: string): string{
-        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.getAcbrlib().CEP_BuscarPorLogradouro(this.getHandle(), cidade, tipoLogradouro, logradouro, uf, bairro, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
 }
+
+// Export the interface for external use
+export { default as IACBrLibCepMT } from "./types";
