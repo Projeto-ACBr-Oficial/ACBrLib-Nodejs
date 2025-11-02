@@ -93,18 +93,7 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
     }
 
 
-    /**
-       * @description Método usado para inicializar o componente para uso da biblioteca
-     */
-
     public inicializar(): number;
-
-    /**
-       * @description Método usado para inicializar o componente para uso da biblioteca
-       * @param arquivoConfig Localização do arquivo INI, pode ser em branco neste caso o ACBrLib vai criar um novo arquivo INI.
-       * @param chaveCrypt Chave de segurança para criptografar as informações confidencias, pode ser em branco neste caso será usado a senha padrão.
-       * @returns 0 se sucesso ou o código de erro
-  */
     public inicializar(arquivoConfig: string, chaveCrypt: string): number;
 
 
@@ -137,11 +126,6 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         this.handle = null
     }
 
-    /**
-     * Método usado para remover ACBrLib  e suas classes da memoria
-     * @returns 0 ou código de erro 
-     */
-
     public finalizar(): number {
 
         if ( !this.#isInitialized()){
@@ -159,12 +143,6 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         return status
     }
 
-    /**
-     * @description Método que retornar o nome da biblioteca.
-     * @returns Uma string com o nome da biblioteca
-     */
-
-
     public nome(): string {
         using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.LIB_Nome(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
@@ -172,22 +150,12 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         return this._processaResult(acbrBuffer)
     }
 
-    /**
-     * @description Método que retornar a versão da biblioteca.
-     * @returns  Uma string com o versão da biblioteca
-     */
-
     public versao(): string {
         using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.LIB_Versao(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
-
-    /**
-     * @description Método usado retornar o ultimo retorno processado pela biblioteca
-     * @returns Retorna uma string com o último retorno processado pela biblioteca.
-     */
 
     public ultimoRetorno(): string {
         using acbrBuffer = new ACBrBuffer(this.ffiProvider)
@@ -199,13 +167,6 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
     configLer(): number;
     configLer(arquivoConfig: string): number;
 
-    /**
-     * @description Método usado para ler a configuração da biblioteca do arquivo INI informado.
-     * @param arquivoConfig Arquivo INI para ler, se informado vazio será usado o valor padrão.
-     * @returns 0 ou código de erro 
-     */
-
-
     public configLer(arquivoConfig?: string): number {
         if (typeof arquivoConfig === "undefined") {
             return this.#configLer(this.arquivoConfig)
@@ -213,25 +174,7 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         return this.#configLer(arquivoConfig)
     }
 
-    /**
-     * @description Método usado para gravar a configuração da biblioteca no arquivo INI informado.
-     * @param arquivoConfig Arquivo INI para ler, se informado vazio será usado o valor padrão.
-     * @returns 0 ou código de erro
-     */
-
-
-    /**  
-    * @description Método usado para gravar a configuração da biblioteca no arquivo INI informado.
-    */
-
     public configGravar(): number;
-
-    /**
-   * @description Método usado para gravar a configuração da biblioteca no arquivo INI informado.
-   * @param arquivoConfig Arquivo INI para ler, se informado vazio será usado o valor padrão.
-   * @returns 0 ou código de erro
-   */
-
     public configGravar(arquivoConfig: string): number;
 
 
@@ -243,13 +186,6 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         return this.#configGravar(arquivoConfig)
     }
 
-    /**
-     * @description Método usado para ler uma determinado item da configuração.
-     * @param sessao Nome da sessão de configuração.
-     * @param chave Nome da chave da sessão.
-     * @returns 0 ou código de erro
-     */
-
     public configLerValor(sessao: string, chave: string): string {
         using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.LIB_ConfigLerValor(this.getHandle(), sessao, chave, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
@@ -258,14 +194,6 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
 
     }
 
-    /**
-     * @description Método usado para gravar um determinado item  da configuração.
-     * @param sessao Nome da sessão de configuração.
-     * @param chave Nome da chave da sessão.
-     * @param valor  Valor para ser gravado na configuração 
-     * @returns 0 ou código de erro
-     */
-
     public configGravarValor(sessao: string, chave: string, valor: string): number {
         let status = this.LIB_ConfigGravarValor(this.getHandle(), sessao, chave, valor)
         this._checkResult(status)
@@ -273,10 +201,6 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
     }
 
 
-    /**
-     * @description Método usado para exportar a configuração da biblioteca do arquivo INI informado.
-     * @returns Uma string com a configuração exportada.
-     */
     public configExportar(): string {
         using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.LIB_ConfigExportar(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
@@ -285,13 +209,6 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
     }
 
 
-    /**
-     * 
-     * @description Método usado para importar a configuração da biblioteca do arquivo INI informado
-     * @param arquivoConfig  Arquivo INI para ler, se informado vazio será usado o valor padrão.
-     * @returns 0 ou código de erro
-     */
-
     public configImportar(arquivoConfig: string): number {
         let status = this.LIB_ConfigImportar(this.getHandle(), arquivoConfig)
         this._checkResult(status)
@@ -299,10 +216,6 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
     }
 
 
-    /**
-      * @description Método que retorna informações da biblioteca OpenSsl
-      * @returns
-      */
     public openSslInfo(): string {
         using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.LIB_OpenSSLInfo(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
