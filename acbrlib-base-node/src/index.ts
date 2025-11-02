@@ -1,5 +1,6 @@
 import { TAMANHO_PADRAO } from './ACBrBuffer'
 import ACBrBuffer from './ACBrBuffer'
+import IACBrLibBaseMT from './types'
 import {
     ACBrLibConfigLerError,
     ACBrLibLibNaoFinalizadaError,
@@ -14,7 +15,8 @@ import {
     ACBrLibConfigGravarError
 } from './exception'
 import { ACBrLibResultCodes } from './exception/ACBrLibResultCodes'
-import * as koffi from 'koffi'
+import { IFFIProvider } from './types/IFFIProvider'
+import { KoffiFFIProvider } from './providers/KoffiFFIProvider'
 
 
 
@@ -22,8 +24,7 @@ import * as koffi from 'koffi'
  * ACBrLibBaseMT é uma  classe de alto nível que implementa os métodos da ACBrLibComum Multi-Thread
  * Implementa Disposable para auto-cleanup do handle
  */
-export default abstract class ACBrLibBaseMT {
-
+export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
 
     private handle: any // ponteiro para ponteiro (void **)
     private isHandleInitialized : boolean = false; 
@@ -31,19 +32,23 @@ export default abstract class ACBrLibBaseMT {
     private arquivoConfig: string
     private chaveCrypt: string
     private disposed = false
+    protected ffiProvider: IFFIProvider
 
     constructor(acbrlib: any, arquivoConfig: string, chaveCrypt: string) {
         this.arquivoConfig = arquivoConfig
         this.chaveCrypt = chaveCrypt
         this.acbrlib = acbrlib
         this.handle = null
+        // Usa KoffiFFIProvider internamente (desacoplado mas não exposto)
+        this.ffiProvider = new KoffiFFIProvider()
     }
 
     public getAcbrlib(): any {
         return this.acbrlib
     }
+    
     public getHandle(): any {
-        return koffi.decode(this.handle, 'void *')
+        return this.ffiProvider.decode(this.handle, 'void *')
     }
 
     #isInitialized() : boolean{
@@ -128,7 +133,7 @@ export default abstract class ACBrLibBaseMT {
             return
         }
         
-        koffi.free(this.handle)
+        this.ffiProvider.free(this.handle)
         this.handle = null
     }
 
@@ -161,7 +166,7 @@ export default abstract class ACBrLibBaseMT {
 
 
     public nome(): string {
-        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.LIB_Nome(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
@@ -173,7 +178,7 @@ export default abstract class ACBrLibBaseMT {
      */
 
     public versao(): string {
-        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.LIB_Versao(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
@@ -185,7 +190,7 @@ export default abstract class ACBrLibBaseMT {
      */
 
     public ultimoRetorno(): string {
-        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         this.LIB_UltimoRetorno(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         return this._processaResult(acbrBuffer)
     }
@@ -246,7 +251,7 @@ export default abstract class ACBrLibBaseMT {
      */
 
     public configLerValor(sessao: string, chave: string): string {
-        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.LIB_ConfigLerValor(this.getHandle(), sessao, chave, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
@@ -273,7 +278,7 @@ export default abstract class ACBrLibBaseMT {
      * @returns Uma string com a configuração exportada.
      */
     public configExportar(): string {
-        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.LIB_ConfigExportar(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
@@ -299,7 +304,7 @@ export default abstract class ACBrLibBaseMT {
       * @returns
       */
     public openSslInfo(): string {
-        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
         let status = this.LIB_OpenSSLInfo(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
@@ -315,8 +320,7 @@ export default abstract class ACBrLibBaseMT {
 
 
     _processaResult(buffer: ACBrBuffer): string {
-        let requiredLen =  koffi.decode(buffer.getRefTamanhoBuffer(), 'int')
-
+        let requiredLen = this.ffiProvider.decode(buffer.getRefTamanhoBuffer(), 'int')
 
         if (this._isRequiredReallocBuffer(requiredLen)) {
             requiredLen = Math.round(requiredLen * 1.3)
@@ -410,7 +414,7 @@ export default abstract class ACBrLibBaseMT {
 
 
     _ultimoRetorno(size: number): string {
-        using acbrBuffer = new ACBrBuffer(size)
+        using acbrBuffer = new ACBrBuffer(this.ffiProvider, size)
         this.LIB_UltimoRetorno(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         return acbrBuffer.toString()
     }
@@ -449,7 +453,7 @@ export default abstract class ACBrLibBaseMT {
 
     #inicializar(arquivoConfig: string, chaveCrypt: string) {
         if (this.handle == null) {
-            this.handle = koffi.alloc('void *', 1)
+            this.handle = this.ffiProvider.alloc('void *', 1)
         }
         let status = this.LIB_Inicializar(this.handle, arquivoConfig, chaveCrypt)
         if (status === ACBrLibResultCodes.OK) {
@@ -459,3 +463,24 @@ export default abstract class ACBrLibBaseMT {
         return status
     }
 }
+
+// Export apenas o que é necessário publicamente
+export { ACBrBuffer, TAMANHO_PADRAO }
+export { ACBrLibResultCodes }
+export { default as IACBrLibBaseMT } from './types'
+export {
+    ACBrLibConfigLerError,
+    ACBrLibLibNaoFinalizadaError,
+    ACBrLibLibNaoInicializadaError,
+    ACBrLibTimeOutError,
+    ACBrLibArquivoNaoExisteError,
+    ACBrLibDiretorioNaoExisteError,
+    ACBrLibHttpError,
+    ACBrLibParametroInvalidoError,
+    ACBrLibDemoExpiradoError,
+    ACBrLibNaoDisponivelEmModoConsoleError,
+    ACBrLibConfigGravarError
+}
+
+// Nota: IFFIProvider e KoffiFFIProvider são mantidos internos
+// para futuro suporte a custom providers sem quebrar a API atual
