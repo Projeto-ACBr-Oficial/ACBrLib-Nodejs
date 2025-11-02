@@ -1,5 +1,19 @@
 import { IACBrLibBaseMT } from "@projetoacbr/acbrlib-base-node";
 
+/**
+ * Interface específica para ACBrLibCep
+ * 
+ * Estende IACBrLibBaseMT adicionando métodos para consulta de CEP e endereços.
+ * 
+ * @interface IACBrLibCepMT
+ * @extends IACBrLibBaseMT
+ * 
+ * @example
+ * ```typescript
+ * // Use a interface como tipo de variável
+ * const cepLib: IACBrLibCepMT = new ACBrLibCepMT('./libacbrcep64.so', '', '');
+ * ```
+ */
 export default interface IACBrLibCepMT extends IACBrLibBaseMT {
     /**
      * Método usado para realizar uma consulta pelo numero do CEP no componente ACBrCEP.

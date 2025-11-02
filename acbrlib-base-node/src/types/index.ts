@@ -1,3 +1,17 @@
+/**
+ * Interface base para todas as bibliotecas ACBrLib Node.js
+ * 
+ * Define o contrato padrão que todas as interfaces específicas das bibliotecas ACBrLib 
+ * devem estender, fornecendo métodos básicos comuns (inicialização, configuração, 
+ * informações da biblioteca, etc.).
+ * 
+ * Todas as interfaces específicas devem estender esta interface:
+ * IACBrLibCepMT, IACBrLibNFeMT, IACBrLibNFSeMT, IACBrLibPIXMT, etc.
+ * 
+ * @interface IACBrLibBaseMT
+ * @version 1.1.0
+ * @since 1.0.0
+ */
 export default interface IACBrLibBaseMT {
     /**
      * @description Método usado para inicializar o componente para uso da biblioteca
