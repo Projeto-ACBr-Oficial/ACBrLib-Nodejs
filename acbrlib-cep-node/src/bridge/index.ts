@@ -1,11 +1,9 @@
-import * as koffi from 'koffi'
-
+import { getDefaultFFIProvider, IFFIProvider } from '@projetoacbr/acbrlib-base-node'
 
 /**
  * TypeACBrCepMT é uma interface que representa os métodos nativos da ACBrLibCep
  * Ela é necessária para o intelisense do Typescript entender os métodos da ACBrLibCep
  */
-
 export interface TypeACBrCepMT {
     CEP_Inicializar: (handle: any, configPath: string, chaveCrypt: string) => number
     CEP_Finalizar: (handle: any) => number
@@ -25,34 +23,35 @@ export interface TypeACBrCepMT {
 }
 
 /**
- * ACBrLibCEPBridgeMT é uma classe que acessa a biblioteca nativa ACBrLibCep
+ * ACBrLibCEPBridgeMT é uma classe que acessa a biblioteca nativa ACBrLibCep usando FFI desacoplado
  */
 export default class ACBrLibCEPBridgeMT {
     private acbrNativeLib: TypeACBrCepMT
 
     /**
-     * 
      * @param libraryPath é o caminho da biblioteca nativa ACBrLibCep, windows use a convenção cdecl
+     * @param ffiProvider Provider FFI opcional (usa o padrão se não fornecido)
      */
-    constructor(libraryPath: string) {
-        const acbrcep = koffi.load(libraryPath)
+    constructor(libraryPath: string, ffiProvider?: IFFIProvider) {
+        const provider = ffiProvider || getDefaultFFIProvider()
+        const acbrcep = provider.load(libraryPath)
 
         this.acbrNativeLib = {
-            CEP_Inicializar: acbrcep.func('CEP_Inicializar', 'int', ['void **', 'string', 'string']),
-            CEP_Finalizar: acbrcep.func('CEP_Finalizar', 'int', ['void *']),
-            CEP_UltimoRetorno: acbrcep.func('CEP_UltimoRetorno', 'int', ['void *', 'char*', 'int*']),
-            CEP_Nome: acbrcep.func('CEP_Nome', 'int', ['void *', 'char*', 'int*']),
-            CEP_Versao: acbrcep.func('CEP_Versao', 'int', ['void *', 'char*', 'int*']),
-            CEP_OpenSSLInfo: acbrcep.func('CEP_OpenSSLInfo', 'int', ['void *', 'char *', 'int *']),
+            CEP_Inicializar: provider.func(acbrcep, 'CEP_Inicializar', 'int', ['void **', 'string', 'string']),
+            CEP_Finalizar: provider.func(acbrcep, 'CEP_Finalizar', 'int', ['void *']),
+            CEP_UltimoRetorno: provider.func(acbrcep, 'CEP_UltimoRetorno', 'int', ['void *', 'char*', 'int*']),
+            CEP_Nome: provider.func(acbrcep, 'CEP_Nome', 'int', ['void *', 'char*', 'int*']),
+            CEP_Versao: provider.func(acbrcep, 'CEP_Versao', 'int', ['void *', 'char*', 'int*']),
+            CEP_OpenSSLInfo: provider.func(acbrcep, 'CEP_OpenSSLInfo', 'int', ['void *', 'char *', 'int *']),
 
-            CEP_ConfigLer: acbrcep.func('CEP_ConfigLer', 'int', ['void *', 'string']),
-            CEP_ConfigGravar: acbrcep.func('CEP_ConfigGravar', 'int', ['void *', 'string']),
-            CEP_ConfigLerValor: acbrcep.func('CEP_ConfigLerValor', 'int', ['void *', 'string', 'string', 'char*', 'int*']),
-            CEP_ConfigGravarValor: acbrcep.func('CEP_ConfigGravarValor', 'int', ['void *', 'string', 'string', 'string']),
-            CEP_ConfigImportar: acbrcep.func('CEP_ConfigImportar', 'int', ['void *', 'string']),
-            CEP_ConfigExportar: acbrcep.func('CEP_ConfigExportar', 'int', ['void *', 'char*', 'int*']),
-            CEP_BuscarPorCEP: acbrcep.func('CEP_BuscarPorCEP', 'int', ['void *', 'string', 'char *', 'int *']),
-            CEP_BuscarPorLogradouro: acbrcep.func('CEP_BuscarPorLogradouro', 'int', ['void *', 'string', 'string', 'string', 'string', 'string', 'char*', 'int*'])
+            CEP_ConfigLer: provider.func(acbrcep, 'CEP_ConfigLer', 'int', ['void *', 'string']),
+            CEP_ConfigGravar: provider.func(acbrcep, 'CEP_ConfigGravar', 'int', ['void *', 'string']),
+            CEP_ConfigLerValor: provider.func(acbrcep, 'CEP_ConfigLerValor', 'int', ['void *', 'string', 'string', 'char*', 'int*']),
+            CEP_ConfigGravarValor: provider.func(acbrcep, 'CEP_ConfigGravarValor', 'int', ['void *', 'string', 'string', 'string']),
+            CEP_ConfigImportar: provider.func(acbrcep, 'CEP_ConfigImportar', 'int', ['void *', 'string']),
+            CEP_ConfigExportar: provider.func(acbrcep, 'CEP_ConfigExportar', 'int', ['void *', 'char*', 'int*']),
+            CEP_BuscarPorCEP: provider.func(acbrcep, 'CEP_BuscarPorCEP', 'int', ['void *', 'string', 'char *', 'int *']),
+            CEP_BuscarPorLogradouro: provider.func(acbrcep, 'CEP_BuscarPorLogradouro', 'int', ['void *', 'string', 'string', 'string', 'string', 'string', 'char*', 'int*'])
         } as TypeACBrCepMT
     }
 

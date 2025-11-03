@@ -381,6 +381,8 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
 export { ACBrBuffer, TAMANHO_PADRAO }
 export { ACBrLibResultCodes }
 export { default as IACBrLibBaseMT } from './types'
+export { IFFIProvider } from './types/IFFIProvider'
+export { getDefaultFFIProvider } from './providers'
 export {
     ACBrLibConfigLerError,
     ACBrLibLibNaoFinalizadaError,
@@ -394,6 +396,3 @@ export {
     ACBrLibNaoDisponivelEmModoConsoleError,
     ACBrLibConfigGravarError
 }
-
-// Nota: IFFIProvider e KoffiFFIProvider são mantidos internos
-// para futuro suporte a custom providers sem quebrar a API atual
