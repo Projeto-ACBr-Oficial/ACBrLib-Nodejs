@@ -16,8 +16,7 @@ import {
 } from './exception'
 import { ACBrLibResultCodes } from './exception/ACBrLibResultCodes'
 import { IFFIProvider } from './types/IFFIProvider'
-import { KoffiFFIProvider } from './providers/KoffiFFIProvider'
-import { IACBrLibBridgeMT } from './providers'
+import { getDefaultFFIProvider, IACBrLibBridgeMT } from './providers'
 
 
 
@@ -40,8 +39,8 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         this.chaveCrypt = chaveCrypt
         this.acbrlib = acbrlib
         this.handle = null
-        // Usa KoffiFFIProvider internamente (desacoplado mas não exposto)
-        this.ffiProvider = new KoffiFFIProvider()
+        // utiliza o provider padrão 
+        this.ffiProvider = getDefaultFFIProvider()
     }
 
     protected getAcbrlib(): any {
