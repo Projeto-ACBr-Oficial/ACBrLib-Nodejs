@@ -1,5 +1,4 @@
-import { getDefaultFFIProvider, IFFIProvider } from '@projetoacbr/acbrlib-base-node'
-
+import { getDefaultFFIProvider, IFFIProvider,IACBrLibBridgeMT } from '@projetoacbr/acbrlib-base-node/dist/src'
 /**
  * TypeACBrCepMT é uma interface que representa os métodos nativos da ACBrLibCep
  * Ela é necessária para o intelisense do Typescript entender os métodos da ACBrLibCep
@@ -25,18 +24,48 @@ export interface TypeACBrCepMT {
 /**
  * ACBrLibCEPBridgeMT é uma classe que acessa a biblioteca nativa ACBrLibCep usando FFI desacoplado
  */
-export default class ACBrLibCEPBridgeMT {
-    private acbrNativeLib: TypeACBrCepMT
+export default class ACBrLibCEPBridgeMT implements IACBrLibBridgeMT {
+    #acbrNativeLib: TypeACBrCepMT
+    private static instance: ACBrLibCEPBridgeMT;
 
     /**
-     * @param libraryPath é o caminho da biblioteca nativa ACBrLibCep, windows use a convenção cdecl
-     * @param ffiProvider Provider FFI opcional (usa o padrão se não fornecido)
+     * 
+     * @returns TypeACBrCepMT é uma interface que representa os métodos nativos da ACBrLibCep
      */
-    constructor(libraryPath: string, ffiProvider?: IFFIProvider) {
-        const provider = ffiProvider || getDefaultFFIProvider()
-        const acbrcep = provider.load(libraryPath)
 
-        this.acbrNativeLib = {
+
+    private constructor(libraryPath: string) {
+        this.#acbrNativeLib = this.#loadLibrary(libraryPath);
+    }
+
+
+    /**
+     * Retorna a instância singleton do ACBrLibCEPBridgeMT
+     * @param libraryPath Caminho da biblioteca nativa ACBrLibCep
+     * @returns Instância singleton do ACBrLibCEPBridgeMT
+     */
+    public static getInstance(libraryPath: string): ACBrLibCEPBridgeMT {
+        if (!ACBrLibCEPBridgeMT.instance) {
+            ACBrLibCEPBridgeMT.instance = new ACBrLibCEPBridgeMT(libraryPath);
+        }
+        return ACBrLibCEPBridgeMT.instance;
+
+    }
+
+
+    public getAcbrNativeLib(): TypeACBrCepMT {
+        return this.#acbrNativeLib
+    }
+
+
+    /**
+     * Método privado que de fato retorna os métodos mapeados para a classe
+     */
+    #loadLibrary(libraryPath: string): TypeACBrCepMT {
+        const provider = getDefaultFFIProvider()
+        const acbrcep : IFFIProvider = provider.load(libraryPath)
+
+        return  {
             CEP_Inicializar: provider.func(acbrcep, 'CEP_Inicializar', 'int', ['void **', 'string', 'string']),
             CEP_Finalizar: provider.func(acbrcep, 'CEP_Finalizar', 'int', ['void *']),
             CEP_UltimoRetorno: provider.func(acbrcep, 'CEP_UltimoRetorno', 'int', ['void *', 'char*', 'int*']),
@@ -53,13 +82,11 @@ export default class ACBrLibCEPBridgeMT {
             CEP_BuscarPorCEP: provider.func(acbrcep, 'CEP_BuscarPorCEP', 'int', ['void *', 'string', 'char *', 'int *']),
             CEP_BuscarPorLogradouro: provider.func(acbrcep, 'CEP_BuscarPorLogradouro', 'int', ['void *', 'string', 'string', 'string', 'string', 'string', 'char*', 'int*'])
         } as TypeACBrCepMT
-    }
 
-    /**
-     * 
-     * @returns TypeACBrCepMT é uma interface que representa os métodos nativos da ACBrLibCep
-     */
-    public getAcbrNativeLib(): TypeACBrCepMT {
-        return this.acbrNativeLib
+    }
+    public loadLibrary(libraryPath: string): void {
+        if (this.#acbrNativeLib === null) {
+            this.#acbrNativeLib = this.#loadLibrary(libraryPath);
+        }
     }
 }

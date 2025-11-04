@@ -12,9 +12,9 @@ import IACBrLibCepMT from "./types";
  */
 export default class ACBrLibCepMT extends ACBrLibBaseMT implements IACBrLibCepMT {
 
-    public getAcbrlib(): TypeACBrCepMT;
+    protected getAcbrlib(): TypeACBrCepMT;
 
-    public getAcbrlib(): TypeACBrCepMT {
+    protected getAcbrlib(): TypeACBrCepMT {
         return super.getAcbrlib() as TypeACBrCepMT
     }
 
@@ -72,9 +72,8 @@ export default class ACBrLibCepMT extends ACBrLibBaseMT implements IACBrLibCepMT
      * @param arquivoConfig Localização do arquivo INI, pode ser em branco neste caso o ACBrLib vai criar um novo arquivo INI.
      * @param chaveCrypt Chave de segurança para criptografar as informações confidencias, pode ser em branco neste caso será usado a senha padrão.
      */
-    constructor(libraryPath: string, arquivoConfig: string, chaveCrypt: string) {
-        const bridge = new ACBrLibCEPBridgeMT(libraryPath);
-        super(bridge.getAcbrNativeLib(), arquivoConfig, chaveCrypt);
+    constructor(libraryPath: string, arquivoConfig: string, chaveCrypt: string) {;
+        super(ACBrLibCEPBridgeMT.getInstance(libraryPath), arquivoConfig, chaveCrypt);
     }
 
     /**

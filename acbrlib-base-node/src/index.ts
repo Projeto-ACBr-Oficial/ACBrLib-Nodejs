@@ -17,6 +17,7 @@ import {
 import { ACBrLibResultCodes } from './exception/ACBrLibResultCodes'
 import { IFFIProvider } from './types/IFFIProvider'
 import { KoffiFFIProvider } from './providers/KoffiFFIProvider'
+import { IACBrLibBridgeMT } from './providers'
 
 
 
@@ -27,14 +28,14 @@ import { KoffiFFIProvider } from './providers/KoffiFFIProvider'
 export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
 
     private handle: any // ponteiro para ponteiro (void **)
-    private isHandleInitialized : boolean = false; 
-    private acbrlib: any
+    private isHandleInitialized: boolean = false;
+    private acbrlib: IACBrLibBridgeMT
     private arquivoConfig: string
     private chaveCrypt: string
     private disposed = false
     protected ffiProvider: IFFIProvider
 
-    constructor(acbrlib: any, arquivoConfig: string, chaveCrypt: string) {
+    constructor(acbrlib: IACBrLibBridgeMT, arquivoConfig: string, chaveCrypt: string) {
         this.arquivoConfig = arquivoConfig
         this.chaveCrypt = chaveCrypt
         this.acbrlib = acbrlib
@@ -43,16 +44,16 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         this.ffiProvider = new KoffiFFIProvider()
     }
 
-    public getAcbrlib(): any {
-        return this.acbrlib
+    protected getAcbrlib(): any {
+        return this.acbrlib.getAcbrNativeLib()
     }
-    
-    public getHandle(): any {
+
+    protected getHandle(): any {
         return this.ffiProvider.decode(this.handle, 'void *')
     }
 
-    #isInitialized() : boolean{
-    
+    #isInitialized(): boolean {
+
         // diferente do ref-napi que tem o metodo isNull() koffi até a presente versão não tem
         // sendo impossivel saber se o handle é null (do lado nodejs) ou não, usamos o isHandleInitialized
         // para saber se a biblioteca foi inicializada
@@ -382,7 +383,7 @@ export { ACBrBuffer, TAMANHO_PADRAO }
 export { ACBrLibResultCodes }
 export { default as IACBrLibBaseMT } from './types'
 export { IFFIProvider } from './types/IFFIProvider'
-export { getDefaultFFIProvider } from './providers'
+export { getDefaultFFIProvider, IACBrLibBridgeMT } from './providers'
 export {
     ACBrLibConfigLerError,
     ACBrLibLibNaoFinalizadaError,

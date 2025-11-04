@@ -11,3 +11,21 @@ export { KoffiFFIProvider } from './KoffiFFIProvider';
 export function getDefaultFFIProvider(): IFFIProvider {
     return new KoffiFFIProvider();
 }
+
+/**
+ * Interface de carregamento de bibliotecas nativas
+ * Toda as ACBrLibBridgeMT devem implementar essa interface
+ * Uma ACBrLibBridgeMT é responsável por carregar a biblioteca nativa e fornecer acesso aos seus métodos
+ */
+export interface IACBrLibBridgeMT {
+
+    /*
+    Metodo que carrega a biblioteca
+    */
+    loadLibrary( libraryPath: string): void;
+
+    /**
+     * Método para obter a referencia para a biblioteca já carregada
+     */
+    getAcbrNativeLib(): any
+}
