@@ -64,12 +64,12 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
      * Libera recursos alocados
      */
     destroy() {
-       
+
         if (!this.disposed) {
             try {
                 // Finaliza a biblioteca se estiver inicializada
                 if (this.#isInitialized()) {
-                   this.finalizar()
+                    this.finalizar()
                 }
                 this.disposed = true
             } catch (error) {
@@ -121,25 +121,25 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         if (!this.handle) {
             return
         }
-        
+
         this.ffiProvider.free(this.handle)
         this.handle = null
     }
 
     public finalizar(): number {
 
-        if ( !this.#isInitialized()){
+        if (!this.#isInitialized()) {
             return 0
         }
 
         let status = this.LIB_Finalizar(this.getHandle())
-        
+
         if (status == ACBrLibResultCodes.OK) {
             this.#releaseHandle()
             this.isHandleInitialized = false
         }
         this._checkResult(status)
-    
+
         return status
     }
 
@@ -257,7 +257,7 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
     _checkResult(result: number) {
 
         // se o resultado é maior ou igual a OK, não há erro
-        if ( !this._isResultErrorCode(result)) {
+        if (!this._isResultErrorCode(result)) {
             return;
         }
 
@@ -267,7 +267,7 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         switch (result) {
 
             case ACBrLibResultCodes.ErrLibNaoInicializada:
-                throw new ACBrLibLibNaoInicializadaError("Erro ao inicializar "+ this.nome);
+                throw new ACBrLibLibNaoInicializadaError("Erro ao inicializar " + this.nome);
                 break;
 
             case ACBrLibResultCodes.ErrLibNaoFinalizada:
