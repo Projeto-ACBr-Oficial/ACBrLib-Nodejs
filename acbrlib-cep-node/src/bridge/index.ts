@@ -1,4 +1,4 @@
-import { getDefaultFFIProvider, IFFIProvider,IACBrLibBridgeMT } from '@projetoacbr/acbrlib-base-node/dist/src'
+import { getDefaultFFIProvider, IACBrLibBridgeMT } from '@projetoacbr/acbrlib-base-node/dist/src';
 /**
  * TypeACBrCepMT é uma interface que representa os métodos nativos da ACBrLibCep
  * Ela é necessária para o intelisense do Typescript entender os métodos da ACBrLibCep

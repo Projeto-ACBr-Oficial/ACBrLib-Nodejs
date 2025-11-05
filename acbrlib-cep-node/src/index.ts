@@ -1,6 +1,6 @@
 // Implementação usando a classe base desacoplada
 import ACBrLibCEPBridgeMT from "./bridge";
-import ACBrLibBaseMT, { ACBrLibResultCodes, ACBrBuffer, TAMANHO_PADRAO } from "@projetoacbr/acbrlib-base-node/dist/src";
+import ACBrLibBaseMT, { ACBrBuffer } from "@projetoacbr/acbrlib-base-node/dist/src";
 import { TypeACBrCepMT } from "./bridge";
 import IACBrLibCepMT from "./types";
 
