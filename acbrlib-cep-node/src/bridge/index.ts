@@ -63,9 +63,9 @@ export default class ACBrLibCEPBridgeMT implements IACBrLibBridgeMT {
      */
     #loadLibrary(libraryPath: string): TypeACBrCepMT {
         const provider = getDefaultFFIProvider()
-        const acbrcep : IFFIProvider = provider.load(libraryPath)
+        const acbrcep = provider.load(libraryPath)
 
-        return  {
+        return {
             CEP_Inicializar: provider.func(acbrcep, 'CEP_Inicializar', 'int', ['void **', 'string', 'string']),
             CEP_Finalizar: provider.func(acbrcep, 'CEP_Finalizar', 'int', ['void *']),
             CEP_UltimoRetorno: provider.func(acbrcep, 'CEP_UltimoRetorno', 'int', ['void *', 'char*', 'int*']),
