@@ -38,8 +38,26 @@ O pacote implementa uma **arquitetura desacoplada** através de interfaces bem d
 #### 📋 Interfaces Principais
 
 - **`IFFIProvider`** - Interface para provedores FFI (Foreign Function Interface)
-- **`IACBrLibBridgeMT`** - Interface para bridges de bibliotecas nativas
+- **`IACBrLibBridgeMT`** - Interface base para bridges de bibliotecas nativas
 - **`IACBrLibBaseMT`** - Interface base para todas as implementações ACBrLib
+
+#### 🌉 Bridges Específicas por Biblioteca
+
+Cada biblioteca ACBrLib deve implementar sua própria bridge seguindo o padrão:
+
+| Biblioteca | Interface Bridge | Classe Bridge | Interface Métodos Nativos |
+|------------|------------------|---------------|---------------------------|
+| **CEP** | `IACBrLibBridgeMT` | `ACBrLibCEPBridgeMT` | `TypeACBrCepMT` |
+| **NFe** | `IACBrLibBridgeMT` | `ACBrLibNFeBridgeMT` | `TypeACBrNFeMT` |
+| **NFSe** | `IACBrLibBridgeMT` | `ACBrLibNFSeBridgeMT` | `TypeACBrNFSeMT` |
+| **MDFe** | `IACBrLibBridgeMT` | `ACBrLibMDFeBridgeMT` | `TypeACBrMDFeMT` |
+| **PixCD** | `IACBrLibBridgeMT` | `ACBrLibPixCDBridgeMT` | `TypeACBrPixCDMT` |
+| **REINF** | `IACBrLibBridgeMT` | `ACBrLibREINFBridgeMT` | `TypeACBrREINFMT` |
+
+**📝 Padrão de Nomenclatura das Bridges:**
+- **Interface Base**: Sempre `IACBrLibBridgeMT`
+- **Classe Bridge**: `ACBrLib[Nome]BridgeMT` (ex: `ACBrLibCEPBridgeMT`)
+- **Interface Nativa**: `TypeACbr[Nome]MT` (ex: `TypeACBrCepMT`)
 
 ## 🎨 Padrões de Projeto Utilizados
 
@@ -56,7 +74,9 @@ Este projeto implementa diversos padrões de projeto para garantir flexibilidade
 
 Documentações específicas estão disponíveis em suas respectivas pastas:
 - **Providers**: [`src/providers/README.md`](src/providers/README.md) - Documentação dos provedores FFI
-- **Types**: [`src/types/README.md`](src/types/README.md) - Documentação das interfaces
+- **Types**: [`src/types/README.md`](src/types/README.md) - Documentação das interfaces e **implementação de bridges**
+
+
 
 ## 📦 Instalação
 
@@ -131,13 +151,22 @@ interface IACBrLibNFSeMT extends IACBrLibBaseMT {
 
 #### 🎯 Padrão de Nomenclatura
 
-- **Base**: `IACBrLibBaseMT` (esta interface)
-- **CEP**: `IACBrLibCepMT`
-- **NFe**: `IACBrLibNFeMT`
-- **NFSe**: `IACBrLibNFSeMT`
-- **MDFe**: `IACBrLibMDFeMT`
-- **PixCD**: `IACBrLibPixCDMT`
-- **REINF**: `IACBrLibReinfMT`
+**Interfaces de Alto Nível:**
+- **Base**: `IACBrLibBaseMT` (interface base)
+- **CEP**: `IACBrLibCepMT` + `ACBrLibCepMT`
+- **NFe**: `IACBrLibNFeMT` + `ACBrLibNFeMT`
+- **NFSe**: `IACBrLibNFSeMT` + `ACBrLibNFSeMT`
+- **MDFe**: `IACBrLibMDFeMT` + `ACBrLibMDFeMT`
+- **PixCD**: `IACBrLibPixCDMT` + `ACBrLibPixCDMT`
+- **REINF**: `IACBrLibReinfMT` + `ACBrLibReinfMT`
+
+**Bridges e Interfaces Nativas:**
+- **CEP**: `ACBrLibCEPBridgeMT` + `TypeACBrCepMT`
+- **NFe**: `ACBrLibNFeBridgeMT` + `TypeACBrNFeMT`  
+- **NFSe**: `ACBrLibNFSeBridgeMT` + `TypeACBrNFSeMT`
+- **MDFe**: `ACBrLibMDFeBridgeMT` + `TypeACBrMDFeMT`
+- **PixCD**: `ACBrLibPixCDBridgeMT` + `TypeACBrPixCDMT`
+- **REINF**: `ACBrLibREINFBridgeMT` + `TypeACBrREINFMT`
 
 #### 🔧 Abstração de Detalhes de Baixo Nível
 
@@ -519,8 +548,8 @@ acbrlib-base-node/
 
 ### 📋 Documentação Técnica
 
-- **📋 Documentação dos Providers**: [`src/providers/README.md`](src/providers/README.md)
-- **📋 Documentação das Interfaces**: [`src/types/README.md`](src/types/README.md)
+- **📋 Documentação dos Providers**: [`src/providers/README.md`](src/providers/README.md) - Provedores FFI
+- **📋 Documentação das Interfaces**: [`src/types/README.md`](src/types/README.md) - Interfaces e bridges
 
 ### 🌐 Recursos Externos
 
