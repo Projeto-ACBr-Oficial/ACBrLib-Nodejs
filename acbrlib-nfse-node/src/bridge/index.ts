@@ -59,7 +59,7 @@ export interface TypeACBrLibNFSe {
 
     // ===== MÉTODOS DE COMUNICAÇÃO E EVENTOS =====
     NFSE_EnviarEmail: (handle: any, destinatario: string, xml: string, anexarPDF: boolean, assunto: string, mensagem: string, cc: string, anexo: string) => number;
-    NFSE_EnviarEvento: (handle: any, resposta: Buffer, tamanho: any) => number;
+    NFSE_EnviarEvento: (handle: any,  infoEvento: string,resposta: Buffer, tamanho: any) => number;
     NFSE_ConsultarDPSPorChave: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
     NFSE_ConsultarNFSePorChave: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
     NFSE_ConsultarEvento: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
@@ -145,7 +145,7 @@ export default class ACBrLibNFSeMTBridge {
 
             // ===== MÉTODOS DE COMUNICAÇÃO E EVENTOS =====
             NFSE_EnviarEmail: acbrnfse.func("NFSE_EnviarEmail", 'int', ['void *', 'string', 'string', 'bool', 'string', 'string', 'string', 'string']),
-            NFSE_EnviarEvento: acbrnfse.func("NFSE_EnviarEvento", 'int', ['void *', 'char*', 'int*']),
+            NFSE_EnviarEvento: acbrnfse.func("NFSE_EnviarEvento", 'int', ['void *','string', 'char*', 'int*']),
             NFSE_ConsultarDPSPorChave: acbrnfse.func("NFSE_ConsultarDPSPorChave", 'int', ['void *', 'string', 'char*', 'int*']),
             NFSE_ConsultarNFSePorChave: acbrnfse.func("NFSE_ConsultarNFSePorChave", 'int', ['void *', 'string', 'char*', 'int*']),
             NFSE_ConsultarEvento: acbrnfse.func("NFSE_ConsultarEvento", 'int', ['void *', 'string', 'char*', 'int*']),
