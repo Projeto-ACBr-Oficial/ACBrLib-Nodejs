@@ -125,11 +125,20 @@ class ACBrLibNFSeMT extends ACBrLibDFeComum {
         return this.getAcbrlib().NFSE_EnviarEmail(handle, ePara, eXMLDocumento, enviaPDF, eAssunto, eMensagem, eCC, eAnexos)
     }
 
-    protected LIB_EnviarEvento(handle: any, idLote: number, buffer: any, refTamanho: any): number {
-        return this.getAcbrlib().NFSE_EnviarEvento(handle, buffer, refTamanho)
-    }
-
     // ===== MÉTODOS ESPECÍFICOS DO NFSe =====
+
+
+    /**
+     * Método usado para enviar um evento NFSe.
+     * @param infoEvento Path com o nome do arquivo INI a ser lido ou o conteúdo do INI.
+     * @returns string com resultado do envio do evento.
+     */
+    public enviarEvento(infoEvento: string): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_EnviarEvento(this.getHandle(), infoEvento, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
 
     /**
      * Método usado para emitir NFSe
@@ -505,7 +514,7 @@ class ACBrLibNFSeMT extends ACBrLibDFeComum {
 
 
 
-    
+
     // ===== MÉTODO DE VERIFICAÇÃO DE ERROS =====
 
     _checkResult(result: number): void {

@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "local-release": "npm run build && npm link"
+    "local-release": "npm run build && npx yalc publish"
   },
   "repository": {
     "type": "git",
