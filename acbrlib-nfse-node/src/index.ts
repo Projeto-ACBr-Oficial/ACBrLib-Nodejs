@@ -4,6 +4,7 @@ import { TAMANHO_PADRAO } from "@projetoacbr/acbrlib-base-node/dist/src/ACBrBuff
 import { TypeACBrLibNFSe } from "./bridge";
 import ACBrLibNFSeBridgeMT from "./bridge";
 import { ACBrDateConverter } from "@projetoacbr/acbrlib-base-node/dist/src/utils";
+import ACBrLibNFSeError from "./exception";
 
 /**
  * @description ACBrLibNFSeMT é uma classe de alto nível que abstrai os métodos da ACBrLibNFSe Multi-thread<br/>
@@ -626,8 +627,7 @@ class ACBrLibNFSeMT extends ACBrLibDFeComum {
 
         super._checkResult(result);
 
-        // Para NFSe, vamos usar um tratamento de erro genérico
-        throw new Error(`Erro NFSe: ${this.ultimoRetorno()}`);
+        throw new ACBrLibNFSeError(`Erro NFSe: ${this.ultimoRetorno()}`);
     }
 
 
