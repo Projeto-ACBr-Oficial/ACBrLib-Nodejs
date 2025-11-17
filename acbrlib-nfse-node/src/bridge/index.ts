@@ -30,40 +30,41 @@ export interface TypeACBrLibNFSe {
 
     // ===== MÉTODOS DE EMISSÃO E PROCESSAMENTO =====
     NFSE_Emitir: (handle: any, xml: string, aLote: number, imprimir: boolean, resposta: Buffer, tamanho: any) => number;
-    NFSE_SubstituirNFSe: (handle: any, xml: string, aLote: number, resposta: Buffer, tamanho: any) => number;
-    NFSE_LinkNFSe: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_GerarLote: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_GerarToken: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_SubstituirNFSe: (handle: any, numeroNFSe: string, serieNFSe: string, codigoCancelamento: string, motivoCancelamento: string, numeroLote: string, codigoVerificacao: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_LinkNFSe: (handle: any, numeroNFSe: string, codigoVerificacao: string, chaveAcesso: string, valorServico: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_GerarLote: (handle: any, lote: string, qtdMaximaRps: number, modoEnvio: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_GerarToken: (handle: any, resposta: Buffer, tamanho: any) => number;
 
     // ===== MÉTODOS DE CONSULTA =====
-    NFSE_ConsultarSituacao: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarLoteRps: (handle: any, protocolo: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSePorRps: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSePorNumero: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSePorPeriodo: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSePorFaixa: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSeGenerico: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarSituacao: (handle: any, protocolo: string, numLote: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarLoteRps: (handle: any, protocolo: string, numLote: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSePorRps: (handle: any, numeroRps: string, serie: string, tipo: string, codigoVerificacao: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSePorNumero: (handle: any, numero: string, pagina: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSePorPeriodo: (handle: any, dataInicial: number, dataFinal: number, pagina: number, numeroLote: string, tipoPeriodo: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSePorFaixa: (handle: any, numeroInicial: string, numeroFinal: string, pagina: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSeGenerico: (handle: any, infConsultaNFSe: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarLinkNFSe: (handle: any, infConsultaLinkNFSe: string, resposta: Buffer, tamanho: any) => number;
 
     // ===== MÉTODOS DE CONSULTA DE SERVIÇOS PRESTADOS =====
-    NFSE_ConsultarNFSeServicoPrestadoPorNumero: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSeServicoPrestadoPorPeriodo: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSeServicoPrestadoPorTomador: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSeServicoPrestadoPorIntermediario: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSeServicoPrestadoPorNumero: (handle: any, numero: string, pagina: number, dataInicial: number, dataFinal: number, tipoPeriodo: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSeServicoPrestadoPorPeriodo: (handle: any, dataInicial: number, dataFinal: number, pagina: number, tipoPeriodo: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSeServicoPrestadoPorTomador: (handle: any, cnpj: string, inscMun: string, pagina: number, dataInicial: number, dataFinal: number, tipoPeriodo: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSeServicoPrestadoPorIntermediario: (handle: any, cnpj: string, inscMun: string, pagina: number, dataInicial: number, dataFinal: number, tipoPeriodo: number, resposta: Buffer, tamanho: any) => number;
 
     // ===== MÉTODOS DE CONSULTA DE SERVIÇOS TOMADOS =====
-    NFSE_ConsultarNFSeServicoTomadoPorNumero: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSeServicoTomadoPorPrestador: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSeServicoTomadoPorTomador: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSeServicoTomadoPorPeriodo: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSeServicoTomadoPorIntermediario: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSeServicoTomadoPorNumero: (handle: any, numero: string, pagina: number, dataInicial: number, dataFinal: number, tipoPeriodo: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSeServicoTomadoPorPrestador: (handle: any, cnpj: string, inscMun: string, pagina: number, dataInicial: number, dataFinal: number, tipoPeriodo: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSeServicoTomadoPorTomador: (handle: any, cnpj: string, inscMun: string, pagina: number, dataInicial: number, dataFinal: number, tipoPeriodo: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSeServicoTomadoPorPeriodo: (handle: any, dataInicial: number, dataFinal: number, pagina: number, tipoPeriodo: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSeServicoTomadoPorIntermediario: (handle: any, cnpj: string, inscMun: string, pagina: number, dataInicial: number, dataFinal: number, tipoPeriodo: number, resposta: Buffer, tamanho: any) => number;
 
     // ===== MÉTODOS DE COMUNICAÇÃO E EVENTOS =====
-    NFSE_EnviarEmail: (handle: any, destinatario: string, xml: string, anexarPDF: boolean, assunto: string, mensagem: string, cc: string, anexo: string) => number;
-    NFSE_EnviarEvento: (handle: any,  infoEvento: string,resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarDPSPorChave: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarNFSePorChave: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarEvento: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarDFe: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_EnviarEmail: (handle: any, para: string, xmlNFSe: string, enviaPDF: boolean, assunto: string, cc: string, anexos: string, mensagem: string) => number;
+    NFSE_EnviarEvento: (handle: any, infEvento: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarDPSPorChave: (handle: any, chaveDPS: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarNFSePorChave: (handle: any, chaveNFSe: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarEvento: (handle: any, chave: string, tipoEvento: number, numSeq: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarDFe: (handle: any, nsu: number, resposta: Buffer, tamanho: any) => number;
 
     // ===== MÉTODOS DE IMPRESSÃO E PDF =====
     NFSE_Imprimir: (handle: any, impressora: string, numCopias: number, gerarPDF: string, mostrarPreview: string, cancelada: string) => number;
@@ -71,8 +72,9 @@ export interface TypeACBrLibNFSe {
     NFSE_SalvarPDF: (handle: any, resposta: Buffer, tamanho: any) => number;
 
     // ===== MÉTODOS ADICIONAIS =====
-    NFSE_ObterDANFSE: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
-    NFSE_ConsultarParametros: (handle: any, xml: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ObterDANFSE: (handle: any, chaveNFSe: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ConsultarParametros: (handle: any, tipoParametroMunicipio: number, codigoServico: string, competencia: number, numeroBeneficio: string, resposta: Buffer, tamanho: any) => number;
+    NFSE_ObterInformacoesProvedor: (handle: any, resposta: Buffer, tamanho: any) => number;
 
     // ===== MÉTODOS DE CANCELAMENTO =====
     NFSE_Cancelar: (handle: any, xml: string, protocolo: string, motivo: string, aLote: number, resposta: Buffer, tamanho: any) => number;
@@ -116,40 +118,41 @@ export default class ACBrLibNFSeMTBridge {
 
             // ===== MÉTODOS DE EMISSÃO E PROCESSAMENTO =====
             NFSE_Emitir: acbrnfse.func("NFSE_Emitir", 'int', ['void *', 'string', 'int', 'bool', 'char*', 'int*']),
-            NFSE_SubstituirNFSe: acbrnfse.func("NFSE_SubstituirNFSe", 'int', ['void *', 'string', 'int', 'char*', 'int*']),
-            NFSE_LinkNFSe: acbrnfse.func("NFSE_LinkNFSe", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_GerarLote: acbrnfse.func("NFSE_GerarLote", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_GerarToken: acbrnfse.func("NFSE_GerarToken", 'int', ['void *', 'string', 'char*', 'int*']),
+            NFSE_SubstituirNFSe: acbrnfse.func("NFSE_SubstituirNFSe", 'int', ['void *', 'string', 'string', 'string', 'string', 'string', 'string', 'char*', 'int*']),
+            NFSE_LinkNFSe: acbrnfse.func("NFSE_LinkNFSe", 'int', ['void *', 'string', 'string', 'string', 'string', 'char*', 'int*']),
+            NFSE_GerarLote: acbrnfse.func("NFSE_GerarLote", 'int', ['void *', 'string', 'int', 'int', 'char*', 'int*']),
+            NFSE_GerarToken: acbrnfse.func("NFSE_GerarToken", 'int', ['void *', 'char*', 'int*']),
 
             // ===== MÉTODOS DE CONSULTA =====
-            NFSE_ConsultarSituacao: acbrnfse.func("NFSE_ConsultarSituacao", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarLoteRps: acbrnfse.func("NFSE_ConsultarLoteRps", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarNFSePorRps: acbrnfse.func("NFSE_ConsultarNFSePorRps", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarNFSePorNumero: acbrnfse.func("NFSE_ConsultarNFSePorNumero", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarNFSePorPeriodo: acbrnfse.func("NFSE_ConsultarNFSePorPeriodo", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarNFSePorFaixa: acbrnfse.func("NFSE_ConsultarNFSePorFaixa", 'int', ['void *', 'string', 'char*', 'int*']),
+            NFSE_ConsultarSituacao: acbrnfse.func("NFSE_ConsultarSituacao", 'int', ['void *', 'string', 'string', 'char*', 'int*']),
+            NFSE_ConsultarLoteRps: acbrnfse.func("NFSE_ConsultarLoteRps", 'int', ['void *', 'string', 'string', 'char*', 'int*']),
+            NFSE_ConsultarNFSePorRps: acbrnfse.func("NFSE_ConsultarNFSePorRps", 'int', ['void *', 'string', 'string', 'string', 'string', 'char*', 'int*']),
+            NFSE_ConsultarNFSePorNumero: acbrnfse.func("NFSE_ConsultarNFSePorNumero", 'int', ['void *', 'string', 'int', 'char*', 'int*']),
+            NFSE_ConsultarNFSePorPeriodo: acbrnfse.func("NFSE_ConsultarNFSePorPeriodo", 'int', ['void *', 'double', 'double', 'int', 'string', 'int', 'char*', 'int*']),
+            NFSE_ConsultarNFSePorFaixa: acbrnfse.func("NFSE_ConsultarNFSePorFaixa", 'int', ['void *', 'string', 'string', 'int', 'char*', 'int*']),
             NFSE_ConsultarNFSeGenerico: acbrnfse.func("NFSE_ConsultarNFSeGenerico", 'int', ['void *', 'string', 'char*', 'int*']),
+            NFSE_ConsultarLinkNFSe: acbrnfse.func("NFSE_ConsultarLinkNFSe", 'int', ['void *', 'string', 'char*', 'int*']),
 
             // ===== MÉTODOS DE CONSULTA DE SERVIÇOS PRESTADOS =====
-            NFSE_ConsultarNFSeServicoPrestadoPorNumero: acbrnfse.func("NFSE_ConsultarNFSeServicoPrestadoPorNumero", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarNFSeServicoPrestadoPorPeriodo: acbrnfse.func("NFSE_ConsultarNFSeServicoPrestadoPorPeriodo", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarNFSeServicoPrestadoPorTomador: acbrnfse.func("NFSE_ConsultarNFSeServicoPrestadoPorTomador", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarNFSeServicoPrestadoPorIntermediario: acbrnfse.func("NFSE_ConsultarNFSeServicoPrestadoPorIntermediario", 'int', ['void *', 'string', 'char*', 'int*']),
+            NFSE_ConsultarNFSeServicoPrestadoPorNumero: acbrnfse.func("NFSE_ConsultarNFSeServicoPrestadoPorNumero", 'int', ['void *', 'string', 'int', 'double', 'double', 'int', 'char*', 'int*']),
+            NFSE_ConsultarNFSeServicoPrestadoPorPeriodo: acbrnfse.func("NFSE_ConsultarNFSeServicoPrestadoPorPeriodo", 'int', ['void *', 'double', 'double', 'int', 'int', 'char*', 'int*']),
+            NFSE_ConsultarNFSeServicoPrestadoPorTomador: acbrnfse.func("NFSE_ConsultarNFSeServicoPrestadoPorTomador", 'int', ['void *', 'string', 'string', 'int', 'double', 'double', 'int', 'char*', 'int*']),
+            NFSE_ConsultarNFSeServicoPrestadoPorIntermediario: acbrnfse.func("NFSE_ConsultarNFSeServicoPrestadoPorIntermediario", 'int', ['void *', 'string', 'string', 'int', 'double', 'double', 'int', 'char*', 'int*']),
 
             // ===== MÉTODOS DE CONSULTA DE SERVIÇOS TOMADOS =====
-            NFSE_ConsultarNFSeServicoTomadoPorNumero: acbrnfse.func("NFSE_ConsultarNFSeServicoTomadoPorNumero", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarNFSeServicoTomadoPorPrestador: acbrnfse.func("NFSE_ConsultarNFSeServicoTomadoPorPrestador", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarNFSeServicoTomadoPorTomador: acbrnfse.func("NFSE_ConsultarNFSeServicoTomadoPorTomador", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarNFSeServicoTomadoPorPeriodo: acbrnfse.func("NFSE_ConsultarNFSeServicoTomadoPorPeriodo", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarNFSeServicoTomadoPorIntermediario: acbrnfse.func("NFSE_ConsultarNFSeServicoTomadoPorIntermediario", 'int', ['void *', 'string', 'char*', 'int*']),
+            NFSE_ConsultarNFSeServicoTomadoPorNumero: acbrnfse.func("NFSE_ConsultarNFSeServicoTomadoPorNumero", 'int', ['void *', 'string', 'int', 'double', 'double', 'int', 'char*', 'int*']),
+            NFSE_ConsultarNFSeServicoTomadoPorPrestador: acbrnfse.func("NFSE_ConsultarNFSeServicoTomadoPorPrestador", 'int', ['void *', 'string', 'string', 'int', 'double', 'double', 'int', 'char*', 'int*']),
+            NFSE_ConsultarNFSeServicoTomadoPorTomador: acbrnfse.func("NFSE_ConsultarNFSeServicoTomadoPorTomador", 'int', ['void *', 'string', 'string', 'int', 'double', 'double', 'int', 'char*', 'int*']),
+            NFSE_ConsultarNFSeServicoTomadoPorPeriodo: acbrnfse.func("NFSE_ConsultarNFSeServicoTomadoPorPeriodo", 'int', ['void *', 'double', 'double', 'int', 'int', 'char*', 'int*']),
+            NFSE_ConsultarNFSeServicoTomadoPorIntermediario: acbrnfse.func("NFSE_ConsultarNFSeServicoTomadoPorIntermediario", 'int', ['void *', 'string', 'string', 'int', 'double', 'double', 'int', 'char*', 'int*']),
 
             // ===== MÉTODOS DE COMUNICAÇÃO E EVENTOS =====
             NFSE_EnviarEmail: acbrnfse.func("NFSE_EnviarEmail", 'int', ['void *', 'string', 'string', 'bool', 'string', 'string', 'string', 'string']),
-            NFSE_EnviarEvento: acbrnfse.func("NFSE_EnviarEvento", 'int', ['void *','string', 'char*', 'int*']),
+            NFSE_EnviarEvento: acbrnfse.func("NFSE_EnviarEvento", 'int', ['void *', 'string', 'char*', 'int*']),
             NFSE_ConsultarDPSPorChave: acbrnfse.func("NFSE_ConsultarDPSPorChave", 'int', ['void *', 'string', 'char*', 'int*']),
             NFSE_ConsultarNFSePorChave: acbrnfse.func("NFSE_ConsultarNFSePorChave", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarEvento: acbrnfse.func("NFSE_ConsultarEvento", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarDFe: acbrnfse.func("NFSE_ConsultarDFe", 'int', ['void *', 'string', 'char*', 'int*']),
+            NFSE_ConsultarEvento: acbrnfse.func("NFSE_ConsultarEvento", 'int', ['void *', 'string', 'int', 'int', 'char*', 'int*']),
+            NFSE_ConsultarDFe: acbrnfse.func("NFSE_ConsultarDFe", 'int', ['void *', 'int', 'char*', 'int*']),
 
             // ===== MÉTODOS DE IMPRESSÃO E PDF =====
             NFSE_Imprimir: acbrnfse.func("NFSE_Imprimir", 'int', ['void *','string','int','string','string','string']),
@@ -158,7 +161,8 @@ export default class ACBrLibNFSeMTBridge {
 
             // ===== MÉTODOS ADICIONAIS =====
             NFSE_ObterDANFSE: acbrnfse.func("NFSE_ObterDANFSE", 'int', ['void *', 'string', 'char*', 'int*']),
-            NFSE_ConsultarParametros: acbrnfse.func("NFSE_ConsultarParametros", 'int', ['void *', 'string', 'char*', 'int*']),
+            NFSE_ConsultarParametros: acbrnfse.func("NFSE_ConsultarParametros", 'int', ['void *', 'int', 'string', 'double', 'string', 'char*', 'int*']),
+            NFSE_ObterInformacoesProvedor: acbrnfse.func("NFSE_ObterInformacoesProvedor", 'int', ['void *', 'char*', 'int*']),
 
             // ===== MÉTODOS DE CANCELAMENTO =====
             NFSE_Cancelar: acbrnfse.func("NFSE_Cancelar", 'int', ['void *', 'string', 'string', 'string', 'int', 'char*', 'int*'])
