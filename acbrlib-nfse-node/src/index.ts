@@ -615,6 +615,22 @@ class ACBrLibNFSeMT extends ACBrLibDFeComum {
     }
 
 
+    // ===== MÉTODO DE VERIFICAÇÃO DE ERROS =====
+
+    _checkResult(result: number): void {
+
+        // se o resultado é maior ou igual a OK, não há erro
+        if (!this._isResultErrorCode(result)) {
+            return;
+        }
+
+        super._checkResult(result);
+
+        // Para NFSe, vamos usar um tratamento de erro genérico
+        throw new Error(`Erro NFSe: ${this.ultimoRetorno()}`);
+    }
+
+
 }
 
 export default ACBrLibNFSeMT
