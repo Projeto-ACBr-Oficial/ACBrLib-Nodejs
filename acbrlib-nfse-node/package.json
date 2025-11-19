@@ -1,6 +1,6 @@
 {
   "name": "@projetoacbr/acbrlib-nfse-node",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Classe de alto nivel para ACBrLibNFSe",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
