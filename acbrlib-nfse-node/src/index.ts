@@ -272,15 +272,11 @@ class ACBrLibNFSeMT extends ACBrLibDFeComum {
 
     /**
      * Método usado para cancelar NFSe
-     * @param xml - XML da NFSe
-     * @param protocolo - Protocolo de autorização
-     * @param motivo - Motivo do cancelamento
-     * @param aLote - Número do lote
-     * @returns String contendo o resultado do cancelamento
+     * @param infoCancelamentoNFSe - Informações do cancelamento da NFSe
      */
-    public cancelarNFSe(xml: string, protocolo: string, motivo: string, aLote: number): string {
+    public cancelar(infoCancelamentoNFSe: string): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.getAcbrlib().NFSE_Cancelar(this.getHandle(), xml, protocolo, motivo, aLote, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        let status = this.getAcbrlib().NFSE_Cancelar(this.getHandle(), infoCancelamentoNFSe, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }

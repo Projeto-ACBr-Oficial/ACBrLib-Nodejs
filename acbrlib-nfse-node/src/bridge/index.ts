@@ -77,7 +77,7 @@ export interface TypeACBrLibNFSe {
     NFSE_ObterInformacoesProvedor: (handle: any, resposta: Buffer, tamanho: any) => number;
 
     // ===== MÉTODOS DE CANCELAMENTO =====
-    NFSE_Cancelar: (handle: any, xml: string, protocolo: string, motivo: string, aLote: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_Cancelar: (handle: any, aInfCancelamentoNFSe : string, resposta: Buffer, tamanho: any) => number;
 }
 
 /**
@@ -165,7 +165,7 @@ export default class ACBrLibNFSeMTBridge {
             NFSE_ObterInformacoesProvedor: acbrnfse.func("NFSE_ObterInformacoesProvedor", 'int', ['void *', 'char*', 'int*']),
 
             // ===== MÉTODOS DE CANCELAMENTO =====
-            NFSE_Cancelar: acbrnfse.func("NFSE_Cancelar", 'int', ['void *', 'string', 'string', 'string', 'int', 'char*', 'int*'])
+            NFSE_Cancelar: acbrnfse.func("NFSE_Cancelar", 'int', ['void *', 'string', 'char*', 'int*']),
         } as TypeACBrLibNFSe;
     }
 
