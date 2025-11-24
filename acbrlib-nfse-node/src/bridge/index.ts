@@ -29,7 +29,7 @@ export interface TypeACBrLibNFSe {
     NFSE_ObterCertificados: (handle: any, resposta: Buffer, tamanho: any) => number;
 
     // ===== MÉTODOS DE EMISSÃO E PROCESSAMENTO =====
-    NFSE_Emitir: (handle: any, xml: string, aLote: number, imprimir: boolean, resposta: Buffer, tamanho: any) => number;
+    NFSE_Emitir: (handle: any, aLote: string, modoEnvio: number, imprimir: boolean, resposta: Buffer, tamanho: any) => number;
     NFSE_SubstituirNFSe: (handle: any, numeroNFSe: string, serieNFSe: string, codigoCancelamento: string, motivoCancelamento: string, numeroLote: string, codigoVerificacao: string, resposta: Buffer, tamanho: any) => number;
     NFSE_LinkNFSe: (handle: any, numeroNFSe: string, codigoVerificacao: string, chaveAcesso: string, valorServico: string, resposta: Buffer, tamanho: any) => number;
     NFSE_GerarLote: (handle: any, lote: string, qtdMaximaRps: number, modoEnvio: number, resposta: Buffer, tamanho: any) => number;
@@ -77,7 +77,7 @@ export interface TypeACBrLibNFSe {
     NFSE_ObterInformacoesProvedor: (handle: any, resposta: Buffer, tamanho: any) => number;
 
     // ===== MÉTODOS DE CANCELAMENTO =====
-    NFSE_Cancelar: (handle: any, aInfCancelamentoNFSe : string, resposta: Buffer, tamanho: any) => number;
+    NFSE_Cancelar: (handle: any, aInfCancelamentoNFSe: string, resposta: Buffer, tamanho: any) => number;
 }
 
 /**
@@ -94,7 +94,7 @@ export default class ACBrLibNFSeMTBridge {
         const acbrnfse = koffi.load(libraryPath)
         this.acbrNativeLib = {
             // ===== MÉTODOS DE CONFIGURAÇÃO E INICIALIZAÇÃO =====
-            NFSE_Inicializar: acbrnfse.func("NFSE_Inicializar", 'int', ['void **','string', 'string']),
+            NFSE_Inicializar: acbrnfse.func("NFSE_Inicializar", 'int', ['void **', 'string', 'string']),
             NFSE_Finalizar: acbrnfse.func("NFSE_Finalizar", 'int', ['void *']),
             NFSE_UltimoRetorno: acbrnfse.func("NFSE_UltimoRetorno", 'int', ['void *', 'char*', 'int*']),
             NFSE_Nome: acbrnfse.func("NFSE_Nome", 'int', ['void *', 'char*', 'int*']),
@@ -155,7 +155,7 @@ export default class ACBrLibNFSeMTBridge {
             NFSE_ConsultarDFe: acbrnfse.func("NFSE_ConsultarDFe", 'int', ['void *', 'int', 'char*', 'int*']),
 
             // ===== MÉTODOS DE IMPRESSÃO E PDF =====
-            NFSE_Imprimir: acbrnfse.func("NFSE_Imprimir", 'int', ['void *','string','int','string','string','string']),
+            NFSE_Imprimir: acbrnfse.func("NFSE_Imprimir", 'int', ['void *', 'string', 'int', 'string', 'string', 'string']),
             NFSE_ImprimirPDF: acbrnfse.func("NFSE_ImprimirPDF", 'int', ['void *']),
             NFSE_SalvarPDF: acbrnfse.func("NFSE_SalvarPDF", 'int', ['void *', 'char*', 'int*']),
 
