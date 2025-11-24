@@ -159,14 +159,14 @@ class ACBrLibNFSeMT extends ACBrLibDFeComum {
 
     /**
      * Método usado para emitir NFSe
-     * @param aLote - Número do lote
-     * @param modoEnvio  - Modo de envio
-     * @param imprimir - Se true imprime a NFSe
+     * @param  {string} aLote  - Número do lote
+     * @param {NFSeModoEnvio} modoEnvio  - Modo de envio
+     * @param  {boolean} imprimir - Se true imprime a NFSe
      * @returns String contendo o resultado da emissão
      */
-    public emitir(xml: string, aLote: string, modoEnvio: NFSeModoEnvio, imprimir: boolean): string {
+    public emitir(aLote: string, modoEnvio: NFSeModoEnvio, imprimir: boolean): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.getAcbrlib().NFSE_Emitir(this.getHandle(),aLote, modoEnvio, imprimir, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        let status = this.getAcbrlib().NFSE_Emitir(this.getHandle(), aLote, modoEnvio, imprimir, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
