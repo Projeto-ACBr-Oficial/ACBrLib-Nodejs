@@ -326,6 +326,22 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
         return status
     }
 
+        /**
+     * Método usado para enviar o documento
+     * @param lote - Número do lote
+     * @param imprimir - Se true imprime o documento
+     * @param sincrono - Se true envia de forma síncrona
+     * @param zipado - Se true envia compactado
+     * @returns String contendo o resultado do envio
+     */
+    public enviar(lote: number, imprimir: boolean, sincrono: boolean, zipado: boolean): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFE_Enviar(this.getHandle(), lote, imprimir, sincrono, zipado, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
+
 
 }
 

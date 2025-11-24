@@ -43,7 +43,7 @@ export interface TypeACBrMDFeMT {
     MDFE_Consultar: (handle: any, eChaveOuNFe: string, AExtrairEventos: boolean, mensagem: Buffer, refTamanho: any) => number
     MDFE_ConsultarRecibo: (handle: any, recibo: string, mensagem: Buffer, refTamanho: any) => number
 
-    MDFE_Enviar: (handle: any, ALote: number, AImprimir: boolean, ASincrono: boolean, AZipado: boolean, sResposta: Buffer, esTamanho: any) => number;
+    MDFE_Enviar: (handle: any, ALote: number, AImprimir: boolean, ASincrono: boolean, sResposta: Buffer, esTamanho: any) => number;
     MDFE_Cancelar: (handle: any, eChave: string, eJustificativa: string, eCNPJ: string, ALote: number, sResposta: Buffer, esTamanho: any) => number;
     MDFE_EnviarEvento: (handle: any, idLote: number, sResposta: Buffer, esTamanho: any) => number;
 
@@ -105,7 +105,7 @@ export default class ACBrLibMDFeBridgeMT {
             MDFE_Consultar: acbrmdfe.func('MDFE_Consultar', 'int', ['void *', 'string', 'bool', 'char*', 'int*']),
             MDFE_ConsultarRecibo: acbrmdfe.func('MDFE_ConsultarRecibo', 'int', ['void *', 'string', 'char*', 'int*']),
 
-            MDFE_Enviar: acbrmdfe.func('MDFE_Enviar', 'int', ['void *', 'int', 'bool', 'bool', 'bool', 'char*', 'int*']),
+            MDFE_Enviar: acbrmdfe.func('MDFE_Enviar', 'int', ['void *', 'int', 'bool', 'bool', 'char*', 'int*']),
             MDFE_Cancelar: acbrmdfe.func('MDFE_Cancelar', 'int', ['void *', 'string', 'string', 'string', 'int', 'char*', 'int*']),
             MDFE_EnviarEvento: acbrmdfe.func('MDFE_EnviarEvento', 'int', ['void *', 'int', 'char*', 'int*']),
 

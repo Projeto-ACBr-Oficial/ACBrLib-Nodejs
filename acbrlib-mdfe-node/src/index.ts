@@ -40,6 +40,20 @@ class ACBrLibMDFeMT extends ACBrLibDFeMT  {
         return super.getAcbrlib() as TypeACBrMDFeMT //cast de any para TypeACBrMDFeMT
     }
 
+    /**
+     * Método usado para enviar o documento
+     * @param lote - Número do lote
+     * @param imprimir - Se true imprime o documento
+     * @param sincrono - Se true envia de forma síncrona
+     * @returns String contendo o resultado do envio
+     */
+    public enviar(lote: number, imprimir: boolean, sincrono: boolean):string  {
+        using acbrBuffer : ACBrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().MDFE_Enviar(this.getHandle(), lote, imprimir, sincrono, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
 
 
     // ===== IMPLEMENTAÇÃO DOS MÉTODOS ABSTRATOS BASE =====
@@ -158,9 +172,7 @@ class ACBrLibMDFeMT extends ACBrLibDFeMT  {
     protected LIB_Imprimir(handle: any, cImpressora: string, nNumCopias: number, cProtocolo: string, bMostrarPreview: string, cMarcaDagua: string, bViaConsumidor: string, bSimplificado: string): number {
         return this.getAcbrlib().MDFE_Imprimir(handle, cImpressora, nNumCopias, cProtocolo, bMostrarPreview, cMarcaDagua, bViaConsumidor, bSimplificado)
     }
-    protected LIB_Enviar(handle: any, lote: number, imprimir: boolean, sincrono: boolean, zipado: boolean, buffer: Buffer, refTamanho: any): number {
-        return this.getAcbrlib().MDFE_Enviar(handle, lote, imprimir, sincrono, zipado, buffer, refTamanho)
-    }
+
     protected LIB_Cancelar(handle: any, chave: string, justificativa: string, CNPJ: string, lote: number, buffer: Buffer, refTamanho: any): number {
         return this.getAcbrlib().MDFE_Cancelar(handle, chave, justificativa, CNPJ, lote, buffer, refTamanho)
     }
