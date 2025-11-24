@@ -197,20 +197,6 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
 
     // ===== MÉTODOS PARA ENVIO E CANCELAMENTO =====
 
-    /**
-     * Método usado para enviar o documento
-     * @param lote - Número do lote
-     * @param imprimir - Se true imprime o documento
-     * @param sincrono - Se true envia de forma síncrona
-     * @param zipado - Se true envia compactado
-     * @returns String contendo o resultado do envio
-     */
-    public enviar(lote: number, imprimir: boolean, sincrono: boolean, zipado: boolean): string {
-        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.LIB_Enviar(this.getHandle(), lote, imprimir, sincrono, zipado, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
-        this._checkResult(status)
-        return this._processaResult(acbrBuffer)
-    }
 
     /**
      * Método usado para cancelar o documento
@@ -404,8 +390,6 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     // 🖨️ Métodos de Impressão (específicos de NFe/MDFe)
     protected abstract LIB_Imprimir(handle: any, cImpressora: string, nNumCopias: number, cProtocolo: string, bMostrarPreview: string, cMarcaDagua: string, bViaConsumidor: string, bSimplificado: string): number
 
-    // 📤 Métodos de Envio (específicos de NFe/MDFe)
-    protected abstract LIB_Enviar(handle: any, lote: number, imprimir: boolean, sincrono: boolean, zipado: boolean, buffer: Buffer, refTamanho: any): number
     protected abstract LIB_Cancelar(handle: any, chave: string, justificativa: string, CNPJ: string, lote: number, buffer: Buffer, refTamanho: any): number
     protected abstract LIB_EnviarEvento(handle: any, idLote: number, buffer: Buffer, refTamanho: any): number
 
