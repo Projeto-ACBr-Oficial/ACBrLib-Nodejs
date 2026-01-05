@@ -6,6 +6,8 @@ import ACBrLibDFeComum from "./dfe-comum";
 /**
  * @description ACBrLibDFeMT é uma classe de alto nível que abstrai os métodos comuns a NFe e MDFe
  * As classes que herdam desta classe devem implementar os métodos LIB_* abstratos.
+ * * DFe: Documento Fiscal Eletrônico
+
  */
 export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
 
@@ -13,7 +15,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
         super(acbrlib, arquivoConfig, chaveCrypt)
     }
 
-    // ===== MÉTODOS PARA CARREGAMENTO E MANIPULAÇÃO DE DOCUMENTOS =====
+    // ===== MÉTODOS PARA CARREGAMENTO E MANIPULAÇÃO DE DFeS =====
 
     /**
      * Método usado para carregar um arquivo XML de evento para processamento
@@ -52,7 +54,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     // ===== MÉTODOS PARA VALIDAÇÃO E ASSINATURA =====
 
     /**
-     * Método usado para assinar o documento
+     * Método usado para assinar o DFe
      * @returns Código de status da operação
      */
     public assinar(): number {
@@ -62,7 +64,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     }
 
     /**
-     * Método usado para validar o documento
+     * Método usado para validar o DFe
      * @returns Código de status da operação
      */
     public validar(): number {
@@ -72,7 +74,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     }
 
     /**
-     * Método usado para validar as regras de negócio do documento
+     * Método usado para validar as regras de negócio do DFe
      * @returns String contendo o resultado da validação
      */
     public validarRegrasdeNegocios(): string {
@@ -83,7 +85,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     }
 
     /**
-     * Método usado para verificar a assinatura do documento
+     * Método usado para verificar a assinatura do DFe
      * @returns String contendo o resultado da verificação
      */
     public verificarAssinatura(): string {
@@ -94,12 +96,12 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     }
 
     /**
-     * Método usado para gerar a chave do documento
+     * Método usado para gerar a chave do DFe
      * @param ACodigoUF - Código da UF
      * @param ACodigoNumerico - Código numérico
-     * @param AModelo - Modelo do documento
-     * @param ASerie - Série do documento
-     * @param ANumero - Número do documento
+     * @param AModelo - Modelo do DFe
+     * @param ASerie - Série do DFe
+     * @param ANumero - Número do DFe
      * @param ATpEmi - Tipo de emissão
      * @param AEmissao - Data de emissão
      * @param ACNPJCPF - CNPJ/CPF
@@ -146,14 +148,14 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     }
 
     /**
-     * Método usado para consultar o documento
-     * @param eChaveOuDocumento - Chave ou número do documento
+     * Método usado para consultar o DFe
+     * @param eChaveOuDFe - Chave ou path do DFe ou conteúdo XML do DFe
      * @param AExtrairEventos - Se true extrai os eventos
      * @returns String contendo o resultado da consulta
      */
-    public consultar(eChaveOuDocumento: string, AExtrairEventos: boolean): string {
+    public consultar(eChaveOuDFe: string, AExtrairEventos: boolean): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.LIB_Consultar(this.getHandle(), eChaveOuDocumento, AExtrairEventos, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        let status = this.LIB_Consultar(this.getHandle(), eChaveOuDFe, AExtrairEventos, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
@@ -173,7 +175,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     // ===== MÉTODOS PARA IMPRESSÃO =====
 
     /**
-     * Método usado para imprimir o documento
+     * Método usado para imprimir o DFe
      * @param cImpressora - Nome da impressora
      * @param nNumCopias - Número de cópias
      * @param cProtocolo - Protocolo
@@ -199,8 +201,8 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
 
 
     /**
-     * Método usado para cancelar o documento
-     * @param chave - Chave do documento
+     * Método usado para cancelar o DFe
+     * @param chave - Chave do DFe
      * @param justificativa - Justificativa do cancelamento
      * @param CNPJ - CNPJ do autorizador
      * @param lote - Número do lote
@@ -217,38 +219,38 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
 
     /**
      * Método usado para imprimir evento
-     * @param eArquivoXmlDocumento - Arquivo XML do documento
-     * @param eArquivoXmlEvento - Arquivo XML do evento
+     * @param eArquivoXmlDFe - Arquivo XML do DFe para impressão
+     * @param eArquivoXmlEvento - Arquivo XML do evento para impressão
      * @returns Código de status da operação
      */
-    public imprimirEvento(eArquivoXmlDocumento: string, eArquivoXmlEvento: string): number {
-        let status = this.LIB_ImprimirEvento(this.getHandle(), eArquivoXmlDocumento, eArquivoXmlEvento)
+    public imprimirEvento(eArquivoXmlDFe: string, eArquivoXmlEvento: string): number {
+        let status = this.LIB_ImprimirEvento(this.getHandle(), eArquivoXmlDFe, eArquivoXmlEvento)
         this._checkResult(status)
         return status
     }
 
     /**
      * Método usado para imprimir evento em PDF
-     * @param eArquivoXmlDocumento - Arquivo XML do documento
-     * @param eArquivoXmlEvento - Arquivo XML do evento
+     * @param eArquivoXmlDFe - Arquivo XML do DFe para impressão
+     * @param eArquivoXmlEvento - Arquivo XML do evento para impressão
      * @returns String contendo o resultado da operação
      */
-    public imprimirEventoPDF(eArquivoXmlDocumento: string, eArquivoXmlEvento: string): string {
+    public imprimirEventoPDF(eArquivoXmlDFe: string, eArquivoXmlEvento: string): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.LIB_ImprimirEventoPDF(this.getHandle(), eArquivoXmlDocumento, eArquivoXmlEvento)
+        let status = this.LIB_ImprimirEventoPDF(this.getHandle(), eArquivoXmlDFe, eArquivoXmlEvento)
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
 
     /**
      * Método usado para salvar evento em PDF
-     * @param eArquivoXmlDocumento - Arquivo XML do documento
+     * @param eArquivoXmlDFe - Arquivo XML do DFe
      * @param eArquivoXmlEvento - Arquivo XML do evento
      * @returns String contendo o PDF em formato Base64
      */
-    public salvarEventoPDF(eArquivoXmlDocumento: string, eArquivoXmlEvento: string): string {
+    public salvarEventoPDF(eArquivoXmlDFe: string, eArquivoXmlEvento: string): string {
         using buffer: ACBrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
-        let status = this.LIB_SalvarEventoPDF(this.getHandle(), eArquivoXmlDocumento, eArquivoXmlEvento, buffer.getBuffer(), buffer.getRefTamanhoBuffer())
+        let status = this.LIB_SalvarEventoPDF(this.getHandle(), eArquivoXmlDFe, eArquivoXmlEvento, buffer.getBuffer(), buffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(buffer)
     }
@@ -258,7 +260,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     /**
      * Método usado para enviar e-mail
      * @param ePara - Endereço de e-mail do destinatário
-     * @param eXMLDocumento - XML do documento
+     * @param eXMLDFe - Path do XML do DFe a ser anexado ao e-mail.
      * @param enviaPDF - Se true gera o PDF e anexa ao e-mail
      * @param eAssunto - Assunto do e-mail
      * @param eCC - Endereços de e-mail em cópia (separados por ponto e vírgula)
@@ -266,8 +268,8 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
      * @param eMensagem - Mensagem do e-mail
      * @returns Código de status da operação
      */
-    public enviarEmail(ePara: string, eXMLDocumento: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number {
-        const status = this.LIB_EnviarEmail(this.getHandle(), ePara, eXMLDocumento, enviaPDF, eAssunto, eCC, eAnexos, eMensagem)
+    public enviarEmail(ePara: string, eXMLDFe: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number {
+        const status = this.LIB_EnviarEmail(this.getHandle(), ePara, eXMLDFe, enviaPDF, eAssunto, eCC, eAnexos, eMensagem)
         this._checkResult(status)
         return status
     }
@@ -275,8 +277,8 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     /**
      * Método usado para enviar e-mail de evento
      * @param ePara - Endereço de e-mail do destinatário
-     * @param eChaveEvento - Chave do evento
-     * @param eChaveDocumento - Chave do documento
+     * @param eChaveEvento - Chave do evento do Evento a ser anexado ao e-mail.
+     * @param eChaveDFe - Chave ou Path do DFe a ser anexado ao e-mail.
      * @param enviaPDF - Se true gera o PDF e anexa ao e-mail
      * @param eAssunto - Assunto do e-mail
      * @param eCC - Endereços de e-mail em cópia (separados por ponto e vírgula)
@@ -284,8 +286,8 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
      * @param eMensagem - Mensagem do e-mail
      * @returns Código de status da operação
      */
-    public enviarEmailEvento(ePara: string, eChaveEvento: string, eChaveDocumento: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number {
-        const status = this.LIB_EnviarEmailEvento(this.getHandle(), ePara, eChaveEvento, eChaveDocumento, enviaPDF, eAssunto, eCC, eAnexos, eMensagem)
+    public enviarEmailEvento(ePara: string, eChaveEvento: string, eChaveDFe: string, enviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string): number {
+        const status = this.LIB_EnviarEmailEvento(this.getHandle(), ePara, eChaveEvento, eChaveDFe, enviaPDF, eAssunto, eCC, eAnexos, eMensagem)
         this._checkResult(status)
         return status
     }
@@ -337,7 +339,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
      * Método usado para consultar distribuição DFe por chave
      * @param ufAutor - UF do autorizador
      * @param eCNPJCPF - CNPJ/CPF
-     * @param eChave - Chave do documento
+     * @param eChave - Chave do DFe
      * @returns String contendo o resultado da consulta
      */
     public distribuicaoDFePorChave(ufAutor: number, eCNPJCPF: string, eChave: string): string {
@@ -349,9 +351,9 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
 
 
     /**
-     * Método usado para obter o caminho do documento
+     * Método usado para obter o caminho do DFe
      * @param tipo - Tipo de path que será retornado:
-     * @returns String contendo o caminho do documento
+     * @returns String contendo o caminho do DFe
      */
     public getPath(tipo: number): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
