@@ -93,7 +93,7 @@ class ACBrLibNFSeMT extends ACBrLibDFeComum {
     }
 
     protected LIB_OpenSSLInfo(handle: any, configuracoes: Buffer, refTamanho: any): number {
-        throw new Error('LIB_OpenSSLInfo não está disponível para NFSe.');
+        return this.getAcbrlib().NFSE_OpenSSLInfo(handle, configuracoes, refTamanho)    
     }
 
     // ===== IMPLEMENTAÇÃO DOS MÉTODOS ABSTRATOS DE ACBrLibDFeComum =====
@@ -627,6 +627,30 @@ class ACBrLibNFSeMT extends ACBrLibDFeComum {
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
+
+
+    /**
+     * Método usado para ler o arquivo de um XML de Lote que pode conter até 50 NFSes para o componente ACBrNFSe.
+     * @param arquivoXML -Path com o nome do arquivo XML a ser lido ou o conteúdo do XML.
+     * @returns 0 ou código de erro.
+     */
+    public carregarLoteXML(arquivoXML: string): number {
+        let status = this.getAcbrlib().NFSE_CarregarLoteXML(this.getHandle(), arquivoXML)
+        this._checkResult(status)
+        return status;
+    }
+    /**
+     * Método para retornar o XML do RPS
+     * @param indice - Índice do RPS na lista de NFSe (começa em zero)
+     * @returns Contém as informações do RPS em formato XML
+     */
+    public obterXmlRps(indice: number): string {
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
+        let status = this.getAcbrlib().NFSE_ObterXmlRps(this.getHandle(), indice, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
+        this._checkResult(status)
+        return this._processaResult(acbrBuffer)
+    }
+
 
 
     // ===== MÉTODO DE VERIFICAÇÃO DE ERROS =====
