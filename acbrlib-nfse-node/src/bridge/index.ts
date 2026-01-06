@@ -11,6 +11,7 @@ export interface TypeACBrLibNFSe {
     NFSE_UltimoRetorno: (handle: any, resposta: Buffer, tamanho: any) => number;
     NFSE_Nome: (handle: any, resposta: Buffer, tamanho: any) => number;
     NFSE_Versao: (handle: any, resposta: Buffer, tamanho: any) => number;
+    NFSE_OpenSSLInfo: (handle: any, resposta: Buffer, tamanho: any) => number;
     NFSE_ConfigLer: (handle: any, arquivo: string) => number;
     NFSE_ConfigGravar: (handle: any, arquivo: string) => number;
     NFSE_ConfigLerValor: (handle: any, sessao: string, chave: string, valor: Buffer, tamanho: any) => number;
@@ -20,8 +21,10 @@ export interface TypeACBrLibNFSe {
 
     // ===== MÉTODOS DE MANIPULAÇÃO DE ARQUIVOS =====
     NFSE_CarregarXML: (handle: any, arquivo: string) => number;
+    NFSE_CarregarLoteXML: (handle: any, arquivo: string) => number;
     NFSE_CarregarINI: (handle: any, arquivo: string) => number;
     NFSE_ObterXml: (handle: any, indice: number, resposta: Buffer, tamanho: any) => number;
+    NFSE_ObterXmlRps: (handle: any, indice: number, resposta: Buffer, tamanho: any) => number;
     NFSE_GravarXml: (handle: any, indice: number, caminho: string, nome: string) => number;
     NFSE_ObterIni: (handle: any, indice: number, resposta: Buffer, tamanho: any) => number;
     NFSE_GravarIni: (handle: any, indice: number, caminho: string, nome: string) => number;
@@ -99,6 +102,7 @@ export default class ACBrLibNFSeMTBridge {
             NFSE_UltimoRetorno: acbrnfse.func("NFSE_UltimoRetorno", 'int', ['void *', 'char*', 'int*']),
             NFSE_Nome: acbrnfse.func("NFSE_Nome", 'int', ['void *', 'char*', 'int*']),
             NFSE_Versao: acbrnfse.func("NFSE_Versao", 'int', ['void *', 'char*', 'int*']),
+            NFSE_OpenSSLInfo: acbrnfse.func("NFSE_OpenSSLInfo", 'int', ['void *', 'char*', 'int*']),
             NFSE_ConfigLer: acbrnfse.func("NFSE_ConfigLer", 'int', ['void *', 'string']),
             NFSE_ConfigGravar: acbrnfse.func("NFSE_ConfigGravar", 'int', ['void *', 'string']),
             NFSE_ConfigLerValor: acbrnfse.func("NFSE_ConfigLerValor", 'int', ['void *', 'string', 'string', 'char*', 'int*']),
@@ -108,8 +112,10 @@ export default class ACBrLibNFSeMTBridge {
 
             // ===== MÉTODOS DE MANIPULAÇÃO DE ARQUIVOS =====
             NFSE_CarregarXML: acbrnfse.func("NFSE_CarregarXML", 'int', ['void *', 'string']),
+            NFSE_CarregarLoteXML: acbrnfse.func("NFSE_CarregarLoteXML", 'int', ['void *', 'string']),
             NFSE_CarregarINI: acbrnfse.func("NFSE_CarregarINI", 'int', ['void *', 'string']),
             NFSE_ObterXml: acbrnfse.func("NFSE_ObterXml", 'int', ['void *', 'int', 'char*', 'int*']),
+            NFSE_ObterXmlRps: acbrnfse.func("NFSE_ObterXmlRps", 'int', ['void *', 'int', 'char*', 'int*']),
             NFSE_GravarXml: acbrnfse.func("NFSE_GravarXml", 'int', ['void *', 'int', 'string', 'string']),
             NFSE_ObterIni: acbrnfse.func("NFSE_ObterIni", 'int', ['void *', 'int', 'char*', 'int*']),
             NFSE_GravarIni: acbrnfse.func("NFSE_GravarIni", 'int', ['void *', 'int', 'string', 'string']),
