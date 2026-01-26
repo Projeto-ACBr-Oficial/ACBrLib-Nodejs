@@ -1,6 +1,5 @@
 import { TAMANHO_PADRAO } from './ACBrBuffer'
 import ACBrBuffer from './ACBrBuffer'
-import IACBrLibBaseMT from './types'
 import {
     ACBrLibConfigLerError,
     ACBrLibLibNaoFinalizadaError,
@@ -15,8 +14,7 @@ import {
     ACBrLibConfigGravarError
 } from './exception'
 import { ACBrLibResultCodes } from './exception/ACBrLibResultCodes'
-import { IFFIProvider } from './types/IFFIProvider'
-import { getDefaultFFIProvider, IACBrLibBridgeMT } from './providers'
+import * as koffi from 'koffi'
 
 
 
@@ -24,35 +22,35 @@ import { getDefaultFFIProvider, IACBrLibBridgeMT } from './providers'
  * ACBrLibBaseMT é uma  classe de alto nível que implementa os métodos da ACBrLibComum Multi-Thread
  * Implementa Disposable para auto-cleanup do handle
  */
-export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
+export default abstract class ACBrLibBaseMT {
+
 
     private handle: any // ponteiro para ponteiro (void **)
-    private isHandleInitialized: boolean = false;
-    private acbrlib: IACBrLibBridgeMT
+    private isHandleInitialized : boolean = false; 
+    private acbrlib: any
     private arquivoConfig: string
     private chaveCrypt: string
     private disposed = false
-    protected ffiProvider: IFFIProvider
 
-    constructor(acbrlib: IACBrLibBridgeMT, arquivoConfig: string, chaveCrypt: string) {
+    constructor(acbrlib: any, arquivoConfig: string, chaveCrypt: string) {
         this.arquivoConfig = arquivoConfig
         this.chaveCrypt = chaveCrypt
         this.acbrlib = acbrlib
         this.handle = null
-        // utiliza o provider padrão 
-        this.ffiProvider = getDefaultFFIProvider()
     }
 
-    protected getAcbrlib(): any {
-        return this.acbrlib.getAcbrNativeLib()
+    public getAcbrlib(): any {
+        return this.acbrlib
+    }
+    public getHandle(): any {
+        if (!this.#isInitialized()){
+            throw new ACBrLibLibNaoInicializadaError("Biblioteca não inicializada. Chame o método inicializar antes de usar outros métodos.")
+        }
+        return koffi.decode(this.handle, 'void *')
     }
 
-    protected getHandle(): any {
-        return this.ffiProvider.decode(this.handle, 'void *')
-    }
-
-    #isInitialized(): boolean {
-
+    #isInitialized() : boolean{
+    
         // diferente do ref-napi que tem o metodo isNull() koffi até a presente versão não tem
         // sendo impossivel saber se o handle é null (do lado nodejs) ou não, usamos o isHandleInitialized
         // para saber se a biblioteca foi inicializada
@@ -64,12 +62,12 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
      * Libera recursos alocados
      */
     destroy() {
-
+       
         if (!this.disposed) {
             try {
                 // Finaliza a biblioteca se estiver inicializada
                 if (this.#isInitialized()) {
-                    this.finalizar()
+                   this.finalizar()
                 }
                 this.disposed = true
             } catch (error) {
@@ -93,7 +91,18 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
     }
 
 
+    /**
+       * @description Método usado para inicializar o componente para uso da biblioteca
+     */
+
     public inicializar(): number;
+
+    /**
+       * @description Método usado para inicializar o componente para uso da biblioteca
+       * @param arquivoConfig Localização do arquivo INI, pode ser em branco neste caso o ACBrLib vai criar um novo arquivo INI.
+       * @param chaveCrypt Chave de segurança para criptografar as informações confidencias, pode ser em branco neste caso será usado a senha padrão.
+       * @returns 0 se sucesso ou o código de erro
+  */
     public inicializar(arquivoConfig: string, chaveCrypt: string): number;
 
 
@@ -121,44 +130,68 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         if (!this.handle) {
             return
         }
-
-        this.ffiProvider.free(this.handle)
+        
+        koffi.free(this.handle)
         this.handle = null
     }
 
+    /**
+     * Método usado para remover ACBrLib  e suas classes da memoria
+     * @returns 0 ou código de erro 
+     */
+
     public finalizar(): number {
 
-        if (!this.#isInitialized()) {
+        if ( !this.#isInitialized()){
             return 0
         }
 
         let status = this.LIB_Finalizar(this.getHandle())
-
+        
         if (status == ACBrLibResultCodes.OK) {
             this.#releaseHandle()
             this.isHandleInitialized = false
         }
         this._checkResult(status)
-
+    
         return status
     }
 
+    /**
+     * @description Método que retornar o nome da biblioteca.
+     * @returns Uma string com o nome da biblioteca
+     */
+
+
     public nome(): string {
-        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         let status = this.LIB_Nome(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
 
+    /**
+     * @description Método que retornar a versão da biblioteca.
+     * @returns  Uma string com o versão da biblioteca
+     */
+
     public versao(): string {
-        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         let status = this.LIB_Versao(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
 
+    /**
+     * @description Método usado retornar o ultimo retorno processado pela biblioteca
+     * @returns Retorna uma string com o último retorno processado pela biblioteca.
+     */
+
     public ultimoRetorno(): string {
-        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
+        if (!this.#isInitialized()){
+            return ""
+        }
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         this.LIB_UltimoRetorno(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         return this._processaResult(acbrBuffer)
     }
@@ -167,6 +200,13 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
     configLer(): number;
     configLer(arquivoConfig: string): number;
 
+    /**
+     * @description Método usado para ler a configuração da biblioteca do arquivo INI informado.
+     * @param arquivoConfig Arquivo INI para ler, se informado vazio será usado o valor padrão.
+     * @returns 0 ou código de erro 
+     */
+
+
     public configLer(arquivoConfig?: string): number {
         if (typeof arquivoConfig === "undefined") {
             return this.#configLer(this.arquivoConfig)
@@ -174,7 +214,25 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         return this.#configLer(arquivoConfig)
     }
 
+    /**
+     * @description Método usado para gravar a configuração da biblioteca no arquivo INI informado.
+     * @param arquivoConfig Arquivo INI para ler, se informado vazio será usado o valor padrão.
+     * @returns 0 ou código de erro
+     */
+
+
+    /**  
+    * @description Método usado para gravar a configuração da biblioteca no arquivo INI informado.
+    */
+
     public configGravar(): number;
+
+    /**
+   * @description Método usado para gravar a configuração da biblioteca no arquivo INI informado.
+   * @param arquivoConfig Arquivo INI para ler, se informado vazio será usado o valor padrão.
+   * @returns 0 ou código de erro
+   */
+
     public configGravar(arquivoConfig: string): number;
 
 
@@ -186,13 +244,28 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         return this.#configGravar(arquivoConfig)
     }
 
+    /**
+     * @description Método usado para ler uma determinado item da configuração.
+     * @param sessao Nome da sessão de configuração.
+     * @param chave Nome da chave da sessão.
+     * @returns 0 ou código de erro
+     */
+
     public configLerValor(sessao: string, chave: string): string {
-        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         let status = this.LIB_ConfigLerValor(this.getHandle(), sessao, chave, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
 
     }
+
+    /**
+     * @description Método usado para gravar um determinado item  da configuração.
+     * @param sessao Nome da sessão de configuração.
+     * @param chave Nome da chave da sessão.
+     * @param valor  Valor para ser gravado na configuração 
+     * @returns 0 ou código de erro
+     */
 
     public configGravarValor(sessao: string, chave: string, valor: string): number {
         let status = this.LIB_ConfigGravarValor(this.getHandle(), sessao, chave, valor)
@@ -201,13 +274,24 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
     }
 
 
+    /**
+     * @description Método usado para exportar a configuração da biblioteca do arquivo INI informado.
+     * @returns Uma string com a configuração exportada.
+     */
     public configExportar(): string {
-        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         let status = this.LIB_ConfigExportar(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
     }
 
+
+    /**
+     * 
+     * @description Método usado para importar a configuração da biblioteca do arquivo INI informado
+     * @param arquivoConfig  Arquivo INI para ler, se informado vazio será usado o valor padrão.
+     * @returns 0 ou código de erro
+     */
 
     public configImportar(arquivoConfig: string): number {
         let status = this.LIB_ConfigImportar(this.getHandle(), arquivoConfig)
@@ -216,8 +300,12 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
     }
 
 
+    /**
+      * @description Método que retorna informações da biblioteca OpenSsl
+      * @returns
+      */
     public openSslInfo(): string {
-        using acbrBuffer = new ACBrBuffer(this.ffiProvider)
+        using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         let status = this.LIB_OpenSSLInfo(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
         return this._processaResult(acbrBuffer)
@@ -233,7 +321,8 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
 
 
     _processaResult(buffer: ACBrBuffer): string {
-        let requiredLen = this.ffiProvider.decode(buffer.getRefTamanhoBuffer(), 'int')
+        let requiredLen =  koffi.decode(buffer.getRefTamanhoBuffer(), 'int')
+
 
         if (this._isRequiredReallocBuffer(requiredLen)) {
             requiredLen = Math.round(requiredLen * 1.3)
@@ -257,7 +346,7 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
     _checkResult(result: number) {
 
         // se o resultado é maior ou igual a OK, não há erro
-        if (!this._isResultErrorCode(result)) {
+        if ( !this._isResultErrorCode(result)) {
             return;
         }
 
@@ -267,7 +356,7 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         switch (result) {
 
             case ACBrLibResultCodes.ErrLibNaoInicializada:
-                throw new ACBrLibLibNaoInicializadaError("Erro ao inicializar " + this.nome);
+                throw new ACBrLibLibNaoInicializadaError("Erro ao inicializar "+ this.nome);
                 break;
 
             case ACBrLibResultCodes.ErrLibNaoFinalizada:
@@ -327,7 +416,7 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
 
 
     _ultimoRetorno(size: number): string {
-        using acbrBuffer = new ACBrBuffer(this.ffiProvider, size)
+        using acbrBuffer = new ACBrBuffer(size)
         this.LIB_UltimoRetorno(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         return acbrBuffer.toString()
     }
@@ -366,7 +455,7 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
 
     #inicializar(arquivoConfig: string, chaveCrypt: string) {
         if (this.handle == null) {
-            this.handle = this.ffiProvider.alloc('void *', 1)
+            this.handle = koffi.alloc('void *', 1)
         }
         let status = this.LIB_Inicializar(this.handle, arquivoConfig, chaveCrypt)
         if (status === ACBrLibResultCodes.OK) {
@@ -375,24 +464,4 @@ export default abstract class ACBrLibBaseMT implements IACBrLibBaseMT {
         this._checkResult(status)
         return status
     }
-}
-
-// Export apenas o que é necessário publicamente
-export { ACBrBuffer, TAMANHO_PADRAO }
-export { ACBrLibResultCodes }
-export { default as IACBrLibBaseMT } from './types'
-export { IFFIProvider } from './types/IFFIProvider'
-export { getDefaultFFIProvider, IACBrLibBridgeMT } from './providers'
-export {
-    ACBrLibConfigLerError,
-    ACBrLibLibNaoFinalizadaError,
-    ACBrLibLibNaoInicializadaError,
-    ACBrLibTimeOutError,
-    ACBrLibArquivoNaoExisteError,
-    ACBrLibDiretorioNaoExisteError,
-    ACBrLibHttpError,
-    ACBrLibParametroInvalidoError,
-    ACBrLibDemoExpiradoError,
-    ACBrLibNaoDisponivelEmModoConsoleError,
-    ACBrLibConfigGravarError
 }
