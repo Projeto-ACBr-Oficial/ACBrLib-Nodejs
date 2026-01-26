@@ -43,6 +43,9 @@ export default abstract class ACBrLibBaseMT {
         return this.acbrlib
     }
     public getHandle(): any {
+        if (!this.#isInitialized()){
+            throw new ACBrLibLibNaoInicializadaError("Biblioteca não inicializada. Chame o método inicializar antes de usar outros métodos.")
+        }
         return koffi.decode(this.handle, 'void *')
     }
 
@@ -185,6 +188,9 @@ export default abstract class ACBrLibBaseMT {
      */
 
     public ultimoRetorno(): string {
+        if (!this.#isInitialized()){
+            return ""
+        }
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         this.LIB_UltimoRetorno(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         return this._processaResult(acbrBuffer)
