@@ -26,7 +26,7 @@ export default abstract class ACBrLibBaseMT {
 
 
     private handle: any // ponteiro para ponteiro (void **)
-    private isHandleInitialized : boolean = false; 
+    private isHandleInitialized: boolean = false;
     private acbrlib: any
     private arquivoConfig: string
     private chaveCrypt: string
@@ -43,14 +43,14 @@ export default abstract class ACBrLibBaseMT {
         return this.acbrlib
     }
     public getHandle(): any {
-        if (!this.#isInitialized()){
-            throw new ACBrLibLibNaoInicializadaError("Biblioteca não inicializada. Chame o método inicializar antes de usar outros métodos.")
+        if (!this.#isInitialized()) {
+            throw new ACBrLibLibNaoInicializadaError(`Biblioteca ${this.constructor.name} não inicializada. Chame o método inicializar antes de usar outros métodos.`)
         }
         return koffi.decode(this.handle, 'void *')
     }
 
-    #isInitialized() : boolean{
-    
+    #isInitialized(): boolean {
+
         // diferente do ref-napi que tem o metodo isNull() koffi até a presente versão não tem
         // sendo impossivel saber se o handle é null (do lado nodejs) ou não, usamos o isHandleInitialized
         // para saber se a biblioteca foi inicializada
@@ -62,12 +62,12 @@ export default abstract class ACBrLibBaseMT {
      * Libera recursos alocados
      */
     destroy() {
-       
+
         if (!this.disposed) {
             try {
                 // Finaliza a biblioteca se estiver inicializada
                 if (this.#isInitialized()) {
-                   this.finalizar()
+                    this.finalizar()
                 }
                 this.disposed = true
             } catch (error) {
@@ -130,7 +130,7 @@ export default abstract class ACBrLibBaseMT {
         if (!this.handle) {
             return
         }
-        
+
         koffi.free(this.handle)
         this.handle = null
     }
@@ -142,18 +142,18 @@ export default abstract class ACBrLibBaseMT {
 
     public finalizar(): number {
 
-        if ( !this.#isInitialized()){
+        if (!this.#isInitialized()) {
             return 0
         }
 
         let status = this.LIB_Finalizar(this.getHandle())
-        
+
         if (status == ACBrLibResultCodes.OK) {
             this.#releaseHandle()
             this.isHandleInitialized = false
         }
         this._checkResult(status)
-    
+
         return status
     }
 
@@ -188,9 +188,6 @@ export default abstract class ACBrLibBaseMT {
      */
 
     public ultimoRetorno(): string {
-        if (!this.#isInitialized()){
-            return ""
-        }
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         this.LIB_UltimoRetorno(this.getHandle(), acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         return this._processaResult(acbrBuffer)
@@ -321,7 +318,7 @@ export default abstract class ACBrLibBaseMT {
 
 
     _processaResult(buffer: ACBrBuffer): string {
-        let requiredLen =  koffi.decode(buffer.getRefTamanhoBuffer(), 'int')
+        let requiredLen = koffi.decode(buffer.getRefTamanhoBuffer(), 'int')
 
 
         if (this._isRequiredReallocBuffer(requiredLen)) {
@@ -346,17 +343,17 @@ export default abstract class ACBrLibBaseMT {
     _checkResult(result: number) {
 
         // se o resultado é maior ou igual a OK, não há erro
-        if ( !this._isResultErrorCode(result)) {
+        if (!this._isResultErrorCode(result)) {
             return;
         }
 
-        let errorMessage: string = this.ultimoRetorno();
+        let errorMessage: string = this.#isInitialized()
+            ? this.ultimoRetorno() : "Biblioteca não inicializada";
 
-        console.log("Checking result: ", result, " Error message: ", errorMessage)
         switch (result) {
 
             case ACBrLibResultCodes.ErrLibNaoInicializada:
-                throw new ACBrLibLibNaoInicializadaError("Erro ao inicializar "+ this.nome);
+                throw new ACBrLibLibNaoInicializadaError("Erro ao inicializar " + this.constructor.name);
                 break;
 
             case ACBrLibResultCodes.ErrLibNaoFinalizada:
