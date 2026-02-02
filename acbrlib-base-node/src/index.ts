@@ -11,7 +11,8 @@ import {
     ACBrLibParametroInvalidoError,
     ACBrLibDemoExpiradoError,
     ACBrLibNaoDisponivelEmModoConsoleError,
-    ACBrLibConfigGravarError
+    ACBrLibConfigGravarError,
+    ACBrLibExecutandoMetodoError
 } from './exception'
 import { ACBrLibResultCodes } from './exception/ACBrLibResultCodes'
 import * as koffi from 'koffi'
@@ -396,7 +397,7 @@ export default abstract class ACBrLibBaseMT {
                 break;
 
             case ACBrLibResultCodes.ErrExecutandoMetodo:
-                throw new ACBrLibParametroInvalidoError(errorMessage);
+                throw new ACBrLibExecutandoMetodoError(errorMessage);
                 break;
 
             default:
