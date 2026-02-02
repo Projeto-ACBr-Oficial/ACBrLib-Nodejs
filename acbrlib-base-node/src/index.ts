@@ -347,8 +347,7 @@ export default abstract class ACBrLibBaseMT {
             return;
         }
 
-        let errorMessage: string = this.#isInitialized()
-            ? this.ultimoRetorno() : "Biblioteca não inicializada";
+        let errorMessage: string = this.#isInitialized()? `${result}: ${this.ultimoRetorno()}` : `${result}: Biblioteca não inicializada`;
 
         switch (result) {
 
