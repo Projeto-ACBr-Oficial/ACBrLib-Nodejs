@@ -35,6 +35,8 @@ export class ACBrLibLibNaoFinalizadaError extends ACBrLibError {
 
 /**
  * ACBrLibConfigLerError é uma classe que lança uma exceção quando ocorre um erro ao ler a configuração
+ * ou quando o arquivo de configuração tem configurações inválidas
+ * Erro comum é conversão de configurações para enumerado, por exemplo, Ambiente=2, quando o valor 2 não é um valor válido para o enumerado Ambiente, que tem os valores 1 (Produção) e 2 (Homologação)
  */
 export class ACBrLibConfigLerError extends ACBrLibError {
  constructor(msg: string){
@@ -64,7 +66,8 @@ export class ACBrLibArquivoNaoExisteError extends ACBrLibError {
 
 
 /**
- * ACBrLibDiretorioNaoExisteError é uma classe que lança uma exceção quando o diretório não existe
+ * ACBrLibDiretorioNaoExisteError é uma classe que lança uma exceção quando o diretório acessado pelo método não existe
+ * Erro comum é quando o método espera um diretório para salvar um arquivo, por exemplo, e o diretório não existe, ou seja, o caminho do diretório é inválido
  */
 
 export class ACBrLibDiretorioNaoExisteError extends ACBrLibError {
@@ -122,6 +125,7 @@ export class ACBrLibTimeOutError extends ACBrLibError {
 
 /**
  * ACBrLibDemoExpiradoError é uma classe que lança uma exceção quando o demo expira
+ * Ocorre quando passa 30 minutos após inicialização da biblioteca, ou seja, quando o tempo de uso do demo expira
  */
 export class ACBrLibDemoExpiradoError extends ACBrLibError {
  constructor(msg: string){
