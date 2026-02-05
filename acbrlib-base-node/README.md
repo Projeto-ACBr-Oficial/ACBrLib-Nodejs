@@ -1,7 +1,7 @@
 # @projetoacbr/acbrlib-base-node
 
 [![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-green.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
-[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-base-node)
+[![Version](https://img.shields.io/badge/version-1.0.11-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-base-node)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
 
 ## 📋 Descrição
@@ -22,19 +22,26 @@ npm install @projetoacbr/acbrlib-base-node
 
 ### 🎯 Importação
 
-#### 📝 TypeScript (Recomendado)
+#### 📝 TypeScript 
+
+Configurações recomendas para Typescript com CommonJS
 
 ```typescript
 // Importa a classe ACBrLibBaseMT oficial conforme documentação
 import ACBrLibBaseMT from "@projetoacbr/acbrlib-base-node/dist/src";
 ```
 
-**⚙️ Configuração tsconfig.json recomendada:**
+**⚙️ Configuração tsconfig.json  recomendada:**
+
 ```json
 {
   "compilerOptions": {
     "target": "es2022",
     "module": "commonjs",
+     "lib": [
+      "esnext"
+    ],
+    "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -115,6 +122,6 @@ LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 ---
 
 **ACBrLib Base Node** - Classe base fundamental para ACBrLib-Nodejs  
-**Versão**: 1.0.1  
+**Versão**: 1.0.11 
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)
 
