@@ -348,12 +348,12 @@ export default abstract class ACBrLibBaseMT {
             return;
         }
 
-        let errorMessage: string = this.#isInitialized()? `${result}: ${this.ultimoRetorno()}` : `${result}: Biblioteca não inicializada`;
+        let errorMessage: string = this.#isInitialized()? `${result}: ${this.ultimoRetorno()}` : "";
 
         switch (result) {
 
             case ACBrLibResultCodes.ErrLibNaoInicializada:
-                throw new ACBrLibLibNaoInicializadaError("Erro ao inicializar " + this.constructor.name);
+                throw new ACBrLibLibNaoInicializadaError("Erro ao inicializar a biblioteca " + this.constructor.name);
                 break;
 
             case ACBrLibResultCodes.ErrLibNaoFinalizada:
@@ -361,19 +361,19 @@ export default abstract class ACBrLibBaseMT {
                 break
 
             case ACBrLibResultCodes.ErrConfigLer:
-                throw new ACBrLibConfigLerError(errorMessage);
+                throw new ACBrLibConfigLerError("Erro ao ler arquivo de configuração/arquivo com configurações inválidas: " + errorMessage);
                 break;
 
             case ACBrLibResultCodes.ErrConfigGravar:
-                throw new ACBrLibConfigGravarError(errorMessage);
+                throw new ACBrLibConfigGravarError("Erro ao gravar configuração: " + errorMessage);
                 break;
 
             case ACBrLibResultCodes.ErrArquivoNaoExiste:
-                throw new ACBrLibArquivoNaoExisteError(errorMessage);
+                throw new ACBrLibArquivoNaoExisteError("Erro: Arquivo não existe: " + errorMessage);
                 break;
 
             case ACBrLibResultCodes.ErrDiretorioNaoExiste:
-                throw new ACBrLibDiretorioNaoExisteError(errorMessage);
+                throw new ACBrLibDiretorioNaoExisteError("Erro: Diretório não existe: " + errorMessage);
                 break;
 
             case ACBrLibResultCodes.ErrHttp:
