@@ -7,6 +7,18 @@ import { TAMANHO_PADRAO } from '@projetoacbr/acbrlib-base-node/dist/src/ACBrBuff
  * Esta classe serve como base para funcionalidades compartilhadas entre diferentes tipos de DFe
  * NOTA: Não inclui métodos já implementados na ACBrLibBaseMT (inicializar, finalizar, configLer, etc.)
  */
+
+/**
+ * @description Enumeração para os tipos de ambiente de emissão de documentos fiscais eletrônicos
+ * - PRODUCAO: Ambiente de produção, utilizado para emissão real de documentos fiscais
+ * - HOMOLOGACAO: Ambiente de homologação, utilizado para testes e validação sem efeitos fiscais reais
+ * 
+ * Este enumerado é comum  A NFe, MDFe e NFSe
+ */
+export enum AmbienteEmissaoDFe {
+    PRODUCAO,
+    HOMOLOGACAO
+}
 export default abstract class ACBrLibDFeComum extends ACBrLibBaseMT {
 
     constructor(acbrlib: any, arquivoConfig: string, chaveCrypt: string) {
