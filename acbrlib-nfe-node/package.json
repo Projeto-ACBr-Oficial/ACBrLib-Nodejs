@@ -1,12 +1,13 @@
 {
   "name": "@projetoacbr/acbrlib-nfe-node",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "classe de alto nivel para carregar a  acbrlibnfe",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "/dist"
   ],
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node .",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.5.4",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
     "typedoc": "^0.26.7",
     "typedoc-plugin-rename-defaults": "^0.7.1",
     "typescript": "^5.5.4"

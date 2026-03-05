@@ -218,7 +218,7 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
     }
 
     protected LIB_Enviar(handle: any, lote: number, imprimir: boolean, sincrono: boolean, zipado: boolean, buffer: Buffer, refTamanho: any): number {
-        return this.getAcbrlib().NFE_Enviar(this.getHandle(), lote, imprimir, sincrono, zipado, buffer, refTamanho);
+        return this.getAcbrlib().NFE_Enviar(handle, lote, imprimir, sincrono, zipado, buffer, refTamanho);
     }
 
     // ===== MÉTODOS ESPECÍFICOS DA NFE =====
