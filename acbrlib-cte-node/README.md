@@ -1,21 +1,21 @@
-# @projetoacbr/acbrlib-mdfe-node
+# @projetoacbr/acbrlib-cte-node
 
 [![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-green.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
-[![Version](https://img.shields.io/badge/version-1.0.5-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-mdfe-node)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-cte-node)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
 
 ## 📋 Descrição
 
-**ACBrLib MDFe Node** é uma implementação específica para Manifesto Eletrônico de Documentos Fiscais (MDFe) que fornece uma interface de alto nível para todas as funcionalidades da ACBrLibMDFe. Esta classe permite emissão, cancelamento, consultas e outras operações relacionadas ao MDFe.
+**ACBrLib CTe Node** é uma implementação específica para Conhecimento de Transporte Eletrônico (CTe) que fornece uma interface de alto nível para todas as funcionalidades da ACBrLibCTe. Esta classe permite emissão, cancelamento, consultas, inutilização e outras operações relacionadas ao CTe.
 
 ## 🏗️ Arquitetura
 
-Esta classe (`ACBrLibMDFeMT`) estende `ACBrLibDFeMT` e implementa todos os métodos específicos do MDFe, herdando funcionalidades comuns dos pacotes base.
+Esta classe (`ACBrLibCTeMT`) estende `ACBrLibDFeMT` e implementa todos os métodos específicos do CTe, herdando funcionalidades comuns dos pacotes base.
 
 ## 📦 Instalação
 
 ```bash
-npm install @projetoacbr/acbrlib-mdfe-node
+npm install @projetoacbr/acbrlib-cte-node
 ```
 
 ## 📖 Como Usar
@@ -25,8 +25,8 @@ npm install @projetoacbr/acbrlib-mdfe-node
 #### 📝 TypeScript (Recomendado)
 
 ```typescript
-// Importa a classe ACBrLibMDFeMT oficial conforme documentação
-import ACBrLibMDFeMT from "@projetoacbr/acbrlib-mdfe-node/dist/src";
+// Importa a classe ACBrLibCTeMT oficial conforme documentação
+import ACBrLibCTeMT from "@projetoacbr/acbrlib-cte-node/dist/src";
 ```
 
 **⚙️ Configuração tsconfig.json recomendada:**
@@ -46,16 +46,16 @@ import ACBrLibMDFeMT from "@projetoacbr/acbrlib-mdfe-node/dist/src";
 #### 🔧 JavaScript/CommonJS
 
 ```javascript
-const ACBrLibMDFeMT = require('@projetoacbr/acbrlib-mdfe-node/dist/src').default
+const ACBrLibCTeMT = require('@projetoacbr/acbrlib-cte-node/dist/src').default
 ```
 
 ### 🔧 Uso Básico
 
 #### TypeScript
 ```typescript
-const acbrMDFe = new ACBrLibMDFeMT(
-    './libacbrmdfe64.so',    // Linux
-    // './ACBrMDFe64.dll', // Windows
+const acbrCTe = new ACBrLibCTeMT(
+    './libacbrcte64.so',    // Linux
+    // './ACBrCTe64.dll', // Windows
     './acbrlib.ini',
     '12345678'
 )
@@ -63,25 +63,25 @@ const acbrMDFe = new ACBrLibMDFeMT(
 
 #### JavaScript/CommonJS
 ```javascript
-const acbrMDFe = new ACBrLibMDFeMT(
-    './libacbrmdfe64.so',    // Linux
-    // './ACBrMDFe64.dll', // Windows
+const acbrCTe = new ACBrLibCTeMT(
+    './libacbrcte64.so',    // Linux
+    // './ACBrCTe64.dll', // Windows
     './acbrlib.ini',
     '12345678'
 )
 
 // Inicializar a biblioteca
-acbrMDFe.inicializar()
+acbrCTe.inicializar()
 
 // Carregar XML
-acbrMDFe.carregarXML('./mdfe.xml')
+acbrCTe.carregarXML('./cte.xml')
 
 // Validar e assinar
-acbrMDFe.validar()
-acbrMDFe.assinar()
+acbrCTe.validar()
+acbrCTe.assinar()
 
 // Enviar
-const resposta = acbrMDFe.enviar(1, false, true, false)
+const resposta = acbrCTe.enviar(1, false, true)
 ```
 
 ## 🔧 Funcionalidades
@@ -94,10 +94,10 @@ const resposta = acbrMDFe.enviar(1, false, true, false)
 - `imprimirPDF()`, `salvarPDF()`
 - `enviarEmail()`
 
-### Métodos Específicos do MDFe
+### Métodos Específicos do CTe
 
 - **Emissão e Envio**
-  - `enviar(lote, imprimir, sincrono, zipado)`
+  - `enviar(lote, imprimir, sincrono)`
   - `enviarEvento(idLote)`
 
 - **Cancelamento**
@@ -145,6 +145,6 @@ LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 
 ---
 
-**ACBrLib MDFe Node** - Interface Node.js para ACBrLibMDFe  
-**Versão**: 1.0.5  
+**ACBrLib CTe Node** - Interface Node.js para ACBrLibCTe  
+**Versão**: 1.0.0  
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)
