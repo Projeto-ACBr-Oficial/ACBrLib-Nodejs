@@ -49,7 +49,7 @@ export interface TypeACBrNFeMT {
     NFE_Cancelar: (handle: any, eChave: string, eJustificativa: string, eCNPJ: string, ALote: number, sResposta: Buffer, esTamanho: any) => number;
     NFE_EnviarEvento: (handle: any, idLote: number, sResposta: Buffer, esTamanho: any) => number;
 
-    NFE_DistribuicaoDFePorUltNSU: (handle: any, AcUFAutor: string, eCNPJCPF: string, eultNSU: string, sResposta: Buffer, esTamanho: any) => number
+    NFE_DistribuicaoDFePorUltNSU: (handle: any, AcUFAutor: number, eCNPJCPF: string, eultNSU: string, sResposta: Buffer, esTamanho: any) => number
     NFE_DistribuicaoDFePorNSU: (handle: any, AcUFAutor: number, eCNPJCPF: string, eNSU: string, sResposta: Buffer, esTamanho: any) => number;
     NFE_DistribuicaoDFePorChave: (handle: any, AcUFAutor: number, eCNPJCPF: string, eChave: string, sResposta: Buffer, esTamanho: any) => number;
     NFE_EnviarEmail: (handle: any, ePara: string, eXMLNFe: string, AEnviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string) => number;
