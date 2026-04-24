@@ -1,7 +1,7 @@
 # @projetoacbr/acbrlib-cte-node
 
 [![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-green.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-cte-node)
+[![Version](https://img.shields.io/badge/version-1.0.2-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-cte-node)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
 
 ## 📋 Descrição
@@ -146,5 +146,5 @@ LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 ---
 
 **ACBrLib CTe Node** - Interface Node.js para ACBrLibCTe  
-**Versão**: 1.0.0  
+**Versão**: 1.0.2  
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)

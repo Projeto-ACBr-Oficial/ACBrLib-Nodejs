@@ -1,7 +1,7 @@
 # @projetoacbr/acbrlib-mdfe-node
 
 [![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-green.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
-[![Version](https://img.shields.io/badge/version-1.0.5-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-mdfe-node)
+[![Version](https://img.shields.io/badge/version-1.0.9-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-mdfe-node)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
 
 ## 📋 Descrição
@@ -146,5 +146,5 @@ LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 ---
 
 **ACBrLib MDFe Node** - Interface Node.js para ACBrLibMDFe  
-**Versão**: 1.0.5  
+**Versão**: 1.0.9  
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)
