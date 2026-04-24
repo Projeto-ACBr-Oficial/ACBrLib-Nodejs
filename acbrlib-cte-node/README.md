@@ -53,35 +53,39 @@ const ACBrLibCTeMT = require('@projetoacbr/acbrlib-cte-node/dist/src').default
 
 #### TypeScript
 ```typescript
-const acbrCTe = new ACBrLibCTeMT(
-    './libacbrcte64.so',    // Linux
-    // './ACBrCTe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+import path from "path";
+import os from "os";
+
+const libName = os.platform() === 'win32' ? 'ACBrCTe64.dll' : 'libacbrcte64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrCTe = new ACBrLibCTeMT(libPath, eArqConfig, '');
 ```
 
 #### JavaScript/CommonJS
 ```javascript
-const acbrCTe = new ACBrLibCTeMT(
-    './libacbrcte64.so',    // Linux
-    // './ACBrCTe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+const path = require('path');
+const os = require('os');
+
+const libName = os.platform() === 'win32' ? 'ACBrCTe64.dll' : 'libacbrcte64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrCTe = new ACBrLibCTeMT(libPath, eArqConfig, '');
 
 // Inicializar a biblioteca
-acbrCTe.inicializar()
+acbrCTe.inicializar();
 
 // Carregar XML
-acbrCTe.carregarXML('./cte.xml')
+acbrCTe.carregarXML('./cte.xml');
 
 // Validar e assinar
-acbrCTe.validar()
-acbrCTe.assinar()
+acbrCTe.validar();
+acbrCTe.assinar();
 
 // Enviar
-const resposta = acbrCTe.enviar(1, false, true)
+const resposta = acbrCTe.enviar(1, false, true);
 ```
 
 ## 🔧 Funcionalidades

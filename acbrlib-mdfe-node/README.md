@@ -53,35 +53,39 @@ const ACBrLibMDFeMT = require('@projetoacbr/acbrlib-mdfe-node/dist/src').default
 
 #### TypeScript
 ```typescript
-const acbrMDFe = new ACBrLibMDFeMT(
-    './libacbrmdfe64.so',    // Linux
-    // './ACBrMDFe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+import path from "path";
+import os from "os";
+
+const libName = os.platform() === 'win32' ? 'ACBrMDFe64.dll' : 'libacbrmdfe64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrMDFe = new ACBrLibMDFeMT(libPath, eArqConfig, '');
 ```
 
 #### JavaScript/CommonJS
 ```javascript
-const acbrMDFe = new ACBrLibMDFeMT(
-    './libacbrmdfe64.so',    // Linux
-    // './ACBrMDFe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+const path = require('path');
+const os = require('os');
+
+const libName = os.platform() === 'win32' ? 'ACBrMDFe64.dll' : 'libacbrmdfe64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrMDFe = new ACBrLibMDFeMT(libPath, eArqConfig, '');
 
 // Inicializar a biblioteca
-acbrMDFe.inicializar()
+acbrMDFe.inicializar();
 
 // Carregar XML
-acbrMDFe.carregarXML('./mdfe.xml')
+acbrMDFe.carregarXML('./mdfe.xml');
 
 // Validar e assinar
-acbrMDFe.validar()
-acbrMDFe.assinar()
+acbrMDFe.validar();
+acbrMDFe.assinar();
 
 // Enviar
-const resposta = acbrMDFe.enviar(1, false, true, false)
+const resposta = acbrMDFe.enviar(1, false, true, false);
 ```
 
 ## 🔧 Funcionalidades

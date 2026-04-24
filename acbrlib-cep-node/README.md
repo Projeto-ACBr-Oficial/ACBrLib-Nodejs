@@ -53,29 +53,33 @@ const ACBrLibCepMT = require('@projetoacbr/acbrlib-cep-node/dist/src').default
 
 #### TypeScript
 ```typescript
-const acbrCep = new ACBrLibCepMT(
-    './libacbrcep64.so',    // Linux
-    // './ACBrCEP64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+import path from "path";
+import os from "os";
+
+const libName = os.platform() === 'win32' ? 'ACBrCEP64.dll' : 'libacbrcep64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrCep = new ACBrLibCepMT(libPath, eArqConfig, '');
 ```
 
 #### JavaScript/CommonJS
 ```javascript
-const acbrCep = new ACBrLibCepMT(
-    './libacbrcep64.so',    // Linux
-    // './ACBrCEP64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+const path = require('path');
+const os = require('os');
+
+const libName = os.platform() === 'win32' ? 'ACBrCEP64.dll' : 'libacbrcep64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrCep = new ACBrLibCepMT(libPath, eArqConfig, '');
 
 // Inicializar a biblioteca
-acbrCep.inicializar()
+acbrCep.inicializar();
 
 // Buscar por CEP
-const endereco = acbrCep.buscarPorCep('18270-170')
-console.log('Endereço:', endereco)
+const endereco = acbrCep.buscarPorCep('18270-170');
+console.log('Endereço:', endereco);
 ```
 
 ## 🔧 Funcionalidades

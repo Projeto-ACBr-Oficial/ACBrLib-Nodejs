@@ -53,35 +53,39 @@ const ACBrLibNFSeMT = require('@projetoacbr/acbrlib-nfse-node/dist/src').default
 
 #### TypeScript
 ```typescript
-const acbrNFSe = new ACBrLibNFSeMT(
-    './libacbrnfse64.so',    // Linux
-    // './ACBrNFSe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+import path from "path";
+import os from "os";
+
+const libName = os.platform() === 'win32' ? 'ACBrNFSe64.dll' : 'libacbrnfse64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrNFSe = new ACBrLibNFSeMT(libPath, eArqConfig, '');
 ```
 
 #### JavaScript/CommonJS
 ```javascript
-const acbrNFSe = new ACBrLibNFSeMT(
-    './libacbrnfse64.so',    // Linux
-    // './ACBrNFSe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+const path = require('path');
+const os = require('os');
+
+const libName = os.platform() === 'win32' ? 'ACBrNFSe64.dll' : 'libacbrnfse64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrNFSe = new ACBrLibNFSeMT(libPath, eArqConfig, '');
 
 // Inicializar a biblioteca
-acbrNFSe.inicializar()
+acbrNFSe.inicializar();
 
 // Carregar XML
-acbrNFSe.carregarXML('./nfse.xml')
+acbrNFSe.carregarXML('./nfse.xml');
 
 // Validar e assinar
-acbrNFSe.validar()
-acbrNFSe.assinar()
+acbrNFSe.validar();
+acbrNFSe.assinar();
 
 // Emitir
-const resposta = acbrNFSe.emitir()
+const resposta = acbrNFSe.emitir();
 ```
 
 ## 🔧 Funcionalidades

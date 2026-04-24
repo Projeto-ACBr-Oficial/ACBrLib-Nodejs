@@ -55,31 +55,28 @@ const { StatusCobrancaPIX, PSP } = require('@projetoacbr/acbrlib-pixcd-node/dist
 #### 📝 TypeScript
 ```typescript
 import ACBrLibPixCDMT, { StatusCobrancaPIX, PSP } from "@projetoacbr/acbrlib-pixcd-node/dist/src";
+import path from "path";
+import os from "os";
 
-// Inicialização do ACBrLibPixCDMT
-const acbrPixCD = new ACBrLibPixCDMT(
-    "./ACBrPIXCD64.dll", // Caminho para a DLL
-    "./acbrlib.ini",                 // Arquivo de configuração
-    ""                               // Chave de criptografia (opcional)
-);
+const libName = os.platform() === 'win32' ? 'ACBrPIXCD64.dll' : 'libacbrpixcd64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
 
+const acbrPixCD = new ACBrLibPixCDMT(libPath, eArqConfig, '');
 ```
 
 #### 🔧 JavaScript/CommonJS
 ```javascript
 const ACBrLibPixCDMT = require('@projetoacbr/acbrlib-pixcd-node/dist/src').default;
 const { StatusCobrancaPIX, PSP } = require('@projetoacbr/acbrlib-pixcd-node/dist/src');
+const path = require('path');
+const os = require('os');
 
-// Inicialização do ACBrLibPixCDMT
-const acbrPixCD = new ACBrLibPixCDMT(
-    "./ACBrPIXCD64.dll", // Caminho para a DLL 
-    //./libacbrpixcd64.so // caminho para so no Linux
-    "./acbrlib.ini",                 // Arquivo de configuração
-    ""                               // Chave de criptografia (opcional)
-);
+const libName = os.platform() === 'win32' ? 'ACBrPIXCD64.dll' : 'libacbrpixcd64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
 
-// Inicializar a biblioteca
-
+const acbrPixCD = new ACBrLibPixCDMT(libPath, eArqConfig, '');
 
 try {
   acbrPixCD.inicializar();
