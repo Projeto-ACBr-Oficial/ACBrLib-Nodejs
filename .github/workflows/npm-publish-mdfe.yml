@@ -24,7 +24,7 @@ jobs:
       - name: Build acbrlib-mdfe-node
         working-directory: acbrlib-mdfe-node
         run: |
-          npm install
+          npm update
           npm run build
 
       - name: Publish acbrlib-mdfe-node
