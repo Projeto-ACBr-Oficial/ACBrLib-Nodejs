@@ -2,7 +2,7 @@ name: NPM-Publisher-CTE
 
 on:
   workflow_run:
-    workflows: ["NPM-Publisher-CTE"]  
+    workflows: ["NPM-Publisher-DFE"]  
     types:
       - completed
   workflow_dispatch:
