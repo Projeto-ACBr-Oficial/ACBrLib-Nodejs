@@ -1,7 +1,7 @@
 # @projetoacbr/acbrlib-nfe-node
 
 [![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-green.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
-[![Version](https://img.shields.io/badge/version-1.0.5-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-nfe-node)
+[![Version](https://img.shields.io/badge/version-1.0.10-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-nfe-node)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
 
 ## 📋 Descrição
@@ -53,35 +53,39 @@ const ACBrLibNFeMT = require('@projetoacbr/acbrlib-nfe-node/dist/src').default
 
 #### TypeScript
 ```typescript
-const acbrNFe = new ACBrLibNFeMT(
-    './libacbrnfe64.so',    // Linux
-    // './ACBrNFe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+import path from "path";
+import os from "os";
+
+const libName = os.platform() === 'win32' ? 'ACBrNFe64.dll' : 'libacbrnfe64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrNFe = new ACBrLibNFeMT(libPath, eArqConfig, '');
 ```
 
 #### JavaScript/CommonJS
 ```javascript
-const acbrNFe = new ACBrLibNFeMT(
-    './libacbrnfe64.so',    // Linux
-    // './ACBrNFe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+const path = require('path');
+const os = require('os');
+
+const libName = os.platform() === 'win32' ? 'ACBrNFe64.dll' : 'libacbrnfe64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrNFe = new ACBrLibNFeMT(libPath, eArqConfig, '');
 
 // Inicializar a biblioteca
-acbrNFe.inicializar()
+acbrNFe.inicializar();
 
 // Carregar XML
-acbrNFe.carregarXML('./nfe.xml')
+acbrNFe.carregarXML('./nfe.xml');
 
 // Validar e assinar
-acbrNFe.validar()
-acbrNFe.assinar()
+acbrNFe.validar();
+acbrNFe.assinar();
 
 // Enviar
-const resposta = acbrNFe.enviar(1, false, true, false)
+const resposta = acbrNFe.enviar(1, false, true, false);
 ```
 
 ## 🔧 Funcionalidades
@@ -148,5 +152,5 @@ LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 ---
 
 **ACBrLib NFe Node** - Interface Node.js para ACBrLibNFe  
-**Versão**: 1.0.5  
+**Versão**: 1.0.10  
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)

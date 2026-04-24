@@ -1,7 +1,7 @@
 # @projetoacbr/acbrlib-cte-node
 
 [![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-green.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-cte-node)
+[![Version](https://img.shields.io/badge/version-1.0.2-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-cte-node)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
 
 ## 📋 Descrição
@@ -53,35 +53,39 @@ const ACBrLibCTeMT = require('@projetoacbr/acbrlib-cte-node/dist/src').default
 
 #### TypeScript
 ```typescript
-const acbrCTe = new ACBrLibCTeMT(
-    './libacbrcte64.so',    // Linux
-    // './ACBrCTe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+import path from "path";
+import os from "os";
+
+const libName = os.platform() === 'win32' ? 'ACBrCTe64.dll' : 'libacbrcte64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrCTe = new ACBrLibCTeMT(libPath, eArqConfig, '');
 ```
 
 #### JavaScript/CommonJS
 ```javascript
-const acbrCTe = new ACBrLibCTeMT(
-    './libacbrcte64.so',    // Linux
-    // './ACBrCTe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+const path = require('path');
+const os = require('os');
+
+const libName = os.platform() === 'win32' ? 'ACBrCTe64.dll' : 'libacbrcte64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrCTe = new ACBrLibCTeMT(libPath, eArqConfig, '');
 
 // Inicializar a biblioteca
-acbrCTe.inicializar()
+acbrCTe.inicializar();
 
 // Carregar XML
-acbrCTe.carregarXML('./cte.xml')
+acbrCTe.carregarXML('./cte.xml');
 
 // Validar e assinar
-acbrCTe.validar()
-acbrCTe.assinar()
+acbrCTe.validar();
+acbrCTe.assinar();
 
 // Enviar
-const resposta = acbrCTe.enviar(1, false, true)
+const resposta = acbrCTe.enviar(1, false, true);
 ```
 
 ## 🔧 Funcionalidades
@@ -146,5 +150,5 @@ LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 ---
 
 **ACBrLib CTe Node** - Interface Node.js para ACBrLibCTe  
-**Versão**: 1.0.0  
+**Versão**: 1.0.2  
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)

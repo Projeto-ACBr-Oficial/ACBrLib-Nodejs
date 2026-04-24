@@ -64,22 +64,26 @@ const ACBrLibReinfMT = require('@projetoacbr/acbrlib-reinf-node/dist/src').defau
 
 #### TypeScript
 ```typescript
-const acbrReinf = new ACBrLibReinfMT(
-    './libacbrreinf64.so',    // Linux
-    // './ACBrReinf64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+import path from "path";
+import os from "os";
+
+const libName = os.platform() === 'win32' ? 'ACBrReinf64.dll' : 'libacbrreinf64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrReinf = new ACBrLibReinfMT(libPath, eArqConfig, '');
 ```
 
 #### JavaScript/CommonJS
 ```javascript
-const acbrReinf = new ACBrLibReinfMT(
-    './libacbrreinf64.so',    // Linux
-    // './ACBrReinf64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+const path = require('path');
+const os = require('os');
+
+const libName = os.platform() === 'win32' ? 'ACBrReinf64.dll' : 'libacbrreinf64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrReinf = new ACBrLibReinfMT(libPath, eArqConfig, '');
 ```
 
 ## 🔧 Principais Funcionalidades

@@ -1,7 +1,7 @@
 # @projetoacbr/acbrlib-nfse-node
 
 [![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-green.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
-[![Version](https://img.shields.io/badge/version-1.0.5-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-nfse-node)
+[![Version](https://img.shields.io/badge/version-1.0.11-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-nfse-node)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
 
 ## 📋 Descrição
@@ -53,35 +53,39 @@ const ACBrLibNFSeMT = require('@projetoacbr/acbrlib-nfse-node/dist/src').default
 
 #### TypeScript
 ```typescript
-const acbrNFSe = new ACBrLibNFSeMT(
-    './libacbrnfse64.so',    // Linux
-    // './ACBrNFSe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+import path from "path";
+import os from "os";
+
+const libName = os.platform() === 'win32' ? 'ACBrNFSe64.dll' : 'libacbrnfse64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrNFSe = new ACBrLibNFSeMT(libPath, eArqConfig, '');
 ```
 
 #### JavaScript/CommonJS
 ```javascript
-const acbrNFSe = new ACBrLibNFSeMT(
-    './libacbrnfse64.so',    // Linux
-    // './ACBrNFSe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+const path = require('path');
+const os = require('os');
+
+const libName = os.platform() === 'win32' ? 'ACBrNFSe64.dll' : 'libacbrnfse64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrNFSe = new ACBrLibNFSeMT(libPath, eArqConfig, '');
 
 // Inicializar a biblioteca
-acbrNFSe.inicializar()
+acbrNFSe.inicializar();
 
 // Carregar XML
-acbrNFSe.carregarXML('./nfse.xml')
+acbrNFSe.carregarXML('./nfse.xml');
 
 // Validar e assinar
-acbrNFSe.validar()
-acbrNFSe.assinar()
+acbrNFSe.validar();
+acbrNFSe.assinar();
 
 // Emitir
-const resposta = acbrNFSe.emitir()
+const resposta = acbrNFSe.emitir();
 ```
 
 ## 🔧 Funcionalidades
@@ -148,5 +152,5 @@ LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 ---
 
 **ACBrLib NFSe Node** - Interface Node.js para ACBrLibNFSe  
-**Versão**: 1.0.5  
+**Versão**: 1.0.11  
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)

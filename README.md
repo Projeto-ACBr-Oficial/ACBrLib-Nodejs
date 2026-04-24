@@ -30,11 +30,12 @@ ACBrLibBaseMT (classe base fundamental)
 
 | Pacote | Versão | Status | Publicado |
 |--------|--------|--------|-----------|
-| `@projetoacbr/acbrlib-base-node` | 1.0.4 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-dfe-node` | 1.0.6 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-nfe-node` | 1.0.6 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-mdfe-node` | 1.0.6 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-nfse-node` | 1.0.6 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-base-node` | 1.0.11 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-dfe-node` | 1.0.11 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-nfe-node` | 1.0.10 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-mdfe-node` | 1.0.9 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-nfse-node` | 1.0.11 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-cte-node` | 1.0.2 | ✅ Disponível | ✅ Sim |
 | `@projetoacbr/acbrlib-cep-node` | 1.0.7 | ✅ Disponível | ✅ Sim |
 | `@projetoacbr/acbrlib-reinf-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
 | `@projetoacbr/acbrlib-pixcd-node` | 1.0.0 | ✅ Disponível | ✅ Sim |
@@ -98,25 +99,27 @@ const ACBrLibCepMT = require('@projetoacbr/acbrlib-cep-node/dist/src').default
 #### TypeScript
 ```typescript
 import ACBrLibNFeMT from "@projetoacbr/acbrlib-nfe-node/dist/src";
+import path from "path";
+import os from "os";
 
-const acbrNFe = new ACBrLibNFeMT(
-    '/caminho/para/libacbrnfe64.so', // Linux
-    // '/caminho/para/ACBrNFe64.dll', // Windows
-    '/caminho/para/acbrlib.ini',
-    'chave-criptografia'
-)
+const libName = os.platform() === 'win32' ? 'ACBrNFe64.dll' : 'libacbrnfe64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrNFe = new ACBrLibNFeMT(libPath, eArqConfig, '');
 ```
 
 #### JavaScript/CommonJS
 ```javascript
-const ACBrLibNFeMT = require('@projetoacbr/acbrlib-nfe-node/dist/src').default
+const ACBrLibNFeMT = require('@projetoacbr/acbrlib-nfe-node/dist/src').default;
+const path = require('path');
+const os = require('os');
 
-const acbrNFe = new ACBrLibNFeMT(
-    '/caminho/para/libacbrnfe64.so', // Linux
-    // '/caminho/para/ACBrNFe64.dll', // Windows
-    '/caminho/para/acbrlib.ini',
-    'chave-criptografia'
-)
+const libName = os.platform() === 'win32' ? 'ACBrNFe64.dll' : 'libacbrnfe64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrNFe = new ACBrLibNFeMT(libPath, eArqConfig, '');
 ```
 
 ## 🔧 Requisitos do Sistema
@@ -208,6 +211,53 @@ npm run local-release # Build e link local
 - **Comunidade ACBr**: [https://www.projetoacbr.com.br/forum/](https://www.projetoacbr.com.br/forum/)
 
 
+
+## ⚠️ Known Issues
+
+### 🐳 Docker
+
+As bibliotecas nativas ACBr dependem de `libxml2` e `openssl`. Em ambientes Docker, utilize obrigatoriamente imagens baseadas em **Debian** ou **Ubuntu** e instale as dependências antes de executar a aplicação.
+
+> ⚠️ Imagens baseadas em **Alpine Linux** não são recomendadas devido a incompatibilidades com as bibliotecas nativas ACBr.
+
+> ⚠️ Em ambientes Docker (sem interface gráfica), utilize **obrigatoriamente** as versões **Console MT** das bibliotecas nativas ACBr (ex: `libacbrnfe64.so`, `libacbrcte64.so`). As versões GUI não funcionam em containers.
+
+#### Exemplo de Dockerfile
+
+```dockerfile
+FROM ubuntu:noble
+
+RUN apt-get update && apt-get install -y \
+    libxml2 \
+    openssl \
+    nodejs \
+    npm \
+    wget \
+    ca-certificates \
+    ttf-mscorefonts-installer \
+    && rm -rf /var/lib/apt/lists/*
+
+
+RUN ln -s /usr/lib/x86_64-linux-gnu/libxml2.so.2  /usr/lib/libxml2.so && \
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+CMD ["node", "index.js"]
+```
+
+#### ⚙️ Configuração OpenSSL Legacy
+
+As bibliotecas ACBr podem exigir suporte a algoritmos legados do OpenSSL (ex: MD5, RC4). Para habilitar, baixe o arquivo de configuração e referencie-o via variável de ambiente `OPENSSL_CONF`:
+
+📄 **Download**: [`openssl-legacy.cnf`](https://github.com/Projeto-ACBr-Oficial/Docker/blob/main/PHP/openssl-legacy.cnf)
+
+```dockerfile
+COPY openssl-legacy.cnf /etc/ssl/openssl-legacy.cnf
+ENV OPENSSL_CONF=/etc/ssl/openssl-legacy.cnf
+```
 
 ---
 

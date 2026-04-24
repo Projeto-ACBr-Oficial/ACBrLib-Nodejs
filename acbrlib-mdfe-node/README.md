@@ -1,7 +1,7 @@
 # @projetoacbr/acbrlib-mdfe-node
 
 [![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-green.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
-[![Version](https://img.shields.io/badge/version-1.0.5-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-mdfe-node)
+[![Version](https://img.shields.io/badge/version-1.0.9-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-mdfe-node)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
 
 ## 📋 Descrição
@@ -53,35 +53,39 @@ const ACBrLibMDFeMT = require('@projetoacbr/acbrlib-mdfe-node/dist/src').default
 
 #### TypeScript
 ```typescript
-const acbrMDFe = new ACBrLibMDFeMT(
-    './libacbrmdfe64.so',    // Linux
-    // './ACBrMDFe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+import path from "path";
+import os from "os";
+
+const libName = os.platform() === 'win32' ? 'ACBrMDFe64.dll' : 'libacbrmdfe64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrMDFe = new ACBrLibMDFeMT(libPath, eArqConfig, '');
 ```
 
 #### JavaScript/CommonJS
 ```javascript
-const acbrMDFe = new ACBrLibMDFeMT(
-    './libacbrmdfe64.so',    // Linux
-    // './ACBrMDFe64.dll', // Windows
-    './acbrlib.ini',
-    '12345678'
-)
+const path = require('path');
+const os = require('os');
+
+const libName = os.platform() === 'win32' ? 'ACBrMDFe64.dll' : 'libacbrmdfe64.so';
+const libPath = path.resolve(__dirname, libName);
+const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
+
+const acbrMDFe = new ACBrLibMDFeMT(libPath, eArqConfig, '');
 
 // Inicializar a biblioteca
-acbrMDFe.inicializar()
+acbrMDFe.inicializar();
 
 // Carregar XML
-acbrMDFe.carregarXML('./mdfe.xml')
+acbrMDFe.carregarXML('./mdfe.xml');
 
 // Validar e assinar
-acbrMDFe.validar()
-acbrMDFe.assinar()
+acbrMDFe.validar();
+acbrMDFe.assinar();
 
 // Enviar
-const resposta = acbrMDFe.enviar(1, false, true, false)
+const resposta = acbrMDFe.enviar(1, false, true, false);
 ```
 
 ## 🔧 Funcionalidades
@@ -146,5 +150,5 @@ LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 ---
 
 **ACBrLib MDFe Node** - Interface Node.js para ACBrLibMDFe  
-**Versão**: 1.0.5  
+**Versão**: 1.0.9  
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)
