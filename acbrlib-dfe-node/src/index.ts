@@ -314,7 +314,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
      * @param eultNSU - Último NSU
      * @returns String contendo o resultado da consulta
      */
-    public distribuicaoDFePorUltNSU(ufAutor: string, eCNPJCPF: string, eultNSU: string): string {
+    public distribuicaoDFePorUltNSU(ufAutor: number, eCNPJCPF: string, eultNSU: string): string {
         using acbrBuffer = new ACBrBuffer(TAMANHO_PADRAO)
         let status = this.LIB_DistribuicaoDFePorUltNSU(this.getHandle(), ufAutor, eCNPJCPF, eultNSU, acbrBuffer.getBuffer(), acbrBuffer.getRefTamanhoBuffer())
         this._checkResult(status)
@@ -405,7 +405,7 @@ export default abstract class ACBrLibDFeMT extends ACBrLibDFeComum {
     protected abstract LIB_SalvarEventoPDF(handle: any, eArquivoXmlDocumento: string, eArquivoXmlEvento: string, buffer: Buffer, refTamanho: any): number
 
     // 🌐 Métodos de Distribuição DFe (específicos de NFe/MDFe)
-    protected abstract LIB_DistribuicaoDFePorUltNSU(handle: any, ufAutor: string, eCNPJCPF: string, eultNSU: string, buffer: any, refTamanho: any): number
+    protected abstract LIB_DistribuicaoDFePorUltNSU(handle: any, ufAutor: number, eCNPJCPF: string, eultNSU: string, buffer: any, refTamanho: any): number
     protected abstract LIB_DistribuicaoDFePorNSU(handle: any, ufAutor: number, eCNPJCPF: string, eNSU: string, buffer: any, refTamanho: any): number
     protected abstract LIB_DistribuicaoDFePorChave(handle: any, ufAutor: number, eCNPJCPF: string, eChave: string, buffer: any, refTamanho: any): number
 

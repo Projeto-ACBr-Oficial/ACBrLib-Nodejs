@@ -205,7 +205,7 @@ class ACBrLibNFeMT extends ACBrLibDFeMT {
         return this.getAcbrlib().NFE_EnviarEmail(handle, ePara, eXMLDocumento, enviaPDF, eAssunto, eCC, eAnexos, eMensagem)
     }
 
-    protected LIB_DistribuicaoDFePorUltNSU(handle: any, ufAutor: string, eCNPJCPF: string, eultNSU: string, buffer: any, refTamanho: any): number {
+    protected LIB_DistribuicaoDFePorUltNSU(handle: any, ufAutor: number, eCNPJCPF: string, eultNSU: string, buffer: any, refTamanho: any): number {
         return this.getAcbrlib().NFE_DistribuicaoDFePorUltNSU(handle, ufAutor, eCNPJCPF, eultNSU, buffer, refTamanho)
     }
 
