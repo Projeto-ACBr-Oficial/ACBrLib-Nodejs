@@ -1,6 +1,6 @@
 {
   "name": "@projetoacbr/acbrlib-cte-node",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Classe de alto nível para carregar a ACBrLibCTe (Multi-Thread) em Node.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
