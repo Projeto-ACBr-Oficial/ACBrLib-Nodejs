@@ -48,7 +48,7 @@ export interface TypeACBrCTeMT {
     CTE_Cancelar: (handle: any, eChave: string, eJustificativa: string, eCNPJ: string, ALote: number, sResposta: Buffer, esTamanho: any) => number;
     CTE_EnviarEvento: (handle: any, idLote: number, sResposta: Buffer, esTamanho: any) => number;
 
-    CTE_DistribuicaoDFePorUltNSU: (handle: any, AcUFAutor: string, eCNPJCPF: string, eultNSU: string, sResposta: Buffer, esTamanho: any) => number
+    CTE_DistribuicaoDFePorUltNSU: (handle: any, AcUFAutor: number, eCNPJCPF: string, eultNSU: string, sResposta: Buffer, esTamanho: any) => number
     CTE_DistribuicaoDFePorNSU: (handle: any, AcUFAutor: number, eCNPJCPF: string, eNSU: string, sResposta: Buffer, esTamanho: any) => number;
     CTE_DistribuicaoDFePorChave: (handle: any, AcUFAutor: number, eCNPJCPF: string, eChave: string, sResposta: Buffer, esTamanho: any) => number;
     CTE_EnviarEmail: (handle: any, ePara: string, eXMLCTe: string, AEnviaPDF: boolean, eAssunto: string, eCC: string, eAnexos: string, eMensagem: string) => number;
