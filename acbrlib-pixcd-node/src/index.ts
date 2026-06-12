@@ -42,6 +42,7 @@ export enum StatusCobrancaPIX {
  * @property BANRISUL Banrisul
  * @property C6BANK C6Bank
  * @property APPLESS AppLess
+ * @property QQPAG QQPag
  */
 export enum PSP {
     BRADESCO = 0,
@@ -62,7 +63,8 @@ export enum PSP {
     GATE2ALL = 15,
     BANRISUL = 16,
     C6BANK = 17,
-    APPLESS = 18
+    APPLESS = 18,
+    QQPAG = 19
 };
 
 
