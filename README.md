@@ -19,9 +19,10 @@ ACBrLibBaseMT (classe base fundamental)
 ├── ACBrLibPixCDMT (implementação PIX CD)
 └── ACBrLibDFeComum (métodos comuns DFe)
     ├── ACBrLibNFSeMT (implementação NFSe)
-    └── ACBrLibDFeMT (métodos comuns NFe/MDFe)
+    └── ACBrLibDFeMT (métodos comuns NFe/MDFe/CTe)
         ├── ACBrLibNFeMT (implementação NFe)
-        └── ACBrLibMDFeMT (implementação MDFe)
+        ├── ACBrLibMDFeMT (implementação MDFe)
+        └── ACBrLibCTeMT (implementação CTe)
 ```
 
 ## 📦 Pacotes Disponíveis
@@ -38,7 +39,7 @@ ACBrLibBaseMT (classe base fundamental)
 | `@projetoacbr/acbrlib-cte-node` | 1.0.2 | ✅ Disponível | ✅ Sim |
 | `@projetoacbr/acbrlib-cep-node` | 1.0.7 | ✅ Disponível | ✅ Sim |
 | `@projetoacbr/acbrlib-reinf-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-pixcd-node` | 1.0.0 | ✅ Disponível | ✅ Sim |
+| `@projetoacbr/acbrlib-pixcd-node` | 1.0.1 | ✅ Disponível | ✅ Sim |
 
 ## 🚀 Instalação
 
@@ -46,6 +47,7 @@ ACBrLibBaseMT (classe base fundamental)
 # Pacotes específicos (dependências são instaladas automaticamente)
 npm install @projetoacbr/acbrlib-nfe-node
 npm install @projetoacbr/acbrlib-mdfe-node
+npm install @projetoacbr/acbrlib-cte-node
 npm install @projetoacbr/acbrlib-nfse-node
 npm install @projetoacbr/acbrlib-cep-node
 npm install @projetoacbr/acbrlib-pixcd-node
@@ -64,6 +66,7 @@ Para projetos TypeScript, use a importação ES6 com suporte completo a tipos:
 // Importa a classe ACBrLibNFeMT oficial conforme documentação
 import ACBrLibNFeMT from "@projetoacbr/acbrlib-nfe-node/dist/src";
 import ACBrLibMDFeMT from "@projetoacbr/acbrlib-mdfe-node/dist/src";
+import ACBrLibCTeMT from "@projetoacbr/acbrlib-cte-node/dist/src";
 import ACBrLibNFSeMT from "@projetoacbr/acbrlib-nfse-node/dist/src";
 import ACBrLibCepMT from "@projetoacbr/acbrlib-cep-node/dist/src";
 ```
@@ -90,6 +93,7 @@ Para projetos JavaScript ou compatibilidade com CommonJS:
 // ✅ Forma correta (recomendada) - CommonJS
 const ACBrLibNFeMT = require('@projetoacbr/acbrlib-nfe-node/dist/src').default
 const ACBrLibMDFeMT = require('@projetoacbr/acbrlib-mdfe-node/dist/src').default
+const ACBrLibCTeMT = require('@projetoacbr/acbrlib-cte-node/dist/src').default
 const ACBrLibNFSeMT = require('@projetoacbr/acbrlib-nfse-node/dist/src').default
 const ACBrLibCepMT = require('@projetoacbr/acbrlib-cep-node/dist/src').default
 ```
@@ -172,9 +176,11 @@ ACBrLib-Nodejs/
 ├── acbrlib-dfe-node/           # Classe abstrata para DFe
 ├── acbrlib-nfe-node/           # Implementação NFe
 ├── acbrlib-mdfe-node/          # Implementação MDFe
+├── acbrlib-cte-node/           # Implementação CTe
 ├── acbrlib-nfse-node/          # Implementação NFSe
 ├── acbrlib-cep-node/           # Implementação CEP
 ├── acbrlib-reinf-node/         # Implementação REINF
+├── acbrlib-pixcd-node/         # Implementação PIX CD
 ├── LICENSE                      # Licença do projeto
 └── README.md                   # Este arquivo
 ```

@@ -107,6 +107,10 @@ Para informações detalhadas sobre cada método, consulte a documentação JSDo
 - **Issues**: [GitHub Issues](https://github.com/Projeto-ACBr-Oficial/ACBrLib-Nodejs/issues)
 - **Documentação ACBrLib**: [https://acbr.sourceforge.io/ACBrLib/BemVindo.html](https://acbr.sourceforge.io/ACBrLib/BemVindo.html)
 
+## 📋 Changelog
+
+Para o histórico de mudanças entre versões publicadas, consulte o [ChangeLog.md](./ChangeLog.md).
+
 ## 📄 Licença
 
 LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.

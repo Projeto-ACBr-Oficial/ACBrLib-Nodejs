@@ -134,6 +134,10 @@ O pacote utiliza um arquivo de configuração `acbrlib.ini` para definir parâme
 Para documentação completa da ACBrLib, visite:
 [Documentação Oficial ACBrLib](https://acbr.sourceforge.io/ACBrLib/BemVindo.html)
 
+## 📋 Changelog
+
+Para o histórico de mudanças entre versões publicadas, consulte o [ChangeLog.md](./ChangeLog.md).
+
 ## 📄 Licença
 
 Este projeto está licenciado sob **LGPL-2.1** - veja o arquivo [LICENSE](../LICENSE) para detalhes.
@@ -145,3 +149,9 @@ Contribuições são bem-vindas! Veja nosso [repositório principal](https://git
 ## ⚠️ Status
 
 **Em Desenvolvimento** - Este pacote está em fase de desenvolvimento e pode conter funcionalidades incompletas.
+
+---
+
+**ACBrLib REINF Node** - Interface Node.js para ACBrLibReinf  
+**Versão**: 1.0.5  
+**Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)
