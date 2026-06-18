@@ -6,7 +6,7 @@
 
 ## 📋 Descrição
 
-**ACBrLib PIX CD Node** é uma implementação específica para PIX CD (PIX Cobrança Dinâmica) que fornece uma interface de alto nível para todas as funcionalidades da ACBrLibPixCD. Esta classe permite criar QR codes PIX, gerenciar cobranças imediatas e com vencimento, processar devoluções e outras operações relacionadas ao PIX.
+**ACBrLib PIXCD Node** é uma implementação específica para PIX que fornece uma interface de alto nível para todas as funcionalidades da ACBrLibPixCD. Esta classe permite criar QR codes PIX, gerenciar cobranças imediatas e com vencimento, processar devoluções e outras operações relacionadas ao PIX.
 
 ## 🏗️ Arquitetura
 
