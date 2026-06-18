@@ -7,6 +7,13 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 > As entradas refletem o **diff líquido publicado** entre versões — não commits intermediários revertidos ou não publicados.
 
+## [1.0.6] - 2026-06-18
+
+### Documentação
+
+- `ChangeLog.md` adicionado com histórico completo de versões publicadas
+- `README.md` atualizado com seção de Changelog, badge de versão `1.0.6` e rodapé com metadados do pacote
+
 ## [1.0.5] - 2025-08-27
 
 ### Novidades

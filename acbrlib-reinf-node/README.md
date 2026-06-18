@@ -1,7 +1,7 @@
 # ACBrLib REINF Node.js
 
 [![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-blue.svg)](https://opensource.org/licenses/LGPL-2.1)
-[![Version](https://img.shields.io/badge/version-1.0.5-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-reinf-node)
+[![Version](https://img.shields.io/badge/version-1.0.6-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-reinf-node)
 
 Pacote Node.js para integração com a **ACBrLibReinf**, fornecendo uma interface de alto nível para envio e consulta de eventos do **REINF (Retenções e Outras Informações Fiscais)** da Receita Federal do Brasil.
 
@@ -153,5 +153,5 @@ Contribuições são bem-vindas! Veja nosso [repositório principal](https://git
 ---
 
 **ACBrLib REINF Node** - Interface Node.js para ACBrLibReinf  
-**Versão**: 1.0.5  
+**Versão**: 1.0.6  
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)

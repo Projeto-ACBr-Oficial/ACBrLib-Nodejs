@@ -31,15 +31,15 @@ Cada pacote possui documentação própria com instalação, uso e exemplos.
 
 | Pacote | Versão | Descrição | Documentação |
 |--------|--------|-----------|--------------|
-| `@projetoacbr/acbrlib-base-node` | 1.0.11 | Classe base fundamental | [README](acbrlib-base-node/README.md) |
-| `@projetoacbr/acbrlib-dfe-node` | 1.0.11 | Métodos comuns para documentos fiscais eletrônicos | [README](acbrlib-dfe-node/README.md) |
-| `@projetoacbr/acbrlib-nfe-node` | 1.0.10 | Nota Fiscal Eletrônica (NFe) | [README](acbrlib-nfe-node/README.md) |
-| `@projetoacbr/acbrlib-mdfe-node` | 1.0.9 | Manifesto Eletrônico de Documentos Fiscais (MDFe) | [README](acbrlib-mdfe-node/README.md) |
-| `@projetoacbr/acbrlib-cte-node` | 1.0.2 | Conhecimento de Transporte Eletrônico (CTe) | [README](acbrlib-cte-node/README.md) |
-| `@projetoacbr/acbrlib-nfse-node` | 1.0.11 | Nota Fiscal de Serviço Eletrônica (NFSe) | [README](acbrlib-nfse-node/README.md) |
-| `@projetoacbr/acbrlib-cep-node` | 1.0.7 | Consulta de CEP | [README](acbrlib-cep-node/README.md) |
-| `@projetoacbr/acbrlib-reinf-node` | 1.0.5 | Escrituração Fiscal Digital de Retenções (REINF) | [README](acbrlib-reinf-node/README.md) |
-| `@projetoacbr/acbrlib-pixcd-node` | 1.0.1 | Pagamentos PIX | [README](acbrlib-pixcd-node/README.md) |
+| `@projetoacbr/acbrlib-base-node` | 1.0.12 | Classe base fundamental | [README](acbrlib-base-node/README.md) |
+| `@projetoacbr/acbrlib-dfe-node` | 1.0.12 | Métodos comuns para documentos fiscais eletrônicos | [README](acbrlib-dfe-node/README.md) |
+| `@projetoacbr/acbrlib-nfe-node` | 1.0.11 | Nota Fiscal Eletrônica (NFe) | [README](acbrlib-nfe-node/README.md) |
+| `@projetoacbr/acbrlib-mdfe-node` | 1.0.10 | Manifesto Eletrônico de Documentos Fiscais (MDFe) | [README](acbrlib-mdfe-node/README.md) |
+| `@projetoacbr/acbrlib-cte-node` | 1.0.3 | Conhecimento de Transporte Eletrônico (CTe) | [README](acbrlib-cte-node/README.md) |
+| `@projetoacbr/acbrlib-nfse-node` | 1.0.12 | Nota Fiscal de Serviço Eletrônica (NFSe) | [README](acbrlib-nfse-node/README.md) |
+| `@projetoacbr/acbrlib-cep-node` | 1.0.8 | Consulta de CEP | [README](acbrlib-cep-node/README.md) |
+| `@projetoacbr/acbrlib-reinf-node` | 1.0.6 | Escrituração Fiscal Digital de Retenções (REINF) | [README](acbrlib-reinf-node/README.md) |
+| `@projetoacbr/acbrlib-pixcd-node` | 1.0.2 | Pagamentos PIX | [README](acbrlib-pixcd-node/README.md) |
 
 ## 🚀 Instalação
 

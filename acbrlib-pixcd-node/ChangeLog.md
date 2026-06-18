@@ -7,6 +7,13 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 > As entradas abaixo refletem o que foi **efetivamente publicado no npm**, com base no diff entre versões publicadas — não em bumps de versão intermediários no repositório que não chegaram ao registry.
 
+## [1.0.2] - 2026-06-18
+
+### Documentação
+
+- `ChangeLog.md` adicionado com histórico completo de versões publicadas
+- `README.md` atualizado com seção de Changelog, badge de versão `1.0.2`, exemplos de inicialização com `path` e `os` para resolução cross-platform da DLL/SO e do arquivo de configuração, e descrição revisada do pacote
+
 ## [1.0.1] - 2026-06-12
 
 ### Novidades

@@ -5,6 +5,13 @@ Todas as mudanças notáveis neste pacote são documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.0.12] - 2026-06-18
+
+### Documentação
+
+- `ChangeLog.md` adicionado com histórico completo de versões publicadas
+- `README.md` atualizado com seção de Changelog e badge de versão `1.0.12`
+
 ## [1.0.11] - 2026-02-05
 
 ### Correções

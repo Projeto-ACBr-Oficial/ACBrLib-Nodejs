@@ -7,6 +7,16 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 > As entradas refletem o **diff líquido publicado** entre versões — não commits intermediários revertidos ou não publicados.
 
+## [1.0.8] - 2026-06-18
+
+### Documentação
+
+- `ChangeLog.md` adicionado com histórico completo de versões publicadas
+- `README.md` atualizado com seção de Changelog, badge de versão `1.0.8` e exemplos de inicialização com `path` e `os` para resolução cross-platform da DLL/SO e do arquivo de configuração
+
+## [1.0.7] - 2026-06-18
+
+### Build
 
 - Script `local-release` adicionado (`npm run build && npx yalc publish`)
 

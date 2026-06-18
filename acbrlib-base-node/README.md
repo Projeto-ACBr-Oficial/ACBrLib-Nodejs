@@ -1,7 +1,7 @@
 # @projetoacbr/acbrlib-base-node
 
 [![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-green.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
-[![Version](https://img.shields.io/badge/version-1.0.11-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-base-node)
+[![Version](https://img.shields.io/badge/version-1.0.12-blue.svg)](https://www.npmjs.com/package/@projetoacbr/acbrlib-base-node)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
 
 ## 📋 Descrição
@@ -126,6 +126,6 @@ LGPL-2.1 License - veja o arquivo [LICENSE](../LICENSE) para detalhes.
 ---
 
 **ACBrLib Base Node** - Classe base fundamental para ACBrLib-Nodejs  
-**Versão**: 1.0.11 
+**Versão**: 1.0.12 
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)
 
