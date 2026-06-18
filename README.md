@@ -4,11 +4,11 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-22.5.4-green.svg)](https://nodejs.org/)
 
-## Descrição
+## 📋 Descrição
 
 **ACBrLib-Nodejs** é uma biblioteca Node.js/TypeScript que fornece interfaces de alto nível para as bibliotecas nativas da ACBr (Automação Comercial Brasil). Esta biblioteca permite que desenvolvedores JavaScript/TypeScript utilizem todas as funcionalidades da ACBrLib sem precisar lidar diretamente com as complexidades das bibliotecas nativas C/C++.
 
-## Arquitetura
+## 🏗️ Arquitetura
 
 O projeto é organizado em uma hierarquia de pacotes que segue o padrão de herança:
 
@@ -25,7 +25,7 @@ ACBrLibBaseMT (classe base fundamental)
         └── ACBrLibCTeMT (implementação CTe)
 ```
 
-## Pacotes disponíveis
+## 📦 Pacotes Disponíveis
 
 Cada pacote possui documentação própria com instalação, uso e exemplos.
 
@@ -41,7 +41,7 @@ Cada pacote possui documentação própria com instalação, uso e exemplos.
 | `@projetoacbr/acbrlib-reinf-node` | 1.0.5 | Escrituração Fiscal Digital de Retenções (REINF) | [README](acbrlib-reinf-node/README.md) |
 | `@projetoacbr/acbrlib-pixcd-node` | 1.0.1 | PIX Cobrança Dinâmica (PIX CD) | [README](acbrlib-pixcd-node/README.md) |
 
-## Instalação
+## 🚀 Instalação
 
 Instale apenas o pacote correspondente à funcionalidade desejada. As dependências internas são resolvidas automaticamente pelo npm.
 
@@ -51,39 +51,39 @@ npm install @projetoacbr/acbrlib-nfe-node
 
 Consulte o README para instruções detalhadas de uso.
 
-## Requisitos do Sistema
+## 🔧 Requisitos do Sistema
 
-### Dependências
+### 📋 Dependências
 
 - **Node.js** 18+ (recomendado 20+)
 - **Bibliotecas nativas ACBr** correspondentes aos pacotes instalados
 
-### Para Desenvolvimento/Compilação
+### 🔨 Para Desenvolvimento/Compilação
 
 - **TypeScript** 5.5.4+ (apenas para compilar os pacotes)
 
-### Onde Obter as Bibliotecas Nativas ACBr
+### 📥 Onde Obter as Bibliotecas Nativas ACBr
 
 **Downloads PRO**: [https://www.projetoacbr.com.br/forum/files/category/36-acbrlib-pro/](https://www.projetoacbr.com.br/forum/files/category/36-acbrlib-pro/)  
 **Downloads DEMO**: [https://www.projetoacbr.com.br/forum/files/category/63-acbrlib-demo/](https://www.projetoacbr.com.br/forum/files/category/63-acbrlib-demo/)
 
-> **Nota**:
+> **💡 Nota**:
 > - **PRO**: Binários pré-compilados para Windows e Linux
 > - **DEMO**: Versões com limitações de funcionamento para testes
 
-#### Linux
+### 🐧 Linux
 
 - Usar versão **MT** (Multi-Thread)
 - Preferir downloads PRO ou DEMO conforme a necessidade
 
-#### Windows
+### 🪟 Windows
 
 - Usar convenção de chamada **cdecl**
 - Usar versão **MT** (Multi-Thread)
 
-## Desenvolvimento
+## 🏗️ Desenvolvimento
 
-### Estrutura do Projeto
+### 📁 Estrutura do Projeto
 
 ```
 ACBrLib-Nodejs/
@@ -100,7 +100,7 @@ ACBrLib-Nodejs/
 └── README.md
 ```
 
-### Scripts de Build
+### 🔨 Scripts de Build
 
 ```bash
 # Em cada pacote
@@ -109,13 +109,13 @@ npm run test          # Executar testes
 npm run local-release # Build e link local
 ```
 
-## Licenças
+## 📄 Licenças
 
 - **Pacotes principais**: LGPL-2.1 License
 - **acbrlib-reinf-node**: LGPL-2.1 License
 - **Bibliotecas nativas ACBr**: LGPL-2.1 License
 
-## Contribuição
+## 🤝 Contribuição
 
 1. Fork o projeto
 2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
@@ -123,7 +123,7 @@ npm run local-release # Build e link local
 4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
-## Suporte
+## 📞 Suporte
 
 - **Issues**: [GitHub Issues](https://github.com/Projeto-ACBr-Oficial/ACBrLib-Nodejs/issues)
 - **Documentação ACBrLib**: [https://acbr.sourceforge.io/ACBrLib/BemVindo.html](https://acbr.sourceforge.io/ACBrLib/BemVindo.html)
@@ -131,9 +131,9 @@ npm run local-release # Build e link local
 - **Fontes ACBr**: [https://projetoacbr.com.br/fontes/](https://projetoacbr.com.br/fontes/)
 - **Comunidade ACBr**: [https://www.projetoacbr.com.br/forum/](https://www.projetoacbr.com.br/forum/)
 
-## Known Issues
+## ⚠️ Known Issues
 
-### Instalação do Node.js no Ubuntu/Debian
+### 🐧 Instalação do Node.js no Ubuntu/Debian
 
 Recomendamos instalar o Node.js pelo pacote oficial da sua distribuição Linux.
 
@@ -148,13 +148,13 @@ node -p "process.config.variables.node_shared_openssl"
 - `false` — OpenSSL estático; há risco de `SIGSEGV`
 - `true` — OpenSSL dinâmico; compatível com as bibliotecas ACBr
 
-### Docker
+### 🐳 Docker
 
 As bibliotecas nativas ACBr dependem de `libxml2` e `openssl`. Em ambientes Docker, utilize obrigatoriamente imagens baseadas em **Debian** ou **Ubuntu** e instale as dependências antes de executar a aplicação.
 
-> Imagens baseadas em **Alpine Linux** não são recomendadas devido a incompatibilidades com as bibliotecas nativas ACBr.
+> ⚠️ Imagens baseadas em **Alpine Linux** não são recomendadas devido a incompatibilidades com as bibliotecas nativas ACBr.
 
-> Em ambientes Docker (sem interface gráfica), utilize **obrigatoriamente** as versões **Console MT** das bibliotecas nativas ACBr (ex: `libacbrnfe64.so`, `libacbrcte64.so`). As versões GUI não funcionam em containers.
+> ⚠️ Em ambientes Docker (sem interface gráfica), utilize **obrigatoriamente** as versões **Console MT** das bibliotecas nativas ACBr (ex: `libacbrnfe64.so`, `libacbrcte64.so`). As versões GUI não funcionam em containers.
 
 #### Exemplo de Dockerfile
 
@@ -181,11 +181,11 @@ COPY . .
 CMD ["node", "index.js"]
 ```
 
-#### Configuração OpenSSL Legacy
+#### ⚙️ Configuração OpenSSL Legacy
 
 As bibliotecas ACBr podem exigir suporte a algoritmos legados do OpenSSL (ex: MD5, RC4). Para habilitar, baixe o arquivo de configuração e referencie-o via variável de ambiente `OPENSSL_CONF`:
 
-**Download**: [`openssl-legacy.cnf`](https://github.com/Projeto-ACBr-Oficial/Docker/blob/main/PHP/openssl-legacy.cnf)
+📄 **Download**: [`openssl-legacy.cnf`](https://github.com/Projeto-ACBr-Oficial/Docker/blob/main/PHP/openssl-legacy.cnf)
 
 ```dockerfile
 COPY openssl-legacy.cnf /etc/ssl/openssl-legacy.cnf
