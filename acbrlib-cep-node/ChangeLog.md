@@ -7,15 +7,6 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 > As entradas refletem o **diff líquido publicado** entre versões — não commits intermediários revertidos ou não publicados.
 
-## [1.0.7] - 2025-09-29
-
-### Refatoração
-
-- Bridge `ACBrLibCEPBridgeMT` migrado para FFI desacoplado via `getDefaultFFIProvider` e `IACBrLibBridgeMT` do pacote base
-- Bridge convertido para padrão singleton (`getInstance(libraryPath)`)
-- Classe `ACBrLibCepMT` passa a implementar interface `IACBrLibCepMT`; `getAcbrlib()` alterado de `public` para `protected`
-
-### Build
 
 - Script `local-release` adicionado (`npm run build && npx yalc publish`)
 
