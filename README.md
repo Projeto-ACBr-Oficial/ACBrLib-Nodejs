@@ -16,7 +16,7 @@ O projeto é organizado em uma hierarquia de pacotes que segue o padrão de hera
 ACBrLibBaseMT (classe base fundamental)
 ├── ACBrLibCepMT (implementação CEP)
 ├── ACBrLibReinfMT (implementação REINF)
-├── ACBrLibPixCDMT (implementação PIX CD)
+├── ACBrLibPixCDMT (PIX)
 └── ACBrLibDFeComum (métodos comuns DFe)
     ├── ACBrLibNFSeMT (implementação NFSe)
     └── ACBrLibDFeMT (métodos comuns NFe/MDFe/CTe)
@@ -39,7 +39,7 @@ Cada pacote possui documentação própria com instalação, uso e exemplos.
 | `@projetoacbr/acbrlib-nfse-node` | 1.0.11 | Nota Fiscal de Serviço Eletrônica (NFSe) | [README](acbrlib-nfse-node/README.md) |
 | `@projetoacbr/acbrlib-cep-node` | 1.0.7 | Consulta de CEP | [README](acbrlib-cep-node/README.md) |
 | `@projetoacbr/acbrlib-reinf-node` | 1.0.5 | Escrituração Fiscal Digital de Retenções (REINF) | [README](acbrlib-reinf-node/README.md) |
-| `@projetoacbr/acbrlib-pixcd-node` | 1.0.1 | PIX Cobrança Dinâmica (PIX CD) | [README](acbrlib-pixcd-node/README.md) |
+| `@projetoacbr/acbrlib-pixcd-node` | 1.0.1 | Pagamentos PIX | [README](acbrlib-pixcd-node/README.md) |
 
 ## 🚀 Instalação
 
@@ -95,7 +95,7 @@ ACBrLib-Nodejs/
 ├── acbrlib-nfse-node/          # Implementação NFSe
 ├── acbrlib-cep-node/           # Implementação CEP
 ├── acbrlib-reinf-node/         # Implementação REINF
-├── acbrlib-pixcd-node/         # Implementação PIX CD
+├── acbrlib-pixcd-node/         # Implementação PIX
 ├── LICENSE
 └── README.md
 ```
