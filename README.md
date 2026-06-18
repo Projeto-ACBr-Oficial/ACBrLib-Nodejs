@@ -16,151 +16,70 @@ O projeto é organizado em uma hierarquia de pacotes que segue o padrão de hera
 ACBrLibBaseMT (classe base fundamental)
 ├── ACBrLibCepMT (implementação CEP)
 ├── ACBrLibReinfMT (implementação REINF)
-├── ACBrLibPixCDMT (implementação PIX CD)
+├── ACBrLibPixCDMT (PIX)
 └── ACBrLibDFeComum (métodos comuns DFe)
     ├── ACBrLibNFSeMT (implementação NFSe)
-    └── ACBrLibDFeMT (métodos comuns NFe/MDFe)
+    └── ACBrLibDFeMT (métodos comuns NFe/MDFe/CTe)
         ├── ACBrLibNFeMT (implementação NFe)
-        └── ACBrLibMDFeMT (implementação MDFe)
+        ├── ACBrLibMDFeMT (implementação MDFe)
+        └── ACBrLibCTeMT (implementação CTe)
 ```
 
 ## 📦 Pacotes Disponíveis
 
-### 📊 Status dos Pacotes
+Cada pacote possui documentação própria com instalação, uso e exemplos.
 
-| Pacote | Versão | Status | Publicado |
-|--------|--------|--------|-----------|
-| `@projetoacbr/acbrlib-base-node` | 1.0.11 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-dfe-node` | 1.0.11 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-nfe-node` | 1.0.10 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-mdfe-node` | 1.0.9 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-nfse-node` | 1.0.11 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-cte-node` | 1.0.2 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-cep-node` | 1.0.7 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-reinf-node` | 1.0.5 | ✅ Disponível | ✅ Sim |
-| `@projetoacbr/acbrlib-pixcd-node` | 1.0.0 | ✅ Disponível | ✅ Sim |
+| Pacote | Versão | Descrição | Documentação |
+|--------|--------|-----------|--------------|
+| `@projetoacbr/acbrlib-base-node` | 1.0.12 | Classe base fundamental | [README](acbrlib-base-node/README.md) |
+| `@projetoacbr/acbrlib-dfe-node` | 1.0.12 | Métodos comuns para documentos fiscais eletrônicos | [README](acbrlib-dfe-node/README.md) |
+| `@projetoacbr/acbrlib-nfe-node` | 1.0.11 | Nota Fiscal Eletrônica (NFe) | [README](acbrlib-nfe-node/README.md) |
+| `@projetoacbr/acbrlib-mdfe-node` | 1.0.10 | Manifesto Eletrônico de Documentos Fiscais (MDFe) | [README](acbrlib-mdfe-node/README.md) |
+| `@projetoacbr/acbrlib-cte-node` | 1.0.3 | Conhecimento de Transporte Eletrônico (CTe) | [README](acbrlib-cte-node/README.md) |
+| `@projetoacbr/acbrlib-nfse-node` | 1.0.12 | Nota Fiscal de Serviço Eletrônica (NFSe) | [README](acbrlib-nfse-node/README.md) |
+| `@projetoacbr/acbrlib-cep-node` | 1.0.8 | Consulta de CEP | [README](acbrlib-cep-node/README.md) |
+| `@projetoacbr/acbrlib-reinf-node` | 1.0.6 | Escrituração Fiscal Digital de Retenções (REINF) | [README](acbrlib-reinf-node/README.md) |
+| `@projetoacbr/acbrlib-pixcd-node` | 1.0.2 | Pagamentos PIX | [README](acbrlib-pixcd-node/README.md) |
 
 ## 🚀 Instalação
 
+Instale apenas o pacote correspondente à funcionalidade desejada. As dependências internas são resolvidas automaticamente pelo npm.
+
 ```bash
-# Pacotes específicos (dependências são instaladas automaticamente)
 npm install @projetoacbr/acbrlib-nfe-node
-npm install @projetoacbr/acbrlib-mdfe-node
-npm install @projetoacbr/acbrlib-nfse-node
-npm install @projetoacbr/acbrlib-cep-node
-npm install @projetoacbr/acbrlib-pixcd-node
 ```
 
-## 📖 Como Usar
-
-### 🎯 Importação das Classes
-
-#### 📝 TypeScript (Recomendado)
-
-Para projetos TypeScript, use a importação ES6 com suporte completo a tipos:
-
-```typescript
-// ✅ TypeScript - Importação recomendada
-// Importa a classe ACBrLibNFeMT oficial conforme documentação
-import ACBrLibNFeMT from "@projetoacbr/acbrlib-nfe-node/dist/src";
-import ACBrLibMDFeMT from "@projetoacbr/acbrlib-mdfe-node/dist/src";
-import ACBrLibNFSeMT from "@projetoacbr/acbrlib-nfse-node/dist/src";
-import ACBrLibCepMT from "@projetoacbr/acbrlib-cep-node/dist/src";
-```
-
-**⚙️ Configuração tsconfig.json recomendada:**
-```json
-{
-  "compilerOptions": {
-    "target": "es2022",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
-}
-```
-
-#### 🔧 JavaScript/CommonJS
-
-Para projetos JavaScript ou compatibilidade com CommonJS:
-
-```javascript
-// ✅ Forma correta (recomendada) - CommonJS
-const ACBrLibNFeMT = require('@projetoacbr/acbrlib-nfe-node/dist/src').default
-const ACBrLibMDFeMT = require('@projetoacbr/acbrlib-mdfe-node/dist/src').default
-const ACBrLibNFSeMT = require('@projetoacbr/acbrlib-nfse-node/dist/src').default
-const ACBrLibCepMT = require('@projetoacbr/acbrlib-cep-node/dist/src').default
-```
-
-### 🔧 Configuração Básica
-
-#### TypeScript
-```typescript
-import ACBrLibNFeMT from "@projetoacbr/acbrlib-nfe-node/dist/src";
-import path from "path";
-import os from "os";
-
-const libName = os.platform() === 'win32' ? 'ACBrNFe64.dll' : 'libacbrnfe64.so';
-const libPath = path.resolve(__dirname, libName);
-const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
-
-const acbrNFe = new ACBrLibNFeMT(libPath, eArqConfig, '');
-```
-
-#### JavaScript/CommonJS
-```javascript
-const ACBrLibNFeMT = require('@projetoacbr/acbrlib-nfe-node/dist/src').default;
-const path = require('path');
-const os = require('os');
-
-const libName = os.platform() === 'win32' ? 'ACBrNFe64.dll' : 'libacbrnfe64.so';
-const libPath = path.resolve(__dirname, libName);
-const eArqConfig = path.resolve(__dirname, 'data', 'config', 'acbrlib.ini');
-
-const acbrNFe = new ACBrLibNFeMT(libPath, eArqConfig, '');
-```
+Consulte o README para instruções detalhadas de uso.
 
 ## 🔧 Requisitos do Sistema
 
 ### 📋 Dependências
+
 - **Node.js** 18+ (recomendado 20+)
 - **Bibliotecas nativas ACBr** correspondentes aos pacotes instalados
 
 ### 🔨 Para Desenvolvimento/Compilação
+
 - **TypeScript** 5.5.4+ (apenas para compilar os pacotes)
 
 ### 📥 Onde Obter as Bibliotecas Nativas ACBr
 
 **Downloads PRO**: [https://www.projetoacbr.com.br/forum/files/category/36-acbrlib-pro/](https://www.projetoacbr.com.br/forum/files/category/36-acbrlib-pro/)  
-**Downloads DEMO**: [https://www.projetoacbr.com.br/forum/files/category/63-acbrlib-demo/](https://www.projetoacbr.com.br/forum/files/category/63-acbrlib-demo/)  
+**Downloads DEMO**: [https://www.projetoacbr.com.br/forum/files/category/63-acbrlib-demo/](https://www.projetoacbr.com.br/forum/files/category/63-acbrlib-demo/)
 
-> **💡 Nota**: 
+> **💡 Nota**:
 > - **PRO**: Binários pré-compilados para Windows e Linux
 > - **DEMO**: Versões com limitações de funcionamento para testes
+
 ### 🐧 Linux
-```bash
-# Opção 1: Downloads PRO (binários pré-compilados)
-# https://www.projetoacbr.com.br/forum/files/category/36-acbrlib-pro/
 
-# Opção 2: Downloads DEMO (versões limitadas para testes)
-# https://www.projetoacbr.com.br/forum/files/category/63-acbrlib-demo/
-
-# ⚠️ Importante: Usar versão MT (Multi-Thread)
-```
+- Usar versão **MT** (Multi-Thread)
+- Preferir downloads PRO ou DEMO conforme a necessidade
 
 ### 🪟 Windows
-```bash
-# Opção 1: Downloads PRO (DLLs pré-compiladas)
-# https://www.projetoacbr.com.br/forum/files/category/36-acbrlib-pro/
 
-# Opção 2: Downloads DEMO (versões limitadas para testes)
-# https://www.projetoacbr.com.br/forum/files/category/63-acbrlib-demo/
-
-# ⚠️ Importante: Usar convenção de chamada cdecl
-# ⚠️ Importante: Usar versão MT (Multi-Thread)
-```
+- Usar convenção de chamada **cdecl**
+- Usar versão **MT** (Multi-Thread)
 
 ## 🏗️ Desenvolvimento
 
@@ -172,19 +91,21 @@ ACBrLib-Nodejs/
 ├── acbrlib-dfe-node/           # Classe abstrata para DFe
 ├── acbrlib-nfe-node/           # Implementação NFe
 ├── acbrlib-mdfe-node/          # Implementação MDFe
+├── acbrlib-cte-node/           # Implementação CTe
 ├── acbrlib-nfse-node/          # Implementação NFSe
 ├── acbrlib-cep-node/           # Implementação CEP
 ├── acbrlib-reinf-node/         # Implementação REINF
-├── LICENSE                      # Licença do projeto
-└── README.md                   # Este arquivo
+├── acbrlib-pixcd-node/         # Implementação PIX
+├── LICENSE
+└── README.md
 ```
 
 ### 🔨 Scripts de Build
 
 ```bash
 # Em cada pacote
-npm run build        # Compilar TypeScript
-npm run test         # Executar testes
+npm run build         # Compilar TypeScript
+npm run test          # Executar testes
 npm run local-release # Build e link local
 ```
 
@@ -210,9 +131,22 @@ npm run local-release # Build e link local
 - **Fontes ACBr**: [https://projetoacbr.com.br/fontes/](https://projetoacbr.com.br/fontes/)
 - **Comunidade ACBr**: [https://www.projetoacbr.com.br/forum/](https://www.projetoacbr.com.br/forum/)
 
-
-
 ## ⚠️ Known Issues
+
+### 🐧 Instalação do Node.js no Ubuntu/Debian
+
+Recomendamos instalar o Node.js pelo pacote oficial da sua distribuição Linux.
+
+As compilações disponíveis no site oficial do Node.js vinculam o OpenSSL **estaticamente**, o que pode causar falha de segmentação (`SIGSEGV`) ao usar as bibliotecas nativas da ACBr.
+
+Para verificar como o OpenSSL foi vinculado, execute no terminal:
+
+```bash
+node -p "process.config.variables.node_shared_openssl"
+```
+
+- `false` — OpenSSL estático; há risco de `SIGSEGV`
+- `true` — OpenSSL dinâmico; compatível com as bibliotecas ACBr
 
 ### 🐳 Docker
 
@@ -237,8 +171,7 @@ RUN apt-get update && apt-get install -y \
     ttf-mscorefonts-installer \
     && rm -rf /var/lib/apt/lists/*
 
-
-RUN ln -s /usr/lib/x86_64-linux-gnu/libxml2.so.2  /usr/lib/libxml2.so && \
+RUN ln -s /usr/lib/x86_64-linux-gnu/libxml2.so.2  /usr/lib/libxml2.so
 
 WORKDIR /app
 COPY package*.json ./
@@ -261,7 +194,7 @@ ENV OPENSSL_CONF=/etc/ssl/openssl-legacy.cnf
 
 ---
 
-**ACBrLib-Nodejs** - Interface Node.js/TypeScript para ACBrLib  
+**ACBrLib-Nodejs** — Interface Node.js/TypeScript para ACBrLib  
 **Versão**: 1.0.1  
 **Licença**: LGPL-2.1  
 **Desenvolvido por**: [Projeto ACBr](https://www.projetoacbr.com.br/)
